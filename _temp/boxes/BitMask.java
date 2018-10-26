@@ -94,8 +94,8 @@ public class BitMask {
 
         int boxParameters = 0;
         boxParameters |= typeConversion[type];
-        boxParameters = (bottom) ? 2 : 0;
-        boxParameters = (bottom) ? 1 : 0;
+        boxParameters |= (bottom) ? 2 : 0;
+        boxParameters |= (bottom) ? 1 : 0;
 
         int boxType = -1;
 
