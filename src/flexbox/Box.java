@@ -4,7 +4,7 @@ public class Box {
     
     private double bLenght, bHeight, bWidth;
     private int bGrade, bColour, bQuantity;
-    private boolean bBottomReinforcement, bCornerReinforcement;
+    private boolean bBottomReinforcement, bCornerReinforcement, bSealableTop;
     
     public Box () {};
     
@@ -20,6 +20,7 @@ public class Box {
         bQuantity = quantity;
         bBottomReinforcement = bottomReinforcement;
         bCornerReinforcement = cornerReinforcement;
+        bSealableTop = sealableTop;
     }
     
     public double getLength () {
@@ -86,5 +87,39 @@ public class Box {
         else {
             bColour = 2;
         }
+    }
+    
+    public boolean getBottomReinforcement(){
+        return bBottomReinforcement;
+    }
+    public void setBottomReinforcement (boolean newBottomReinforcement){
+        bBottomReinforcement = newBottomReinforcement;
+    }
+    
+    public boolean getCornerReinforcement(){
+        return bCornerReinforcement;
+    }
+    public void setCornerReinforcement(boolean newCornerReinforcement){
+        bCornerReinforcement = newCornerReinforcement;
+    }
+    
+    public boolean getSealableTop(){
+        return bSealableTop;
+    }
+    public void setSealableTop(boolean newSealableTop){
+        bSealableTop = newSealableTop;
+    }
+    
+    public int getQuantity(){
+        return bQuantity;
+    }
+    public void setQuantity(int newQuantity){
+        if (newQuantity > 0){
+            bQuantity = newQuantity;
+        }
+        else {
+            bQuantity = 0;
+        }
+        
     }
 }
