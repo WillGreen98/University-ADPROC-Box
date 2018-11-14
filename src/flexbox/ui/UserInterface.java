@@ -2,7 +2,6 @@ package flexbox.ui;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -26,7 +25,7 @@ public class UserInterface {
     private JTextField textBoxHeight = new JTextField();
     
     private JLabel labelBoxGrade = new JLabel("Box Grade: ");
-    private JComboBox comboBoxGrade = new JComboBox(new String[]{
+    private JComboBox<String> comboBoxGrade = new JComboBox<>(new String[] {
         "1", "2", "3", "4", "5"
     });
     
