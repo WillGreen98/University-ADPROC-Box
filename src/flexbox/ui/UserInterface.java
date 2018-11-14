@@ -4,6 +4,15 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 
 public class UserInterface {
     private static final int WINDOW_WIDTH = 800;
@@ -51,7 +60,7 @@ public class UserInterface {
         textBoxWidth.setColumns(10);
         textBoxQuantity.setColumns(10);
         
-        submitButton.addActionListener(event -> System.out.println("Submit Button Pressed"));
+        submitButton.addActionListener(event -> test());
 
         initComponents("Box Height:", textBoxHeight);
         initComponents("Box Width:", textBoxWidth);
@@ -75,5 +84,9 @@ public class UserInterface {
         p.add(label);
         p.add(component);
         inputPanel.add(p);
+    }
+    
+    private void test() {
+        System.out.println("Submit Button Pressed");
     }
 }
