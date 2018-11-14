@@ -18,52 +18,52 @@ public class Box {
         this.sealableTop = sealableTop;
     }
 
-    public void setLength(double newLength) {
-        length = (newLength > 0) ? newLength : 0;
+    public void setLength(double length) {
+        this.length = (length > 0) ? length : 0;
     }
 
-    public void setHeight(double newHeight) {
-        height = (newHeight > 0) ? newHeight : 0;
+    public void setHeight(double height) {
+        this.height = (height > 0) ? height : 0;
     }
 
-    public void setWidth(double newWidth) {
-        width = (newWidth > 0) ? newWidth : 0;
+    public void setWidth(double width) {
+        this.width = (width > 0) ? width : 0;
     }
 
-    public void setGrade(int newGrade) {
-        if(newGrade >=1 && newGrade <= 5) {
-            grade = newGrade;
-        } else if(newGrade < 1) {
-            grade = 1;
+    public void setGrade(int grade) {
+        if(grade >=1 && grade <= 5) {
+            this.grade = grade;
+        } else if(grade < 1) {
+            this.grade = 1;
         } else {
-            grade = 5;
+            this.grade = 5;
         }
     }
 
-    public void setColour(int newColour) {
-        if(newColour >= 0 && newColour <= 2) {
-            colour = newColour;
-        } else if (newColour < 0) {
-            colour = 0;
+    public void setColour(int colour) {
+        if(colour >= 0 && colour <= 2) {
+            this.colour = colour;
+        } else if (colour < 0) {
+            this.colour = 0;
         } else {
-            colour = 2;
+            this.colour = 2;
         }
     }
 
-    public void setQuantity(int newQuantity) {
-        quantity = (newQuantity > 0) ? newQuantity : 0;
+    public void setQuantity(int quantity) {
+        this.quantity = (quantity > 0) ? quantity : 0;
     }
 
-    public void setBottomReinforcement (boolean newBottomReinforcement){
-        bottomReinforcement = newBottomReinforcement;
+    public void setBottomReinforcement (boolean bottomReinforcement){
+        this.bottomReinforcement = bottomReinforcement;
     }
 
-    public void setCornerReinforcement(boolean newCornerReinforcement){
-        cornerReinforcement = newCornerReinforcement;
+    public void setCornerReinforcement(boolean cornerReinforcement){
+        this.cornerReinforcement = cornerReinforcement;
     }
 
-    public void setSealableTop(boolean newSealableTop){
-        sealableTop = newSealableTop;
+    public void setSealableTop(boolean sealableTop){
+        this.sealableTop = sealableTop;
     }
 
     public double getHeight () {

@@ -78,20 +78,6 @@ public class BitMask {
     }
 
     public void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter Value For Grade: ");
-        this.grade = scanner.nextInt();
-
-        System.out.println("Enter Value For Type: ");
-        this.type = scanner.nextInt();
-
-        System.out.println("Enter Value For Bottom: ");
-        this.bottom = scanner.nextBoolean();
-
-        System.out.println("Enter Value For Corners: ");
-        this.corners = scanner.nextBoolean();
-
         int boxParameters = 0;
         boxParameters |= typeConversion[type];
         boxParameters |= (bottom) ? 2 : 0;
@@ -102,7 +88,6 @@ public class BitMask {
         for(int mask: bitmask) {
             if((boxParameters & bitmask[mask]) == boxParameters) {
                 boxType = mask;
-                break;
             }
         }
 
