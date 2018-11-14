@@ -8,7 +8,6 @@ public class Box {
     private double length, height, width;
     private int grade, colour, quantity;
     private boolean bottomReinforcement, cornerReinforcement, sealableTop;
-    
 
     public Box() {}  // Empty Constructor for default Values
     public Box(double length, double height, double width, int grade, int colour, int quantity, boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
@@ -20,9 +19,9 @@ public class Box {
         this.bottomReinforcement = bottomReinforcement;
         this.cornerReinforcement = cornerReinforcement;
         this.sealableTop = sealableTop;
-
     }
 
+    // ============== Setters ===============
     public void setLength(double length) {
         this.length = (length > 0) ? length : 0;
     }
@@ -71,92 +70,80 @@ public class Box {
         this.sealableTop = sealableTop;
     }
 
+    // ============= Getters =============
     public double getHeight () {
         return height;
     }
+
     public double getLength () {
         return length;
     }
+
     public double getWidth () {
         return width;
     }
+
     public int getGrade () {
         return grade;
     }
+
     public int getColour () {
         return colour;
     }
+
     public int getQuantity(){
         return quantity;
     }
+
     public boolean getBottomReinforcement(){
         return bottomReinforcement;
     }
+
     public boolean getCornerReinforcement(){
         return cornerReinforcement;
     }
+
     public boolean getSealableTop(){
         return sealableTop;
     }
-    public void setSealableTop(boolean newSealableTop){
-        bSealableTop = newSealableTop;
-    }
-    
-    public int getQuantity(){
-        return bQuantity;
-    }
-    public void setQuantity(int newQuantity){
-        if (newQuantity > 0){
-            bQuantity = newQuantity;
-        }
-        else {
-            bQuantity = 0;
-        }
-    }
-    
-    public double calculateCost() {
-        double area = (bLenght * bLenght + bHeight * bHeight + bWidth * bWidth) * 2;
+
+    double calculateCost() {
+        double area = (length * length + height * height + width * width) * 2;
         double singularCost = 0;
         double totalCost = 0;
         
-        if (bGrade == 1) {
+        if(grade == 1) {
             singularCost = area * 0.55;
-        }
-        else if (bGrade == 2) {
+        } else if(grade == 2) {
             singularCost = area * 0.65;
-        }
-        else if (bGrade == 3) {
+        } else if (grade == 3) {
             singularCost = area * 0.82;
-        }
-        else if (bGrade == 4) {
+        } else if(grade == 4) {
             singularCost = area * 0.98;
-        }
-        else {
+        } else {
             singularCost = area * 1.50;
         }
   
-        if (bColour == 1) {
+        if(colour == 1) {
             singularCost *= 1.12;
-        }
-        else if (bColour == 2) {
+        } else if (colour == 2) {
             singularCost *= 1.15;
         }
         
-        if (bBottomReinforcement == true) {
+        if(bottomReinforcement) {
             singularCost *= 1.13;
         }
         
-        if (bCornerReinforcement == true) {
+        if(bottomReinforcement) {
             singularCost *= 1.12;
         }
         
-        if (bSealableTop == true) {
+        if(sealableTop) {
             singularCost *= 1.10;
         }
         
-        totalCost = singularCost * bQuantity;
+        totalCost = singularCost * quantity;
         
-        //totalCost = Math.round((totalCost * 100.0) / 100.0);
         BigDecimal dec = BigDecimal.valueOf(totalCost);
         dec = dec.setScale(2, RoundingMode.HALF_UP);
         
