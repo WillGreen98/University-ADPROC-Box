@@ -1,4 +1,4 @@
-package boxes;
+package flexbox.boxes;
 
 class GradeRange extends BitMask {
     private int low, high;

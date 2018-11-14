@@ -1,4 +1,4 @@
-package boxes;
+package flexbox.boxes;
 
 import java.util.Scanner;
 
