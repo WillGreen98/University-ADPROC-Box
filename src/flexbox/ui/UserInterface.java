@@ -26,7 +26,7 @@ public class UserInterface {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
-
+/*
         labelBoxLength.setBounds(50,100, 200,30);
         textBoxLength.setBounds(50,150, 200,30);
 
@@ -35,15 +35,17 @@ public class UserInterface {
 
         labelBoxWidth.setBounds(50,300, 200,30);
         textBoxWidth.setBounds(50,350, 200,30);
-        
+        */
         frame.add(mainPanel);
         
+        initLabeledTextField(labelBoxHeight, textBoxHeight);
+        initLabeledTextField(labelBoxWidth, textBoxWidth);
         initLabeledTextField(labelBoxLength, textBoxLength);
     }
     
     private void initLabeledTextField(JLabel label, JTextField field) {
         field.setColumns(10);
-        mainPanel.add(labelBoxLength);
-        mainPanel.add(textBoxLength);
+        mainPanel.add(label);
+        mainPanel.add(field);
     }
 }
