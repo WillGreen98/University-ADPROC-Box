@@ -1,7 +1,10 @@
 package flexbox.ui;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -22,30 +25,36 @@ public class UserInterface {
     private JLabel     labelBoxHeight = new JLabel("Box Height: ");
     private JTextField textBoxHeight = new JTextField();
     
+    private JLabel labelBoxGrade = new JLabel("Box Grade: ");
+    private JComboBox comboBoxGrade = new JComboBox(new String[]{
+        "1", "2", "3", "4", "5"
+    });
+    
     public UserInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        //frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
-/*
-        labelBoxLength.setBounds(50,100, 200,30);
-        textBoxLength.setBounds(50,150, 200,30);
 
-        labelBoxHeight.setBounds(50,200, 200,30);
-        textBoxHeight.setBounds(50,250, 200,30);
-
-        labelBoxWidth.setBounds(50,300, 200,30);
-        textBoxWidth.setBounds(50,350, 200,30);
-        */
         frame.add(mainPanel);
         
-        initLabeledTextField(labelBoxHeight, textBoxHeight);
-        initLabeledTextField(labelBoxWidth, textBoxWidth);
-        initLabeledTextField(labelBoxLength, textBoxLength);
+
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        
+        textBoxHeight.setColumns(10);
+        textBoxLength.setColumns(10);
+        textBoxWidth.setColumns(10);
+        
+        initComponents(labelBoxHeight, textBoxHeight);
+        initComponents(labelBoxWidth, textBoxWidth);
+        initComponents(labelBoxLength, textBoxLength);
+        initComponents(labelBoxGrade, comboBoxGrade);
+        
+        
+        frame.pack();
     }
     
-    private void initLabeledTextField(JLabel label, JTextField field) {
-        field.setColumns(10);
+    private void initComponents(JLabel label, JComponent comp) {
         mainPanel.add(label);
-        mainPanel.add(field);
+        mainPanel.add(comp);
     }
 }
