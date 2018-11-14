@@ -26,34 +26,65 @@ public class Box {
         return bLenght;
     }
     public void setLength (double newLength) {
-        bLenght = newLength;
+        if (newLength > 0){
+            bLenght = newLength;
+        }
+        else {
+            bLenght = 0;
+        }
     }
     
     public double getHeight () {
         return bHeight;
     }
     public void setHeight (double newHeight) {
-        bHeight = newHeight;
+        if (newHeight > 0) {
+            bHeight = newHeight;
+        }
+        else {
+            bHeight = 0;
+        }
     }
     
     public double getWidth () {
         return bWidth;
     }
     public void setWidth (double newWidth) {
-        bWidth = newWidth;
+        if (newWidth > 0) {
+            bWidth = newWidth;
+        }
+        else {
+            bWidth = 0;
+        }
     }
     
     public int getGrade () {
         return bGrade;
     }
     public void setGrade (int newGrade) {
-        bGrade = newGrade;
+        if (newGrade >=1 && newGrade <= 5){
+            bGrade = newGrade;
+        }
+        else if (newGrade < 1) { 
+            bGrade = 1;
+        }
+        else {
+            bGrade = 5;
+        }
     }
     
     public int getColour () {
         return bColour;
     }
     public void setColour (int newColour) {
-        bColour = newColour;
+        if (newColour >= 0 && newColour <= 2) {
+            bColour = newColour;
+        }
+        else if (newColour < 0) {
+            bColour = 0;
+        }
+        else {
+            bColour = 2;
+        }
     }
 }
