@@ -2,124 +2,96 @@ package flexbox;
 
 public class Box {
     
-    private double bLenght, bHeight, bWidth;
-    private int bGrade, bColour, bQuantity;
-    private boolean bBottomReinforcement, bCornerReinforcement, bSealableTop;
+    private double length, height, width;
+    private int grade, colour, quantity;
+    private boolean bottomReinforcement, cornerReinforcement, sealableTop;
     
-    public Box () {};
-    
-    public Box (double length, double height, double width, int grade, 
-                int colour, boolean bottomReinforcement, boolean cornerReinforcement,  
-                boolean sealableTop, int quantity) {
-        
-        bLenght = length;
-        bHeight = height;
-        bWidth = width;
-        bGrade = grade;
-        bColour = colour;
-        bQuantity = quantity;
-        bBottomReinforcement = bottomReinforcement;
-        bCornerReinforcement = cornerReinforcement;
-        bSealableTop = sealableTop;
+    public Box() {}
+    public Box(double length, double height, double width, int grade, int colour, boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop, int quantity) {
+        this.length = length;
+        this.height = height;
+        this.grade = grade;
+        this.colour = colour;
+        this.quantity = quantity;
+        this.bottomReinforcement = bottomReinforcement;
+        this.cornerReinforcement = cornerReinforcement;
+        this.sealableTop = sealableTop;
     }
-    
-    public double getLength () {
-        return bLenght;
+
+    public void setLength(double newLength) {
+        length = (newLength > 0) ? newLength : 0;
     }
-    public void setLength (double newLength) {
-        if (newLength > 0){
-            bLenght = newLength;
-        }
-        else {
-            bLenght = 0;
-        }
+
+    public void setHeight(double newHeight) {
+        height = (newHeight > 0) ? newHeight : 0;
     }
-    
-    public double getHeight () {
-        return bHeight;
+
+    public void setWidth(double newWidth) {
+        width = (newWidth > 0) ? newWidth : 0;
     }
-    public void setHeight (double newHeight) {
-        if (newHeight > 0) {
-            bHeight = newHeight;
-        }
-        else {
-            bHeight = 0;
+
+    public void setGrade(int newGrade) {
+        if(newGrade >=1 && newGrade <= 5) {
+            grade = newGrade;
+        } else if(newGrade < 1) {
+            grade = 1;
+        } else {
+            grade = 5;
         }
     }
     
-    public double getWidth () {
-        return bWidth;
-    }
-    public void setWidth (double newWidth) {
-        if (newWidth > 0) {
-            bWidth = newWidth;
-        }
-        else {
-            bWidth = 0;
-        }
-    }
-    
-    public int getGrade () {
-        return bGrade;
-    }
-    public void setGrade (int newGrade) {
-        if (newGrade >=1 && newGrade <= 5){
-            bGrade = newGrade;
-        }
-        else if (newGrade < 1) { 
-            bGrade = 1;
-        }
-        else {
-            bGrade = 5;
+
+    public void setColour(int newColour) {
+        if(newColour >= 0 && newColour <= 2) {
+            colour = newColour;
+        } else if (newColour < 0) {
+            colour = 0;
+        } else {
+            colour = 2;
         }
     }
-    
-    public int getColour () {
-        return bColour;
+
+    public void setQuantity(int newQuantity) {
+        quantity = (newQuantity > 0) ? newQuantity : 0;
     }
-    public void setColour (int newColour) {
-        if (newColour >= 0 && newColour <= 2) {
-            bColour = newColour;
-        }
-        else if (newColour < 0) {
-            bColour = 0;
-        }
-        else {
-            bColour = 2;
-        }
-    }
-    
-    public boolean getBottomReinforcement(){
-        return bBottomReinforcement;
-    }
+
     public void setBottomReinforcement (boolean newBottomReinforcement){
-        bBottomReinforcement = newBottomReinforcement;
+        bottomReinforcement = newBottomReinforcement;
     }
-    
-    public boolean getCornerReinforcement(){
-        return bCornerReinforcement;
-    }
+
     public void setCornerReinforcement(boolean newCornerReinforcement){
-        bCornerReinforcement = newCornerReinforcement;
+        cornerReinforcement = newCornerReinforcement;
     }
-    
-    public boolean getSealableTop(){
-        return bSealableTop;
-    }
+
     public void setSealableTop(boolean newSealableTop){
-        bSealableTop = newSealableTop;
+        sealableTop = newSealableTop;
     }
-    
+
+    public double getHeight () {
+        return height;
+    }
+    public double getLength () {
+        return length;
+    }
+    public double getWidth () {
+        return width;
+    }
+    public int getGrade () {
+        return grade;
+    }
+    public int getColour () {
+        return colour;
+    }
     public int getQuantity(){
-        return bQuantity;
+        return quantity;
     }
-    public void setQuantity(int newQuantity){
-        if (newQuantity > 0){
-            bQuantity = newQuantity;
-        }
-        else {
-            bQuantity = 0;
-        }
-        
+    public boolean getBottomReinforcement(){
+        return bottomReinforcement;
+    }
+    public boolean getCornerReinforcement(){
+        return cornerReinforcement;
+    }
+    public boolean getSealableTop(){
+        return sealableTop;
     }
 }
