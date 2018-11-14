@@ -3,7 +3,7 @@ package flexbox.ui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
 
 public class UserInterface {
     private static final int WINDOW_WIDTH = 800;
@@ -20,7 +20,8 @@ public class UserInterface {
     
     private JComboBox<String> comboBoxGrade = new JComboBox<>(new String[] {
         "1", "2", "3", "4", "5"
-    });    
+    });
+
     private JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[]{
         "None", "1 Colours", "2 Colours"
     });
@@ -32,7 +33,6 @@ public class UserInterface {
     private JTextField textBoxQuantity = new JTextField();    
     
     private JButton submitButton = new JButton("Add boxes");
-    
 
     public UserInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,8 +41,7 @@ public class UserInterface {
 
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
-        
-        
+
         frame.add(mainPanel);
         mainPanel.add(new JLabel("FLEX BOX")); 
         mainPanel.add(inputPanel);
@@ -53,7 +52,6 @@ public class UserInterface {
         textBoxQuantity.setColumns(10);
         
         submitButton.addActionListener(event -> System.out.println("Submit Button Pressed"));
-
 
         initComponents("Box Height:", textBoxHeight);
         initComponents("Box Width:", textBoxWidth);
@@ -70,13 +68,12 @@ public class UserInterface {
         frame.pack();
     }
 
-    private void initComponents(String name, JComponent comp) {
-        JLabel label = new JLabel(name);
+    private void initComponents(String title, JComponent component) {
+        JLabel label = new JLabel(title);
         JPanel p = new JPanel();
-        
-        
+
         p.add(label);
-        p.add(comp);
+        p.add(component);
         inputPanel.add(p);
     }
 }
