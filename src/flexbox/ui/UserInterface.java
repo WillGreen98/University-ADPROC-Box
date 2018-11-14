@@ -26,6 +26,15 @@ public class UserInterface {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
+
+        labelBoxLength.setBounds(50,100, 200,30);
+        textBoxLength.setBounds(50,150, 200,30);
+
+        labelBoxHeight.setBounds(50,200, 200,30);
+        textBoxHeight.setBounds(50,250, 200,30);
+
+        labelBoxWidth.setBounds(50,300, 200,30);
+        textBoxWidth.setBounds(50,350, 200,30);
         
         frame.add(mainPanel);
         
