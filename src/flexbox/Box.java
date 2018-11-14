@@ -1,5 +1,8 @@
 package flexbox;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Box {
     
     private double bLenght, bHeight, bWidth;
@@ -164,8 +167,10 @@ public class Box {
         
         totalCost = singularCost * bQuantity;
         
-        totalCost = Math.round((totalCost * 100.0) / 100.0);
+        //totalCost = Math.round((totalCost * 100.0) / 100.0);
+        BigDecimal dec = BigDecimal.valueOf(totalCost);
+        dec = dec.setScale(2, RoundingMode.HALF_UP);
         
-        return totalCost;
+        return dec.doubleValue();
     }
 }
