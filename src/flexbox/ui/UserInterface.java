@@ -1,18 +1,9 @@
 package flexbox.ui;
 
 import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class UserInterface {
     private static final int WINDOW_WIDTH = 800;
@@ -50,9 +41,9 @@ public class UserInterface {
     
     private JLabel labelSealableTop = new JLabel("Reinforce Boxes? ");
     private JCheckBox checkBoxSealableTop = new JCheckBox();
-    
+
     private JButton submitButton = new JButton("SUBMIT");
-    
+
     public UserInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -78,7 +69,11 @@ public class UserInterface {
         initComponents(labelBoxReinforce, checkBoxReinforce);
         initComponents(labelCornerReinforcement, checkBoxCornerReinforcement);
         initComponents(labelSealableTop, checkBoxSealableTop);
-        
+
+        //---------------------------------------------------
+
+        submitButton.addActionListener(event -> System.out.println("Submit Button Pressed"));
+
         mainPanel.add(submitButton);
         
         frame.pack();
