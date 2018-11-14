@@ -28,17 +28,12 @@ public class UserInterface {
     private JCheckBox checkBoxReinforce = new JCheckBox();
     private JCheckBox checkBoxCornerReinforcement = new JCheckBox();
     private JCheckBox checkBoxSealableTop = new JCheckBox();
-<<<<<<< HEAD
 
-    private JButton submitButton = new JButton("SUBMIT");
-
-=======
-    
     private JTextField textBoxQuantity = new JTextField();    
     
     private JButton submitButton = new JButton("Add boxes");
     
->>>>>>> 6a7e437018d52568569e5d9d2a58fa38efe4632a
+
     public UserInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -57,21 +52,9 @@ public class UserInterface {
         textBoxWidth.setColumns(10);
         textBoxQuantity.setColumns(10);
         
-<<<<<<< HEAD
-        initComponents(labelBoxHeight, textBoxHeight);
-        initComponents(labelBoxWidth, textBoxWidth);
-        initComponents(labelBoxLength, textBoxLength);
-        initComponents(labelBoxGrade, comboBoxGrade);
-        initComponents(labelBoxColourPrint, comboBoxColourPrint);
-        initComponents(labelBoxReinforce, checkBoxReinforce);
-        initComponents(labelCornerReinforcement, checkBoxCornerReinforcement);
-        initComponents(labelSealableTop, checkBoxSealableTop);
-
-        //---------------------------------------------------
-
         submitButton.addActionListener(event -> System.out.println("Submit Button Pressed"));
 
-=======
+
         initComponents("Box Height:", textBoxHeight);
         initComponents("Box Width:", textBoxWidth);
         initComponents("Box Length:", textBoxLength);
@@ -82,7 +65,6 @@ public class UserInterface {
         initComponents("Reinforce Bottom?", checkBoxSealableTop);
         initComponents("Box Quantity", textBoxQuantity);
         
->>>>>>> 6a7e437018d52568569e5d9d2a58fa38efe4632a
         mainPanel.add(submitButton);
         
         frame.pack();
