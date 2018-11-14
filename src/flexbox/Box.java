@@ -5,109 +5,98 @@ import java.math.RoundingMode;
 
 public class Box {
     
-    private double bLenght, bHeight, bWidth;
-    private int bGrade, bColour, bQuantity;
-    private boolean bBottomReinforcement, bCornerReinforcement, bSealableTop;
+    private double length, height, width;
+    private int grade, colour, quantity;
+    private boolean bottomReinforcement, cornerReinforcement, sealableTop;
     
-    public Box () {}
-    
-    public Box (double length, double height, double width, int grade, 
-                int colour, boolean bottomReinforcement, boolean cornerReinforcement,  
-                boolean sealableTop, int quantity) {
-        
-        bLenght = length;
-        bHeight = height;
-        bWidth = width;
-        bGrade = grade;
-        bColour = colour;
-        bQuantity = quantity;
-        bBottomReinforcement = bottomReinforcement;
-        bCornerReinforcement = cornerReinforcement;
-        bSealableTop = sealableTop;
+
+    public Box() {}  // Empty Constructor for default Values
+    public Box(double length, double height, double width, int grade, int colour, int quantity, boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
+        this.length = length;
+        this.height = height;
+        this.grade = grade;
+        this.colour = colour;
+        this.quantity = quantity;
+        this.bottomReinforcement = bottomReinforcement;
+        this.cornerReinforcement = cornerReinforcement;
+        this.sealableTop = sealableTop;
+
     }
-    
-    public double getLength () {
-        return bLenght;
+
+    public void setLength(double length) {
+        this.length = (length > 0) ? length : 0;
     }
-    public void setLength (double newLength) {
-        if (newLength > 0){
-            bLenght = newLength;
+
+    public void setHeight(double height) {
+        this.height = (height > 0) ? height : 0;
+    }
+
+    public void setWidth(double width) {
+        this.width = (width > 0) ? width : 0;
+    }
+
+    public void setGrade(int grade) {
+        if(grade >=1 && grade <= 5) {
+            this.grade = grade;
+        } else if(grade < 1) {
+            this.grade = 1;
+        } else {
+            this.grade = 5;
         }
-        else {
-            bLenght = 0;
+    }
+
+    public void setColour(int colour) {
+        if(colour >= 0 && colour <= 2) {
+            this.colour = colour;
+        } else if (colour < 0) {
+            this.colour = 0;
+        } else {
+            this.colour = 2;
         }
     }
-    
+
+    public void setQuantity(int quantity) {
+        this.quantity = (quantity > 0) ? quantity : 0;
+    }
+
+    public void setBottomReinforcement (boolean bottomReinforcement){
+        this.bottomReinforcement = bottomReinforcement;
+    }
+
+    public void setCornerReinforcement(boolean cornerReinforcement){
+        this.cornerReinforcement = cornerReinforcement;
+    }
+
+    public void setSealableTop(boolean sealableTop){
+        this.sealableTop = sealableTop;
+    }
+
     public double getHeight () {
-        return bHeight;
+        return height;
     }
-    public void setHeight (double newHeight) {
-        if (newHeight > 0) {
-            bHeight = newHeight;
-        }
-        else {
-            bHeight = 0;
-        }
+    public double getLength () {
+        return length;
     }
-    
     public double getWidth () {
-        return bWidth;
+        return width;
     }
-    public void setWidth (double newWidth) {
-        if (newWidth > 0) {
-            bWidth = newWidth;
-        }
-        else {
-            bWidth = 0;
-        }
-    }
-    
     public int getGrade () {
-        return bGrade;
+        return grade;
     }
-    public void setGrade (int newGrade) {
-        if (newGrade >=1 && newGrade <= 5){
-            bGrade = newGrade;
-        }
-        else if (newGrade < 1) { 
-            bGrade = 1;
-        }
-        else {
-            bGrade = 5;
-        }
-    }
-    
     public int getColour () {
-        return bColour;
+        return colour;
     }
-    public void setColour (int newColour) {
-        if (newColour >= 0 && newColour <= 2) {
-            bColour = newColour;
-        }
-        else if (newColour < 0) {
-            bColour = 0;
-        }
-        else {
-            bColour = 2;
-        }
+    public int getQuantity(){
+        return quantity;
     }
-    
     public boolean getBottomReinforcement(){
-        return bBottomReinforcement;
+        return bottomReinforcement;
     }
-    public void setBottomReinforcement (boolean newBottomReinforcement){
-        bBottomReinforcement = newBottomReinforcement;
-    }
-    
     public boolean getCornerReinforcement(){
-        return bCornerReinforcement;
+        return cornerReinforcement;
     }
-    public void setCornerReinforcement(boolean newCornerReinforcement){
-        bCornerReinforcement = newCornerReinforcement;
-    }
-    
     public boolean getSealableTop(){
-        return bSealableTop;
+        return sealableTop;
     }
     public void setSealableTop(boolean newSealableTop){
         bSealableTop = newSealableTop;
