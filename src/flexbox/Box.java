@@ -10,7 +10,9 @@ public class Box {
     private boolean bottomReinforcement, cornerReinforcement, sealableTop;
 
     public Box() {}  // Empty Constructor for default Values
-    public Box(double length, double height, double width, int grade, int colour, int quantity, boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
+    public Box(double length, double height, double width, 
+            int grade, int colour, int quantity, 
+            boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
         this.length = length;
         this.height = height;
         this.grade = grade;
