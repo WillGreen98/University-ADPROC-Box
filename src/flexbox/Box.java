@@ -6,7 +6,7 @@ public class Box {
     private int bGrade, bColour, bQuantity;
     private boolean bBottomReinforcement, bCornerReinforcement, bSealableTop;
     
-    public Box () {};
+    public Box () {}
     
     public Box (double length, double height, double width, int grade, 
                 int colour, boolean bottomReinforcement, boolean cornerReinforcement,  
@@ -120,6 +120,51 @@ public class Box {
         else {
             bQuantity = 0;
         }
+    }
+    
+    public double calculateCost() {
+        double area = (bLenght * bLenght + bHeight * bHeight + bWidth * bWidth) * 2;
+        double singularCost = 0;
+        double totalCost = 0;
         
+        if (bGrade == 1) {
+            singularCost = area * 0.55;
+        }
+        else if (bGrade == 2) {
+            singularCost = area * 0.65;
+        }
+        else if (bGrade == 3) {
+            singularCost = area * 0.82;
+        }
+        else if (bGrade == 4) {
+            singularCost = area * 0.98;
+        }
+        else {
+            singularCost = area * 1.50;
+        }
+  
+        if (bColour == 1) {
+            singularCost *= 1.12;
+        }
+        else if (bColour == 2) {
+            singularCost *= 1.15;
+        }
+        
+        if (bBottomReinforcement == true) {
+            singularCost *= 1.13;
+        }
+        
+        if (bCornerReinforcement == true) {
+            singularCost *= 1.12;
+        }
+        
+        if (bSealableTop == true) {
+            singularCost *= 1.10;
+        }
+        
+        totalCost = singularCost * bQuantity;
+        totalCost = Math.round((totalCost * 100.0) / 100.0);
+        
+        return totalCost;
     }
 }
