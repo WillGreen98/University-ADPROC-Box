@@ -1,5 +1,7 @@
 package flexbox.ui;
 
+import java.awt.Component;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
@@ -19,8 +21,7 @@ public class UserInterface {
     private JFrame frame = new JFrame("ADPROC - FlexBox CW");
     
     private JPanel mainPanel = new JPanel();
-    private JPanel leftPanel = new JPanel();
-    private JPanel rightPanel = new JPanel();
+    private JPanel inputPanel = new JPanel();
 
     private JLabel     labelBoxLength = new JLabel("Box Length: ");
     private JTextField textBoxLength = new JTextField();
@@ -37,28 +38,34 @@ public class UserInterface {
     });
     
     private JLabel labelBoxColourPrint = new JLabel("Box colour prints: ");
-    private JComboBox comboBoxColourPrint = new JComboBox(new String[]{
+    private JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[]{
         "None", "1 Colours", "2 Colours"
     });
     
     private JLabel labelBoxReinforce = new JLabel("Reinforce Boxes? ");
     private JCheckBox checkBoxReinforce = new JCheckBox();
     
+    private JLabel labelCornerReinforcement = new JLabel("Reinforce Boxes? ");
+    private JCheckBox checkBoxCornerReinforcement = new JCheckBox();
+    
+    private JLabel labelSealableTop = new JLabel("Reinforce Boxes? ");
+    private JCheckBox checkBoxSealableTop = new JCheckBox();
+    
+    private JButton submitButton = new JButton("SUBMIT");
+    
     public UserInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
 
-        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
+        
         
         frame.add(mainPanel);
-        mainPanel.add(leftPanel);
-        mainPanel.add(rightPanel);
-        
+        mainPanel.add(new JLabel("FLEX BOX")); 
+        mainPanel.add(inputPanel);
 
-
-        
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
@@ -69,15 +76,20 @@ public class UserInterface {
         initComponents(labelBoxGrade, comboBoxGrade);
         initComponents(labelBoxColourPrint, comboBoxColourPrint);
         initComponents(labelBoxReinforce, checkBoxReinforce);
+        initComponents(labelCornerReinforcement, checkBoxCornerReinforcement);
+        initComponents(labelSealableTop, checkBoxSealableTop);
         
-        
-        
+        mainPanel.add(submitButton);
         
         frame.pack();
     }
-    
+
     private void initComponents(JLabel label, JComponent comp) {
-        leftPanel.add(label);
-        rightPanel.add(comp);
+        JPanel p = new JPanel();
+        
+        
+        p.add(label);
+        p.add(comp);
+        inputPanel.add(p);
     }
 }
