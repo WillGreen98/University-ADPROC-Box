@@ -163,6 +163,7 @@ public class Box {
         }
         
         totalCost = singularCost * bQuantity;
+        
         totalCost = Math.round((totalCost * 100.0) / 100.0);
         
         return totalCost;
