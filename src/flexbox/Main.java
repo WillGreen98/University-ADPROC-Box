@@ -1,6 +1,5 @@
 package flexbox;
 
-import flexbox.boxes.*;
 import flexbox.ui.UserInterface;
 
 public class Main {
@@ -8,7 +7,8 @@ public class Main {
         System.out.println("Flex Box App Started");
 
         UserInterface ui = new UserInterface();
-        Box test = new Box (1, 1, 1, 3, 1, 1, true, true, true);
+        Box test = new Box (
+                new BoxData(1, 1, 1, 3, 1, true, true, true), 1);
         System.out.println(test.calculateCost());
     }
 }
