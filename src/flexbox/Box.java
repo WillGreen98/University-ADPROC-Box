@@ -7,7 +7,7 @@ public class Box {
     private boolean bottomReinforcement, cornerReinforcement, sealableTop;
     
     public Box() {}
-    public Box(double length, double height, double width, int grade, int colour, boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop, int quantity) {
+    public Box(double length, double height, double width, int grade, int colour, int quantity, boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
         this.length = length;
         this.height = height;
         this.grade = grade;
@@ -39,7 +39,6 @@ public class Box {
             grade = 5;
         }
     }
-    
 
     public void setColour(int newColour) {
         if(newColour >= 0 && newColour <= 2) {
