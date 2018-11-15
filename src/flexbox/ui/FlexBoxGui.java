@@ -319,5 +319,11 @@ public class FlexBoxGui {
         inputDouble = tryParseInputField(this.textBoxLength, "Length");
         data.setLength(inputDouble);
         if ((int)inputDouble == -1) return;
+        
+        data.setGrade(comboBoxGrade.getSelectedIndex() + 1);
+        data.setColour(comboBoxColourPrint.getSelectedIndex());
+        
+        System.out.println(data.getGrade());
+        System.out.println(data.getColour());
     }
 }
