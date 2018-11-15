@@ -153,7 +153,6 @@ public class FlexBoxGui {
         JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
         JPanel innerPanel = createStackPanel();
         outerPanel.add(innerPanel);
-        //outerPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         innerPanel.add(createLabeledComponentPanelRow("Box Grade", comboBoxGrade));
         innerPanel.add(createLabeledComponentPanelRow("Box Colors", comboBoxColourPrint));
     }
@@ -166,7 +165,6 @@ public class FlexBoxGui {
      private void setUpReinforcementPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Reinforcement", centerPanel);
         JPanel innerPanel = createStackPanel();
-        //outerPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         outerPanel.add(innerPanel);
         innerPanel.add(createLabeledComponentPanelRow("Reinforce Bottom?", checkBoxBottomReinforce));
         innerPanel.add(createLabeledComponentPanelRow("Reinforce Corners?", checkBoxCornerReinforcement));
@@ -266,6 +264,10 @@ public class FlexBoxGui {
     }
     
     private void test() {
-        JOptionPane.showMessageDialog(frame, "Message goes here");
+        JOptionPane.showMessageDialog(
+                frame, 
+                "Message here",
+                "Error",
+                JOptionPane.WARNING_MESSAGE);
     }
 }
