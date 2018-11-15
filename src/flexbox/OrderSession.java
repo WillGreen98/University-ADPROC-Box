@@ -5,8 +5,8 @@ import flexbox.boxtypes.Box;
 import java.util.ArrayList;
 
 /**
- *
- * @author Matthew Hopson
+ * The session of this box order
+ * @author Group D4
  */
 public class OrderSession {
     private ArrayList<Box> boxes;

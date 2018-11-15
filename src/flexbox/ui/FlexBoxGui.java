@@ -17,7 +17,11 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-public class UserInterface {
+/**
+ * The user interface
+ * @author Group D4
+ */
+public class FlexBoxGui {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
 
@@ -49,8 +53,9 @@ public class UserInterface {
     /**
      * OUTPUT COMPONENTS
      */
-    JLabel labelTotalCost;
-    public UserInterface(OrderSession orderSession) {
+    JLabel labelTotalCost = new JLabel();
+    
+    public FlexBoxGui(OrderSession orderSession) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
@@ -78,8 +83,7 @@ public class UserInterface {
         uiPanel.add(createOutputUI());
         mainOuterPanel.add(uiPanel);
         
-        //Add the button and add it all to the window
-        submitButton.addActionListener(event -> test());
+        //Add everything to the main window
         frame.add(mainOuterPanel);
     }
     

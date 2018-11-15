@@ -2,15 +2,19 @@ package flexbox;
 
 import flexbox.boxtypes.BoxData;
 import flexbox.boxtypes.Box;
-import flexbox.ui.UserInterface;
+import flexbox.ui.FlexBoxGui;
 import java.awt.EventQueue;
 
+/**
+ * Entry point of the program
+ * @author Group D4
+ */
 public class Main {
     public static void main(String[] args) {
         System.out.println("Flex Box App Started");
         
         EventQueue.invokeLater(() -> {
-            UserInterface ui = new UserInterface(new OrderSession());
+            FlexBoxGui ui = new FlexBoxGui(new OrderSession());
         });
         
         Box test = new Box (
