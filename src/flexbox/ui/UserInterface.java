@@ -37,13 +37,13 @@ public class UserInterface {
         "None", "1 Colours", "2 Colours"
     });
     
-    private JCheckBox checkBoxReinforce = new JCheckBox();
+    private JCheckBox checkBoxBottomReinforce = new JCheckBox();
     private JCheckBox checkBoxCornerReinforcement = new JCheckBox();
     private JCheckBox checkBoxSealableTop = new JCheckBox();
 
     private JTextField textBoxQuantity = new JTextField();    
     
-    private JButton submitButton = new JButton("Add boxes");
+    private JButton submitButton = new JButton("Add to Basket");
 
     public UserInterface() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +74,9 @@ public class UserInterface {
         
         mainPanel.add(createTitleLabel("FlexBox Order System", 24.0f)); 
         mainPanel.add(inputPanel);
+        
+        JPanel centerPanel = new JPanel();
+        
 
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
@@ -81,43 +84,67 @@ public class UserInterface {
         textBoxQuantity.setColumns(10);
         
         setUpDimensionInputs();
+        setUpQualityPanel(centerPanel);
+        setUpReinforcementPanel(centerPanel);
+        inputPanel.add(centerPanel);
+        setUpAddItemPanel();
+        
         
         submitButton.addActionListener(event -> test());
-
-        //initComponents("Box Height:", textBoxHeight);
-        //initComponents("Box Width:", textBoxWidth);
-        //initComponents("Box Length:", textBoxLength);
-        initComponents("Box Grade:", comboBoxGrade);
-        initComponents("Box Colors:", comboBoxColourPrint);
-        initComponents("Reinforce Bottom?", checkBoxReinforce);
-        initComponents("Reinforce Corners?", checkBoxCornerReinforcement);
-        initComponents("Reinforce Bottom?", checkBoxSealableTop);
-        initComponents("Box Quantity", textBoxQuantity);
-        
-        mainPanel.add(submitButton);        
+       
     }
     
     private void setUpDimensionInputs() {
-        JPanel outerPanel = createSectionPanel("Box Dimensions");
+        JPanel outerPanel = createSectionPanel("Box Dimensions", inputPanel);
         JPanel innerPanel = new JPanel();
         outerPanel.add(innerPanel);
-        
-        JPanel widthPanel =  createStackPanel();
-        widthPanel.add(new JLabel("Box Width (M)"));
-        widthPanel.add(textBoxWidth);
-        
-        JPanel heightPanel =  createStackPanel();
-        heightPanel.add(new JLabel("Box Height (M)"));
-        heightPanel.add(textBoxHeight);
-        
-        JPanel lengthPanel =  createStackPanel();
-        lengthPanel.add(new JLabel("Box Length (M)"));
-        lengthPanel.add(textBoxLength);
-        
-        innerPanel.add(widthPanel);
-        innerPanel.add(lengthPanel);
-        innerPanel.add(heightPanel);
-        
+        innerPanel.add(createLabeledComponentPanelStack("Box Width (M)", textBoxWidth));
+        innerPanel.add(createLabeledComponentPanelStack("Box Length (M)", textBoxLength));
+        innerPanel.add(createLabeledComponentPanelStack("Box Height (M)", textBoxHeight));
+    }
+    
+    private void setUpQualityPanel(JPanel centerPanel) {
+        JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
+        JPanel innerPanel = createStackPanel();
+        outerPanel.add(innerPanel);
+        innerPanel.add(createLabeledComponentPanelRow("Box Grade", comboBoxGrade));
+        innerPanel.add(createLabeledComponentPanelRow("Box Colors", comboBoxColourPrint));
+    }
+    
+     private void setUpReinforcementPanel(JPanel centerPanel) {
+        JPanel outerPanel = createSectionPanel("Box Reinforcement", centerPanel);
+        JPanel innerPanel = createStackPanel();
+        outerPanel.add(innerPanel);
+        innerPanel.add(createLabeledComponentPanelRow("Reinforce Bottom?", checkBoxBottomReinforce));
+        innerPanel.add(createLabeledComponentPanelRow("Reinforce Corners?", checkBoxCornerReinforcement));
+        innerPanel.add(createLabeledComponentPanelRow("Sealable Top?", checkBoxSealableTop));
+    }
+     
+    private void setUpAddItemPanel() {
+       JPanel outerPanel = createSectionPanel("Box Reinforcement", inputPanel);
+       JPanel innerPanel = new JPanel();
+       outerPanel.add(innerPanel);
+       innerPanel.add(createLabeledComponentPanelStack("Quantity", textBoxQuantity));
+       innerPanel.add(createLabeledComponentPanelStack("", submitButton));
+    }
+    
+    /*
+        HELPER FUNCTIONS
+        The functions below help with the creation of the UI by avoiding a lot of
+        repeated code
+    */
+    private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
+        JPanel panel =  createStackPanel();
+        panel.add(new JLabel(labelText));
+        panel.add(component);
+        return panel;
+    }
+    
+    private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel(labelText));
+        panel.add(component);
+        return panel;
     }
     
     private JLabel createTitleLabel(String name, float size) {
@@ -127,9 +154,9 @@ public class UserInterface {
         return title;
     }
     
-    private JPanel createSectionPanel(String title) {
+    private JPanel createSectionPanel(String title, JPanel outerPanel) {
         JPanel sect =  createStackPanel();
-        inputPanel.add(sect);
+        outerPanel.add(sect);
         sect.setBorder(BorderFactory.createBevelBorder(1));
         sect.add(createTitleLabel(title, 18.0f));
         return sect;
