@@ -95,5 +95,7 @@ public class BoxData {
     public void setCornerReinforcement(boolean cornerReinforcement){
         this.cornerReinforcement = cornerReinforcement;
     }
-
+    public void setTopSealable(boolean sealableTop){
+        this.sealableTop = sealableTop;
+    }
 }

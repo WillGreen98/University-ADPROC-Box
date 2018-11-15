@@ -322,8 +322,9 @@ public class FlexBoxGui {
         
         data.setGrade(comboBoxGrade.getSelectedIndex() + 1);
         data.setColour(comboBoxColourPrint.getSelectedIndex());
-        
-        System.out.println(data.getGrade());
-        System.out.println(data.getColour());
+       
+        data.setBottomReinforcement(checkBoxBottomReinforce.isSelected());
+        data.setCornerReinforcement(checkBoxCornerReinforcement.isSelected());
+        data.setTopSealable(checkBoxSealableTop.isSelected());
     }
 }
