@@ -19,10 +19,13 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
- * The user interface
+ * The user interface of the flex box system
  * @author Group D4
  */
 public class FlexBoxGui {
+    private static final float FONT_SIZE_LABELS = 15.0f;
+    private static final float FONT_SIZE_SECTION_TITLES = 18.0f;
+    
     private final JFrame frame = new JFrame("FlexBox Ordering System");
     private final OrderSession orderSession;
     /**
@@ -92,7 +95,7 @@ public class FlexBoxGui {
         JPanel outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.Y_AXIS));
         outputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        outputPanel.add(createCenteredLabel("Basket", 20.0f));
+        outputPanel.add(createCenteredLabel("Basket", 24.0f));
         
         
         return outputPanel;
@@ -201,7 +204,7 @@ public class FlexBoxGui {
      */
     private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
         JPanel panel =  createStackPanel();
-        panel.add(createCenteredLabel(labelText, 14.0f));
+        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS));
         panel.add(component);
         return panel;
     }
@@ -217,7 +220,7 @@ public class FlexBoxGui {
      */
     private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
         JPanel panel = new JPanel();
-        panel.add(createCenteredLabel(labelText, 14.0f));
+        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS));
         panel.add(component);
         return panel;
     }
@@ -245,7 +248,7 @@ public class FlexBoxGui {
         JPanel sect =  createStackPanel();
         outerPanel.add(sect);
         sect.setBorder(BorderFactory.createBevelBorder(1));
-        sect.add(createCenteredLabel(title, 18.0f));
+        sect.add(createCenteredLabel(title, FONT_SIZE_SECTION_TITLES));
         return sect;
     }
     
@@ -303,6 +306,28 @@ public class FlexBoxGui {
         }
         return result;
     }
+    
+    private boolean tryGetTextFieldInfo(BoxData data) {
+        double inputDouble;
+        //Validate the text fields are valid
+        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
+        data.setHeight(inputDouble);
+        if ((int)inputDouble == -1) return false;
+        
+        inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
+        data.setWidth(inputDouble);
+        if ((int)inputDouble == -1) return false;
+        
+        inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
+        data.setLength(inputDouble);
+        if ((int)inputDouble == -1) return false;
+        
+        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
+        data.setWidth(inputDouble);
+        if (quantity == -1) return false;
+        
+        return true;
+    }
 
     
     /**
@@ -310,20 +335,11 @@ public class FlexBoxGui {
      */
     private void tryAddToBasket() {
         BoxData data = new BoxData();
-        double inputDouble;
         
         //Validate the text fields are valid
-        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
-        data.setHeight(inputDouble);
-        if ((int)inputDouble == -1) return;
-        
-        inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
-        data.setWidth(inputDouble);
-        if ((int)inputDouble == -1) return;
-        
-        inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
-        data.setLength(inputDouble);
-        if ((int)inputDouble == -1) return;
+        if (!tryGetTextFieldInfo(data)) {
+            return false;
+        }
         
         //Get the box quality options
         data.setGrade(comboBoxGrade.getSelectedIndex() + 1);
@@ -339,9 +355,6 @@ public class FlexBoxGui {
           *     Do box type validation here.
           *     Use the OrderSession class for this
         */
-        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
-        data.setWidth(inputDouble);
-        if (quantity == -1) return;
         
         /**
          * @TODO
