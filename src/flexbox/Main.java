@@ -10,7 +10,7 @@ public class Main {
         System.out.println("Flex Box App Started");
         
         EventQueue.invokeLater(() -> {
-            UserInterface ui = new UserInterface();
+            UserInterface ui = new UserInterface(new OrderSession());
         });
         
         Box test = new Box (

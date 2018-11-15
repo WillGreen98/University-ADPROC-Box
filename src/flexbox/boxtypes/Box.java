@@ -1,7 +1,6 @@
 package flexbox.boxtypes;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import flexbox.Util;
 
 public class Box {
     
@@ -73,10 +72,6 @@ public class Box {
         //Get total cost from box quantities
         cost *= quantity;
         
-        
-        BigDecimal dec = BigDecimal.valueOf(cost);
-        dec = dec.setScale(2, RoundingMode.HALF_UP);
-        
-        return dec.doubleValue();
+        return Util.roundDoubleTo2dp(cost);
     }
 }

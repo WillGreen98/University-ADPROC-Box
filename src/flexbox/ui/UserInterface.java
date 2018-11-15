@@ -1,10 +1,8 @@
 package flexbox.ui;
 
+import flexbox.OrderSession;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
@@ -16,38 +14,48 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 public class UserInterface {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
 
-    private JFrame frame = new JFrame("FlexBox Ordering System");
+    private final JFrame frame = new JFrame("FlexBox Ordering System");
+    private final OrderSession orderSession;
+    /**
+     * INPUT COMPONENTS
+     */
+    private final JTextField textBoxLength = new JTextField();
+    private final JTextField textBoxWidth = new JTextField();
+    private final JTextField textBoxHeight = new JTextField();    
     
-    private JTextField textBoxLength = new JTextField();
-    private JTextField textBoxWidth = new JTextField();
-    private JTextField textBoxHeight = new JTextField();    
-    
-    private JComboBox<String> comboBoxGrade = new JComboBox<>(new String[] {
+    private final JComboBox<String> comboBoxGrade = new JComboBox<>(new String[] {
         "1", "2", "3", "4", "5"
     });
 
-    private JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[]{
+    private final JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[]{
         "None", "1 Colours", "2 Colours"
     });
     
-    private JCheckBox checkBoxBottomReinforce = new JCheckBox();
-    private JCheckBox checkBoxCornerReinforcement = new JCheckBox();
-    private JCheckBox checkBoxSealableTop = new JCheckBox();
+    private final JCheckBox checkBoxBottomReinforce = new JCheckBox();
+    private final JCheckBox checkBoxCornerReinforcement = new JCheckBox();
+    private final JCheckBox checkBoxSealableTop = new JCheckBox();
 
-    private JTextField textBoxQuantity = new JTextField();    
+    private final JTextField textBoxQuantity = new JTextField();    
     
-    private JButton submitButton = new JButton("Add to Basket");
-
-    public UserInterface() {
+    private final JButton submitButton = new JButton("Add to Basket");
+    
+    /**
+     * OUTPUT COMPONENTS
+     */
+    JLabel labelTotalCost;
+    public UserInterface(OrderSession orderSession) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
+        
+        this.orderSession = orderSession;
 
         initGUI();
         
@@ -61,7 +69,7 @@ public class UserInterface {
     private void initGUI() {
         JPanel mainOuterPanel = new JPanel();
         mainOuterPanel.setLayout(new BoxLayout(mainOuterPanel, BoxLayout.Y_AXIS));
-        mainOuterPanel.add(createTitleLabel("FlexBox Order System", 24.0f)); 
+        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", 24.0f)); 
         
         //Create the UI
         JPanel uiPanel = new JPanel();
@@ -83,7 +91,9 @@ public class UserInterface {
         JPanel outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.Y_AXIS));
         outputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        outputPanel.add(createTitleLabel("Output", 20.0f));
+        outputPanel.add(createCenteredLabel("Basket", 20.0f));
+        
+        
         return outputPanel;
     }
     
@@ -96,7 +106,7 @@ public class UserInterface {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        inputPanel.add(createTitleLabel("Input", 20.0f));
+        inputPanel.add(createCenteredLabel("Input", 20.0f));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
@@ -125,9 +135,9 @@ public class UserInterface {
         JPanel outerPanel = createSectionPanel("Box Dimensions", panel);
         JPanel innerPanel = new JPanel();
         outerPanel.add(innerPanel);
-        innerPanel.add(createLabeledComponentPanelStack("Box Width (M)", textBoxWidth));
-        innerPanel.add(createLabeledComponentPanelStack("Box Length (M)", textBoxLength));
-        innerPanel.add(createLabeledComponentPanelStack("Box Height (M)", textBoxHeight));
+        innerPanel.add(createLabeledComponentPanelStack("Box Width (m)  ", textBoxWidth));
+        innerPanel.add(createLabeledComponentPanelStack("Box Length (m) ", textBoxLength));
+        innerPanel.add(createLabeledComponentPanelStack("Box Height (m) ", textBoxHeight));
     }
 
     /**
@@ -167,10 +177,15 @@ public class UserInterface {
      */
     private void setUpAddItemPanel(JPanel panel) {
        JPanel outerPanel = createSectionPanel("Add box to basket", panel);
-       JPanel innerPanel = new JPanel();
+       JPanel innerPanel = createStackPanel();
        outerPanel.add(innerPanel);
-       innerPanel.add(createLabeledComponentPanelStack("Quantity", textBoxQuantity));
-       innerPanel.add(createLabeledComponentPanelStack("", submitButton));
+       JPanel p  = createLabeledComponentPanelStack("Quantity", textBoxQuantity);
+       JPanel p1 = createLabeledComponentPanelStack(" ", submitButton);
+       
+       p.setAlignmentX(Component.CENTER_ALIGNMENT);
+       p1.setAlignmentX(Component.CENTER_ALIGNMENT);
+       innerPanel.add(p);
+       innerPanel.add(p1);
     }
     
     /// HELPER FUNCTIONS
@@ -187,7 +202,7 @@ public class UserInterface {
      */
     private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
         JPanel panel =  createStackPanel();
-        panel.add(new JLabel(labelText));
+        panel.add(createCenteredLabel(labelText, 12.0f));
         panel.add(component);
         return panel;
     }
@@ -203,18 +218,18 @@ public class UserInterface {
      */
     private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
         JPanel panel = new JPanel();
-        panel.add(new JLabel(labelText));
+        panel.add(createCenteredLabel(labelText, 12.0f));
         panel.add(component);
         return panel;
     }
     
     /**
-     * Creates a centre aligned label, that is used for titles
+     * Creates a centre aligned label
      * @param titleText The text for the label
      * @param fontSize The font size for the label
      * @return A centre aligned JLabel
      */
-    private JLabel createTitleLabel(String titleText, float fontSize) {
+    private JLabel createCenteredLabel(String titleText, float fontSize) {
         JLabel title = new JLabel(titleText, SwingConstants.CENTER);
         title.setFont(title.getFont().deriveFont(fontSize));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -231,7 +246,7 @@ public class UserInterface {
         JPanel sect =  createStackPanel();
         outerPanel.add(sect);
         sect.setBorder(BorderFactory.createBevelBorder(1));
-        sect.add(createTitleLabel(title, 18.0f));
+        sect.add(createCenteredLabel(title, 18.0f));
         return sect;
     }
     
@@ -247,6 +262,6 @@ public class UserInterface {
     }
     
     private void test() {
-        System.out.println("Submit Button Pressed");
+        JOptionPane.showMessageDialog(frame, "Message goes here");
     }
 }
