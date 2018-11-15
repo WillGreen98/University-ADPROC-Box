@@ -1,4 +1,4 @@
-package flexbox;
+package flexbox.boxtypes;
 
 /**
  *

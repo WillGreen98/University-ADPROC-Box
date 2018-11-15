@@ -1,5 +1,7 @@
 package flexbox;
 
+import flexbox.boxtypes.BoxData;
+import flexbox.boxtypes.Box;
 import flexbox.ui.UserInterface;
 
 public class Main {

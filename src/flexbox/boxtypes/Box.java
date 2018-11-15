@@ -1,4 +1,4 @@
-package flexbox;
+package flexbox.boxtypes;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -18,18 +18,17 @@ public class Box {
         this.quantity = quantity;
     }
     
-    private <T> void p(T n) {
-        System.out.println(n);
+    public void setData(BoxData data) {
+        this.data = data;
     }
 
-    double calculateCost() {
+    public double calculateCost() {
         double area = (
                 data.getLength() * data.getLength() + 
                 data.getHeight() * data.getHeight() + 
                 data.getWidth()  * data.getWidth()) * 2;
         
         double cost = 0;
-        p(cost);
 
         switch (data.getGrade()) {
             case 1:
