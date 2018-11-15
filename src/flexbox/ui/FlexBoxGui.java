@@ -280,7 +280,7 @@ public class FlexBoxGui {
      * @param hint Incase of an error, the hint is used to produce the error text
      * @return The parsed input is successful, otherwise return -1 on error
      */
-    private double tryParseInputField(JTextField field, String hint) {
+    private double tryParseInputField(JTextField field, String hint, double min) {
         String input = field.getText();
         double result = 0;
         if (input.length() == 0) {
@@ -295,9 +295,9 @@ public class FlexBoxGui {
                         "Invalid Input Type");
             return -1;
         }
-        if (result <= 0.1) {
+        if (result < min) {
             promptError(
-                    "Input field for \"Box " + hint + "\" must be greater than or equal to 0.1.",
+                    "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
                     "Number to small");
             return -1;
         }
@@ -305,18 +305,21 @@ public class FlexBoxGui {
     }
 
     
+    /**
+     * Tries to add a quantity of boxes to the basket
+     */
     private void tryAddToBasket() {
         BoxData data = new BoxData();
         double inputDouble;
-        inputDouble = tryParseInputField(this.textBoxHeight, "Height");
+        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
         data.setHeight(inputDouble);
         if ((int)inputDouble == -1) return;
         
-        inputDouble = tryParseInputField(this.textBoxWidth, "Width");
+        inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
         data.setWidth(inputDouble);
         if ((int)inputDouble == -1) return;
         
-        inputDouble = tryParseInputField(this.textBoxLength, "Length");
+        inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
         data.setLength(inputDouble);
         if ((int)inputDouble == -1) return;
         
@@ -326,5 +329,14 @@ public class FlexBoxGui {
         data.setBottomReinforcement(checkBoxBottomReinforce.isSelected());
         data.setCornerReinforcement(checkBoxCornerReinforcement.isSelected());
         data.setTopSealable(checkBoxSealableTop.isSelected());
+        
+        /**
+          * @TODO 
+          *     Do box type validation here.
+          *     Use the OrderSession class for this
+        */
+        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
+        data.setWidth(inputDouble);
+        if (quantity == -1) return;
     }
 }
