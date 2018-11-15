@@ -14,12 +14,4 @@ public class OrderSession {
     public OrderSession() {
         boxes = new ArrayList<>();
     }
-    
-    public double getTotalCost() {
-        double total = 0;
-        for (Box box : boxes) {
-            total += box.calculateCost();
-        }
-        return Util.roundDoubleTo2dp(total);
-    }
 }
