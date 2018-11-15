@@ -1,8 +1,8 @@
 package flexbox.boxtypes;
 
 /**
- *
- * @author Matthew Hopson
+ * Class to handle box data
+ * @author Group D4
  */
 public class BoxData {
     private double length, height, width;

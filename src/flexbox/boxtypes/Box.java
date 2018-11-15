@@ -1,8 +1,11 @@
 package flexbox.boxtypes;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import flexbox.Util;
 
+/**
+ * Class to represent a singular box from the order
+ * @author Group D4
+ */
 public class Box {
     
     private BoxData data;
@@ -73,10 +76,6 @@ public class Box {
         //Get total cost from box quantities
         cost *= quantity;
         
-        
-        BigDecimal dec = BigDecimal.valueOf(cost);
-        dec = dec.setScale(2, RoundingMode.HALF_UP);
-        
-        return dec.doubleValue();
+        return Util.roundDoubleTo2dp(cost);
     }
 }
