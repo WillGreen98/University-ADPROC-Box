@@ -1,6 +1,8 @@
 package flexbox.ui;
 
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -22,9 +24,6 @@ public class UserInterface {
 
     private JFrame frame = new JFrame("ADPROC - FlexBox CW");
     
-    private JPanel mainPanel = new JPanel();
-    private JPanel inputPanel = new JPanel();
-
     private JTextField textBoxLength = new JTextField();
     private JTextField textBoxWidth = new JTextField();
     private JTextField textBoxHeight = new JTextField();    
@@ -55,47 +54,60 @@ public class UserInterface {
         frame.pack();
     }
 
-    private void initComponents(String title, JComponent component) {
-        JLabel label = new JLabel(title);
-        JPanel p = new JPanel();
 
-        p.add(label);
-        p.add(component);
-        inputPanel.add(p);
-    }
     
     private void initGUI() {
-        frame.add(mainPanel);
+        JPanel mainOuterPanel = new JPanel();
+        mainOuterPanel.setLayout(new BoxLayout(mainOuterPanel, BoxLayout.Y_AXIS));
+        mainOuterPanel.add(createTitleLabel("FlexBox Order System", 24.0f)); 
         
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        //Create the UI
+        JPanel uiPanel = new JPanel();
+        uiPanel.setLayout(new GridLayout()); 
+        uiPanel.add(createInputUI());
+        uiPanel.add(createOutputUI());
+        mainOuterPanel.add(uiPanel);
+        
+        //Add the button and add it all to the window
+        submitButton.addActionListener(event -> test());
+        frame.add(mainOuterPanel);
+    }
+    
+    private JPanel createOutputUI() {
+        JPanel outputPanel = new JPanel();
+        outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.Y_AXIS));
+        outputPanel.setBorder(BorderFactory.createBevelBorder(0));
+        outputPanel.add(createTitleLabel("Output", 20.0f));
+        return outputPanel;
+    }
+    
+    private JPanel createInputUI() {
+        //Panel for the center of the input panel
+        JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-
-        
-        mainPanel.add(createTitleLabel("FlexBox Order System", 24.0f)); 
-        mainPanel.add(inputPanel);
-        
-        JPanel centerPanel = new JPanel();
-        
-
+        inputPanel.add(createTitleLabel("Input", 20.0f));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
         textBoxQuantity.setColumns(10);
         
-        setUpDimensionInputs();
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout());
+        
+        setUpDimensionInputs(inputPanel);
         setUpQualityPanel(centerPanel);
         setUpReinforcementPanel(centerPanel);
         inputPanel.add(centerPanel);
-        setUpAddItemPanel();
+        setUpAddItemPanel(inputPanel);
         
         
         submitButton.addActionListener(event -> test());
-       
+        return inputPanel;
     }
     
-    private void setUpDimensionInputs() {
-        JPanel outerPanel = createSectionPanel("Box Dimensions", inputPanel);
+    private void setUpDimensionInputs(JPanel panel) {
+        JPanel outerPanel = createSectionPanel("Box Dimensions", panel);
         JPanel innerPanel = new JPanel();
         outerPanel.add(innerPanel);
         innerPanel.add(createLabeledComponentPanelStack("Box Width (M)", textBoxWidth));
@@ -107,6 +119,7 @@ public class UserInterface {
         JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
         JPanel innerPanel = createStackPanel();
         outerPanel.add(innerPanel);
+        //outerPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         innerPanel.add(createLabeledComponentPanelRow("Box Grade", comboBoxGrade));
         innerPanel.add(createLabeledComponentPanelRow("Box Colors", comboBoxColourPrint));
     }
@@ -114,14 +127,15 @@ public class UserInterface {
      private void setUpReinforcementPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Reinforcement", centerPanel);
         JPanel innerPanel = createStackPanel();
+        //outerPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         outerPanel.add(innerPanel);
         innerPanel.add(createLabeledComponentPanelRow("Reinforce Bottom?", checkBoxBottomReinforce));
         innerPanel.add(createLabeledComponentPanelRow("Reinforce Corners?", checkBoxCornerReinforcement));
         innerPanel.add(createLabeledComponentPanelRow("Sealable Top?", checkBoxSealableTop));
     }
      
-    private void setUpAddItemPanel() {
-       JPanel outerPanel = createSectionPanel("Box Reinforcement", inputPanel);
+    private void setUpAddItemPanel(JPanel panel) {
+       JPanel outerPanel = createSectionPanel("Add box to basket", panel);
        JPanel innerPanel = new JPanel();
        outerPanel.add(innerPanel);
        innerPanel.add(createLabeledComponentPanelStack("Quantity", textBoxQuantity));
