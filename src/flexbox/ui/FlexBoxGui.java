@@ -1,6 +1,7 @@
 package flexbox.ui;
 
 import flexbox.OrderSession;
+import flexbox.boxtypes.BoxData;
 import java.awt.Component;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
@@ -22,9 +23,6 @@ import javax.swing.SwingConstants;
  * @author Group D4
  */
 public class FlexBoxGui {
-    private static final int WINDOW_WIDTH = 800;
-    private static final int WINDOW_HEIGHT = 600;
-
     private final JFrame frame = new JFrame("FlexBox Ordering System");
     private final OrderSession orderSession;
     /**
@@ -57,7 +55,6 @@ public class FlexBoxGui {
     
     public FlexBoxGui(OrderSession orderSession) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setVisible(true);
         
         this.orderSession = orderSession;
@@ -74,7 +71,7 @@ public class FlexBoxGui {
     private void initGUI() {
         JPanel mainOuterPanel = new JPanel();
         mainOuterPanel.setLayout(new BoxLayout(mainOuterPanel, BoxLayout.Y_AXIS));
-        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", 24.0f)); 
+        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", 26.0f)); 
         
         //Create the UI
         JPanel uiPanel = new JPanel();
@@ -110,7 +107,7 @@ public class FlexBoxGui {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        inputPanel.add(createCenteredLabel("Input", 20.0f));
+        inputPanel.add(createCenteredLabel("Input", 24.0f));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
@@ -126,7 +123,7 @@ public class FlexBoxGui {
         setUpAddItemPanel(inputPanel);
         
         
-        submitButton.addActionListener(event -> test());
+        submitButton.addActionListener(event -> tryAddToBasket());
         return inputPanel;
     }
     
@@ -204,7 +201,7 @@ public class FlexBoxGui {
      */
     private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
         JPanel panel =  createStackPanel();
-        panel.add(createCenteredLabel(labelText, 12.0f));
+        panel.add(createCenteredLabel(labelText, 14.0f));
         panel.add(component);
         return panel;
     }
@@ -220,7 +217,7 @@ public class FlexBoxGui {
      */
     private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
         JPanel panel = new JPanel();
-        panel.add(createCenteredLabel(labelText, 12.0f));
+        panel.add(createCenteredLabel(labelText, 14.0f));
         panel.add(component);
         return panel;
     }
@@ -263,11 +260,48 @@ public class FlexBoxGui {
         return sect;
     }
     
-    private void test() {
-        JOptionPane.showMessageDialog(
-                frame, 
-                "Message here",
-                "Error",
-                JOptionPane.WARNING_MESSAGE);
+    /// INPUT FIELD VALIDATION FUNCTIONS
+    /// Functions to help validate the user input
+    
+    private void promptError(String title, String text) {
+        JOptionPane.showMessageDialog(frame, title, text,
+                    JOptionPane.WARNING_MESSAGE);
+    }
+    
+    private double tryParseInputField(JTextField field, String hint) {
+        String input = field.getText();
+        double result = 0;
+        if (input.length() == 0) {
+            promptError("Input field for box " + hint + " is empty.",
+                        "Empty Input");
+            return -1;
+        }
+        try { 
+            result = Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            promptError("Input field for box " + hint + " should be a number.",
+                        "Invalid Input Type");
+            return -1;
+        }
+        if (result <= 0.1) {
+            promptError(
+                    "Input field for box " + hint + " must be greater than or equal to 0.1.",
+                    "Number to small");
+            return -1;
+        }
+        return result;
+    }
+    
+    
+    
+    
+    private void tryAddToBasket() {
+        BoxData data = new BoxData();
+        double inputDouble;
+        inputDouble = tryParseInputField(this.textBoxHeight, "height");
+        data.setHeight(inputDouble);
+        
+        inputDouble = tryParseInputField(this.textBoxHeight, "height");
+        data.setHeight(inputDouble);
     }
 }
