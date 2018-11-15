@@ -22,7 +22,7 @@ public class UserInterface {
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;
 
-    private JFrame frame = new JFrame("ADPROC - FlexBox CW");
+    private JFrame frame = new JFrame("FlexBox Ordering System");
     
     private JTextField textBoxLength = new JTextField();
     private JTextField textBoxWidth = new JTextField();
@@ -55,7 +55,9 @@ public class UserInterface {
     }
 
 
-    
+    /**
+     * Creates the input and output sections of the UI
+     */
     private void initGUI() {
         JPanel mainOuterPanel = new JPanel();
         mainOuterPanel.setLayout(new BoxLayout(mainOuterPanel, BoxLayout.Y_AXIS));
@@ -73,6 +75,10 @@ public class UserInterface {
         frame.add(mainOuterPanel);
     }
     
+    /**
+     * Creates a JPanel that contains the output section of the UI
+     * @return A JPanel containing the output UI
+     */
     private JPanel createOutputUI() {
         JPanel outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.Y_AXIS));
@@ -81,6 +87,10 @@ public class UserInterface {
         return outputPanel;
     }
     
+    /**
+     * Creates a JPanel that contains the input section of the UI
+     * @return A JPanel containing the input UI
+     */
     private JPanel createInputUI() {
         //Panel for the center of the input panel
         JPanel inputPanel = new JPanel();
@@ -106,6 +116,11 @@ public class UserInterface {
         return inputPanel;
     }
     
+    /**
+     * Adds a JPanel to an existing one, containing JComponents for getting 
+     * box dimensions (Width, Height, and Length)
+     * @param panel The JPanel to add the panel to 
+     */
     private void setUpDimensionInputs(JPanel panel) {
         JPanel outerPanel = createSectionPanel("Box Dimensions", panel);
         JPanel innerPanel = new JPanel();
@@ -114,7 +129,12 @@ public class UserInterface {
         innerPanel.add(createLabeledComponentPanelStack("Box Length (M)", textBoxLength));
         innerPanel.add(createLabeledComponentPanelStack("Box Height (M)", textBoxHeight));
     }
-    
+
+    /**
+     * Adds a JPanel to an existing one, containing JComponents for getting 
+     * box quality (Grade and Colour Prints)
+     * @param panel The JPanel to add the panel to 
+     */
     private void setUpQualityPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
         JPanel innerPanel = createStackPanel();
@@ -124,6 +144,11 @@ public class UserInterface {
         innerPanel.add(createLabeledComponentPanelRow("Box Colors", comboBoxColourPrint));
     }
     
+    /**
+     * Adds a JPanel to an existing one, containing JComponents for getting 
+     * box reinforcement details (bottom & top reinforcement, sealable top)
+     * @param panel The JPanel to add the panel to 
+     */
      private void setUpReinforcementPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Reinforcement", centerPanel);
         JPanel innerPanel = createStackPanel();
@@ -134,6 +159,12 @@ public class UserInterface {
         innerPanel.add(createLabeledComponentPanelRow("Sealable Top?", checkBoxSealableTop));
     }
      
+    /**
+     * Adds a JPanel to an existing one, containing JComponents for getting 
+     * box quantity of the box to add to  basket, as well as the button for
+     * actually adding the box to the basket
+     * @param panel The JPanel to add the panel to 
+     */
     private void setUpAddItemPanel(JPanel panel) {
        JPanel outerPanel = createSectionPanel("Add box to basket", panel);
        JPanel innerPanel = new JPanel();
@@ -142,11 +173,18 @@ public class UserInterface {
        innerPanel.add(createLabeledComponentPanelStack("", submitButton));
     }
     
-    /*
-        HELPER FUNCTIONS
-        The functions below help with the creation of the UI by avoiding a lot of
-        repeated code
-    */
+    /// HELPER FUNCTIONS
+    /// The functions below help with the creation of the UI by avoiding a lot of
+    /// repeated code
+    /**
+     * Creates a JPanel with 2 elements:
+     *  - A JLabel
+     *  - A JComponent
+     *  These will be added in a fashion where the label is above the component.
+     * @param labelText The text of the label 
+     * @param component The component to labelled
+     * @return A JPanel with the label and component
+     */
     private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
         JPanel panel =  createStackPanel();
         panel.add(new JLabel(labelText));
@@ -154,6 +192,15 @@ public class UserInterface {
         return panel;
     }
     
+    /**
+     * Creates a JPanel with 2 elements:
+     *  - A JLabel
+     *  - A JComponent
+     *  These will be added in a fashion where the label is left of the component.
+     * @param labelText The text of the label 
+     * @param component The component to labelled
+     * @return A JPanel with the label and component
+     */
     private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
         JPanel panel = new JPanel();
         panel.add(new JLabel(labelText));
@@ -161,13 +208,25 @@ public class UserInterface {
         return panel;
     }
     
-    private JLabel createTitleLabel(String name, float size) {
-        JLabel title = new JLabel(name, SwingConstants.CENTER);
-        title.setFont(title.getFont().deriveFont(size));
+    /**
+     * Creates a centre aligned label, that is used for titles
+     * @param titleText The text for the label
+     * @param fontSize The font size for the label
+     * @return A centre aligned JLabel
+     */
+    private JLabel createTitleLabel(String titleText, float fontSize) {
+        JLabel title = new JLabel(titleText, SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(fontSize));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         return title;
     }
     
+    /**
+     * Creates a section JPanel, meaning one of which has a title and border
+     * @param title The title for the label of the section
+     * @param outerPanel The JPanel to add this to
+     * @return The section panel
+     */
     private JPanel createSectionPanel(String title, JPanel outerPanel) {
         JPanel sect =  createStackPanel();
         outerPanel.add(sect);
@@ -176,6 +235,11 @@ public class UserInterface {
         return sect;
     }
     
+    /**
+     * Creates a JPanel where the JComponenets added will be vertically aligned
+     * using BoxLayout
+     * @return Vertically aligned JPanel
+     */
     private JPanel createStackPanel() {
         JPanel sect = new JPanel();
         sect.setLayout(new BoxLayout(sect, BoxLayout.Y_AXIS));
