@@ -107,7 +107,7 @@ public class FlexBoxGui {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        inputPanel.add(createCenteredLabel("Input", 24.0f));
+        inputPanel.add(createCenteredLabel("Input Box Specifications", 24.0f));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
@@ -311,6 +311,8 @@ public class FlexBoxGui {
     private void tryAddToBasket() {
         BoxData data = new BoxData();
         double inputDouble;
+        
+        //Validate the text fields are valid
         inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
         data.setHeight(inputDouble);
         if ((int)inputDouble == -1) return;
@@ -323,9 +325,11 @@ public class FlexBoxGui {
         data.setLength(inputDouble);
         if ((int)inputDouble == -1) return;
         
+        //Get the box quality options
         data.setGrade(comboBoxGrade.getSelectedIndex() + 1);
         data.setColour(comboBoxColourPrint.getSelectedIndex());
        
+        //Get box reinforcement details
         data.setBottomReinforcement(checkBoxBottomReinforce.isSelected());
         data.setCornerReinforcement(checkBoxCornerReinforcement.isSelected());
         data.setTopSealable(checkBoxSealableTop.isSelected());
@@ -338,5 +342,10 @@ public class FlexBoxGui {
         int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
         data.setWidth(inputDouble);
         if (quantity == -1) return;
+        
+        /**
+         * @TODO
+         *      Add the boxes to the basket 
+         */
     }
 }
