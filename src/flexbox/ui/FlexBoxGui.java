@@ -263,45 +263,61 @@ public class FlexBoxGui {
     /// INPUT FIELD VALIDATION FUNCTIONS
     /// Functions to help validate the user input
     
+    /**
+     * Prompts an error to the user
+     * @param title The title of the error box
+     * @param text  The text of the error
+     */
     private void promptError(String title, String text) {
         JOptionPane.showMessageDialog(frame, title, text,
                     JOptionPane.WARNING_MESSAGE);
     }
     
+    /**
+     * Tries to parse an input field into a double, and returns input if it is valid,
+     * -1 otherwise
+     * @param field The JTextField to parse
+     * @param hint Incase of an error, the hint is used to produce the error text
+     * @return The parsed input is successful, otherwise return -1 on error
+     */
     private double tryParseInputField(JTextField field, String hint) {
         String input = field.getText();
         double result = 0;
         if (input.length() == 0) {
-            promptError("Input field for box " + hint + " is empty.",
+            promptError("Input field for \"Box " + hint + "\" is empty.",
                         "Empty Input");
             return -1;
         }
         try { 
             result = Double.parseDouble(input);
         } catch (NumberFormatException e) {
-            promptError("Input field for box " + hint + " should be a number.",
+            promptError("Input field for \"Box " + hint + "\" should be a number.",
                         "Invalid Input Type");
             return -1;
         }
         if (result <= 0.1) {
             promptError(
-                    "Input field for box " + hint + " must be greater than or equal to 0.1.",
+                    "Input field for \"Box " + hint + "\" must be greater than or equal to 0.1.",
                     "Number to small");
             return -1;
         }
         return result;
     }
-    
-    
-    
+
     
     private void tryAddToBasket() {
         BoxData data = new BoxData();
         double inputDouble;
-        inputDouble = tryParseInputField(this.textBoxHeight, "height");
+        inputDouble = tryParseInputField(this.textBoxHeight, "Height");
         data.setHeight(inputDouble);
+        if ((int)inputDouble == -1) return;
         
-        inputDouble = tryParseInputField(this.textBoxHeight, "height");
-        data.setHeight(inputDouble);
+        inputDouble = tryParseInputField(this.textBoxWidth, "Width");
+        data.setWidth(inputDouble);
+        if ((int)inputDouble == -1) return;
+        
+        inputDouble = tryParseInputField(this.textBoxLength, "Length");
+        data.setLength(inputDouble);
+        if ((int)inputDouble == -1) return;
     }
 }
