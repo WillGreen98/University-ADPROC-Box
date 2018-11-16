@@ -18,8 +18,8 @@ public class OrderSession {
     
        public boolean validateBoxType1(Box box) {
         
-        if (box.getData().getGrade() < 1 ||
-           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
+        if (box.getData().getGrade() > 3 ||
+           (box.getData().getColour() == 1 || box.getData().getColour() == 2) ||
             box.getData().isBottomReinforced() == true ||
             box.getData().isCornerReinforced() == true) {
             
@@ -32,11 +32,11 @@ public class OrderSession {
     
     public boolean validateBoxType2(Box box) {
         
-        if (box.getData().getGrade() < 2 ||
-           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
+        if (box.getData().getGrade() < 2 || box.getData().getGrade() > 4 ||
+           (box.getData().getColour() == 0 || box.getData().getColour() == 2) ||
             box.getData().isBottomReinforced() == true ||
             box.getData().isCornerReinforced() == true) {
-            
+           
             return false;
         }
         else {
