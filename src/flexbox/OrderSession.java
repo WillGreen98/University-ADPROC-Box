@@ -16,6 +16,35 @@ public class OrderSession {
         boxes = new ArrayList<>();
     }
     
+       public boolean validateBoxType1(Box box) {
+        
+        if (box.getData().getGrade() < 1 ||
+           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
+            box.getData().isBottomReinforced() == true ||
+            box.getData().isCornerReinforced() == true) {
+            
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    public boolean validateBoxType2(Box box) {
+        
+        if (box.getData().getGrade() < 2 ||
+           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
+            box.getData().isBottomReinforced() == true ||
+            box.getData().isCornerReinforced() == true) {
+            
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    
+    
     public boolean validateBoxType3(Box box) {
         
         if (box.getData().getGrade() < 2 ||
@@ -64,14 +93,14 @@ public class OrderSession {
     public String addBox(Box box) {
         
         
-//        if (this.validateBoxType1(box) == true) {
-//            boxes.add(box);
-//            return ("Box type 1 added.");
-//        }
-//        else if (this.validateBoxType2(box) == true) {
-//            boxes.add(box);
-//            return ("Box type 2 added.");
-//        }
+        if (this.validateBoxType1(box) == true) {
+            boxes.add(box);
+           return ("Box type 1 added.");
+        }
+        else if (this.validateBoxType2(box) == true) {
+           boxes.add(box);
+           return ("Box type 2 added.");
+        }
         else if (this.validateBoxType3(box) == true) {
             boxes.add(box);
             return ("Box type 3 added.");
