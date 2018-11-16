@@ -181,8 +181,8 @@ public class FlexBoxGui {
        JPanel outerPanel = createSectionPanel("Add box to basket", panel);
        JPanel innerPanel = createStackPanel();
        outerPanel.add(innerPanel);
-       JPanel p  = createLabeledComponentPanelStack("Quantity", textBoxQuantity);
-       JPanel p1 = createLabeledComponentPanelStack(" ", submitButton);
+       JPanel p  = createLabeledComponentPanelStack("Quantity of Boxes", textBoxQuantity);
+       JPanel p1 = createLabeledComponentPanelStack("", submitButton);
        
        p.setAlignmentX(Component.CENTER_ALIGNMENT);
        p1.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -336,9 +336,9 @@ public class FlexBoxGui {
     private void tryAddToBasket() {
         BoxData data = new BoxData();
         
-        //Validate the text fields are valid
+        //Validate the text fields are valid, if not then return early
         if (!tryGetTextFieldInfo(data)) {
-            return false;
+            return;
         }
         
         //Get the box quality options
