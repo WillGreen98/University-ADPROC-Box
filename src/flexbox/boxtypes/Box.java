@@ -21,6 +21,10 @@ public class Box {
         this.quantity = quantity;
     }
     
+    public BoxData getData() {
+        return data;
+    }
+    
     public void setData(BoxData data) {
         this.data = data;
     }
