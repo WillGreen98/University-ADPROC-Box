@@ -1,8 +1,11 @@
 package flexbox.ui;
 
 import flexbox.OrderSession;
+import flexbox.boxtypes.Box;
 import flexbox.boxtypes.BoxData;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 
@@ -16,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -54,10 +58,12 @@ public class FlexBoxGui {
     /**
      * OUTPUT COMPONENTS
      */
-    JLabel labelTotalCost = new JLabel();
+    JLabel labelTotalCost = new JLabel("£0.00");
+    JLabel labelTotalBoxes = new JLabel("0");
+    JPanel basketPane = new JPanel();
     
     public FlexBoxGui(OrderSession orderSession) {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setVisible(true);
         
         this.orderSession = orderSession;
@@ -97,8 +103,37 @@ public class FlexBoxGui {
         outputPanel.setBorder(BorderFactory.createBevelBorder(0));
         outputPanel.add(createCenteredLabel("Basket", 24.0f));
         
+        setUpBasketHeader(outputPanel);
+        setUpBasketPanel(outputPanel);
+        
         
         return outputPanel;
+    }
+    
+    private void setUpBasketHeader(JPanel outerPanel) {
+        JPanel header = createSectionPanel("Basket Info", outerPanel);
+        JPanel innerPanel = new JPanel();
+        innerPanel.setLayout(new GridLayout());
+        innerPanel.add(createLabeledComponentPanelStack("Items in Basket", labelTotalBoxes));
+        innerPanel.add(createLabeledComponentPanelStack("Total Cost", labelTotalCost));
+        labelTotalBoxes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelTotalCost.setAlignmentX(Component.CENTER_ALIGNMENT);
+        header.add(innerPanel);
+    }
+    
+    private void setUpBasketPanel(JPanel outerPanel) {
+        JPanel out = createSectionPanel("Items", outerPanel);
+        JScrollPane scroll = new JScrollPane(basketPane);
+        basketPane.setLayout(new BoxLayout(basketPane, BoxLayout.Y_AXIS));
+        basketPane.add(new JLabel("TEST"));
+        basketPane.add(new JLabel("TEST"));
+        basketPane.add(new JLabel("TEST"));
+        basketPane.add(new JLabel("TEST"));
+        basketPane.add(new JLabel("TEST"));
+        basketPane.add(new JLabel("TEST"));
+        basketPane.add(new JLabel("TEST"));
+        
+        out.add(scroll);
     }
     
     /**
@@ -110,7 +145,7 @@ public class FlexBoxGui {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        inputPanel.add(createCenteredLabel("Input Box Specifications", 24.0f));
+        inputPanel.add(createCenteredLabel("Enter Box Specifications:", 24.0f));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
@@ -322,10 +357,6 @@ public class FlexBoxGui {
         data.setLength(inputDouble);
         if ((int)inputDouble == -1) return false;
         
-        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
-        data.setWidth(inputDouble);
-        if (quantity == -1) return false;
-        
         return true;
     }
 
@@ -350,6 +381,18 @@ public class FlexBoxGui {
         data.setCornerReinforcement(checkBoxCornerReinforcement.isSelected());
         data.setTopSealable(checkBoxSealableTop.isSelected());
         
+        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
+        if (quantity == -1) return;
+        
+        Box box = this.orderSession.tryAddBox(data, quantity);
+        if (box != null) {
+            labelTotalCost.setText("£" + orderSession.getTotalCost());
+            labelTotalBoxes.setText(
+                    Integer.toString(orderSession.getTotalBoxQuantity()));
+        } else {
+           promptError("FlexBox does not supply this type of box.",
+                       "Box Type Not Supplied");
+        }
         /**
           * @TODO 
           *     Do box type validation here.
