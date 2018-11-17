@@ -19,6 +19,16 @@ public class OrderSession {
         boxes = new ArrayList<>();
     }
     
+    public boolean validateBoxType1(Box box) {
+        if (box.getData().getGrade() <= 3 &&
+            box.getData().getColour() == 0 &&
+            !box.getData().isBottomReinforced() &&
+            !box.getData().isCornerReinforced()) {
+          return true;
+        } 
+      return false;
+    }
+
     public double getTotalCost() {
         return Util.roundDoubleTo2dp(totalCost);
     }
@@ -31,72 +41,54 @@ public class OrderSession {
         return boxes.size();
     }
     
-    public boolean validateBoxType1(BoxData boxData) {
-        if (boxData.getGrade() > 3 ||
-           (boxData.getColour() == 1 || boxData.getColour() == 2) ||
-            boxData.isBottomReinforced() ||
-            boxData.isCornerReinforced()) {
-            
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    
-    public boolean validateBoxType2(BoxData boxData) {
-        if (boxData.getGrade() < 2 || boxData.getGrade() > 4 ||
-           (boxData.getColour() == 0 || boxData.getColour() == 2) ||
-            boxData.isBottomReinforced() ||
-            boxData.isCornerReinforced()) {
-           
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    
-    
-    public boolean validateBoxType3(BoxData boxData) {
-        if (boxData.getGrade() < 2 ||
-           (boxData.getColour() == 0 || boxData.getColour() == 1) ||
-            boxData.isBottomReinforced() ||
-            boxData.isCornerReinforced()) {
-            return false;
-        }
-        else {
-            return true;
-        }
+
+    public boolean validateBoxType2(Box box) {
         
-    }
-    
-    public boolean validateBoxType4(BoxData boxData) {
-        if (boxData.getGrade() < 2 ||
-           (boxData.getColour() == 0 || boxData.getColour() == 1) ||
-            !boxData.isBottomReinforced() ||
-            boxData.isCornerReinforced()) {
-            return false;
-        }
-        else {
+        if (box.getData().getGrade() >= 2 && box.getData().getGrade() <= 4 &&
+            box.getData().getColour() == 1 &&
+            !box.getData().isBottomReinforced() &&
+            !box.getData().isCornerReinforced()) {
             return true;
         }
+        return false;
+    }
+    
+    
+
+    public boolean validateBoxType3(Box box) {
+        if (box.getData().getGrade() >= 2 &&
+            box.getData().getColour() == 2 &&
+            !box.getData().isBottomReinforced() &&
+            !box.getData().isCornerReinforced()) {
+            return true;
+        }
+        return false;
+    }
+    
+
+    public boolean validateBoxType4(Box box) {
         
-    }
-    
-    public boolean validateBoxType5(BoxData boxData) {
-        if (boxData.getGrade() < 3 || 
-           (boxData.getColour() == 0 || boxData.getColour() == 1) ||
-            !boxData.isBottomReinforced() || 
-            !boxData.isCornerReinforced()) {
+        if (box.getData().getGrade() >= 2 &&
+            box.getData().getColour() == 2 &&
+            box.getData().isBottomReinforced() &&
+            !box.getData().isCornerReinforced()) {
             
-            return false;
-        }
-        else {
             return true;
         }
+        return false;
     }
     
+    public boolean validateBoxType5(Box box) {
+        if (box.getData().getGrade() >= 3 && 
+            box.getData().getColour() == 2 &&
+            box.getData().isBottomReinforced() && 
+            box.getData().isCornerReinforced()) {
+            return true;
+        }
+       return false;
+    }
+    
+
     void addBox(Box box) {
         boxes.add(box);
         totalCost += box.calculateCost();
@@ -128,8 +120,6 @@ public class OrderSession {
         else {
             return null;
         }
-        
-        
         
     }
 }
