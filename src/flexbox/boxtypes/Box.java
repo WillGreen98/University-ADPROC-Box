@@ -28,6 +28,10 @@ public class Box {
     public void setData(BoxData data) {
         this.data = data;
     }
+        
+    public int getQuantity() {
+        return quantity;
+    }
 
     public double calculateCost() {
         double area = (

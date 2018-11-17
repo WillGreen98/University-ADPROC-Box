@@ -12,12 +12,5 @@ import java.awt.EventQueue;
 public class Main {
     public static void main(String[] args) {
         FlexBoxGui ui = new FlexBoxGui(new OrderSession());
-        Box test = new Box (
-                new BoxData(1, 1, 1, 3, 2, true, true, true), 1);
-        System.out.println(test.calculateCost());
-        
-        OrderSession test2 = new OrderSession();
-        
-        test2.addBox(test);
     }
 }
