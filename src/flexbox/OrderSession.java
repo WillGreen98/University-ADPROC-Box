@@ -27,6 +27,10 @@ public class OrderSession {
         return totalBoxes;
     }
     
+    public int getItemsSize() {
+        return boxes.size();
+    }
+    
     public boolean validateBoxType1(BoxData boxData) {
         if (boxData.getGrade() > 3 ||
            (boxData.getColour() == 1 || boxData.getColour() == 2) ||

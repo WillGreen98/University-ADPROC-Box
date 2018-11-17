@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.List;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
@@ -27,8 +29,11 @@ import javax.swing.SwingConstants;
  * @author Group D4
  */
 public class FlexBoxGui {
-    private static final float FONT_SIZE_LABELS = 15.0f;
-    private static final float FONT_SIZE_SECTION_TITLES = 18.0f;
+    private static final float FONT_SIZE_TITLE          = 30.0f;
+    private static final float FONT_SIZE_ZONE_TITLES    = 25.0f;
+    private static final float FONT_SIZE_SECTION_TITLES = 20.0f;
+    private static final float FONT_SIZE_LABELS         = 15.0f;
+    
     
     private final JFrame frame = new JFrame("FlexBox Ordering System");
     private final OrderSession orderSession;
@@ -55,6 +60,8 @@ public class FlexBoxGui {
     
     private final JButton submitButton = new JButton("Add to Basket");
     
+    private ArrayList<JPanel> basketItems = new ArrayList<>();
+    
     /**
      * OUTPUT COMPONENTS
      */
@@ -80,7 +87,7 @@ public class FlexBoxGui {
     private void initGUI() {
         JPanel mainOuterPanel = new JPanel();
         mainOuterPanel.setLayout(new BoxLayout(mainOuterPanel, BoxLayout.Y_AXIS));
-        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", 26.0f)); 
+        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", FONT_SIZE_TITLE)); 
         
         //Create the UI
         JPanel uiPanel = new JPanel();
@@ -101,7 +108,7 @@ public class FlexBoxGui {
         JPanel outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.Y_AXIS));
         outputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        outputPanel.add(createCenteredLabel("Basket", 24.0f));
+        outputPanel.add(createCenteredLabel("Basket", FONT_SIZE_ZONE_TITLES));
         
         setUpBasketHeader(outputPanel);
         setUpBasketPanel(outputPanel);
@@ -124,15 +131,9 @@ public class FlexBoxGui {
     private void setUpBasketPanel(JPanel outerPanel) {
         JPanel out = createSectionPanel("Items", outerPanel);
         JScrollPane scroll = new JScrollPane(basketPane);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         basketPane.setLayout(new BoxLayout(basketPane, BoxLayout.Y_AXIS));
-        basketPane.add(new JLabel("TEST"));
-        basketPane.add(new JLabel("TEST"));
-        basketPane.add(new JLabel("TEST"));
-        basketPane.add(new JLabel("TEST"));
-        basketPane.add(new JLabel("TEST"));
-        basketPane.add(new JLabel("TEST"));
-        basketPane.add(new JLabel("TEST"));
-        
+        scroll.setPreferredSize(new Dimension(100, 190));
         out.add(scroll);
     }
     
@@ -145,7 +146,7 @@ public class FlexBoxGui {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        inputPanel.add(createCenteredLabel("Enter Box Specifications:", 24.0f));
+        inputPanel.add(createCenteredLabel("Enter Box Specifications:", FONT_SIZE_ZONE_TITLES));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
@@ -175,8 +176,8 @@ public class FlexBoxGui {
         JPanel innerPanel = new JPanel();
         outerPanel.add(innerPanel);
         innerPanel.add(createLabeledComponentPanelStack("Box Width (m)  ", textBoxWidth));
-        innerPanel.add(createLabeledComponentPanelStack("Box Length (m) ", textBoxLength));
         innerPanel.add(createLabeledComponentPanelStack("Box Height (m) ", textBoxHeight));
+        innerPanel.add(createLabeledComponentPanelStack("Box Length (m) ", textBoxLength));
     }
 
     /**
@@ -260,6 +261,21 @@ public class FlexBoxGui {
         return panel;
     }
     
+     /**
+     * Creates a JPanel with 2 elements:
+     *  - A JLabel
+     *  - A JComponent
+     *  These will be added in a fashion where the label is left of the component.
+     * @param labelText The text of the label 
+     * @param component The component to labelled
+     * @return A JPanel with the label and component
+     */
+    private JPanel createSmallLabeledComponentPanelRow(String labelText, JComponent component) {
+        JPanel panel = new JPanel();
+        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS / 2.0f));
+        panel.add(component);
+        return panel;
+    }
     /**
      * Creates a centre aligned label
      * @param titleText The text for the label
@@ -322,7 +338,7 @@ public class FlexBoxGui {
         String input = field.getText();
         double result = 0;
         if (input.length() == 0) {
-            promptError("Input field for \"Box " + hint + "\" is empty.",
+            promptError("Input field for \"Box " + hint + "\" is empty, please enter a value",
                         "Empty Input");
             return -1;
         }
@@ -343,14 +359,15 @@ public class FlexBoxGui {
     }
     
     private boolean tryGetTextFieldInfo(BoxData data) {
-        double inputDouble;
-        //Validate the text fields are valid
-        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
-        data.setHeight(inputDouble);
-        if ((int)inputDouble == -1) return false;
+        double inputDouble = 0;
         
+        //Validate the text fields are valid
         inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
         data.setWidth(inputDouble);
+        if ((int)inputDouble == -1) return false;
+        
+        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
+        data.setHeight(inputDouble);
         if ((int)inputDouble == -1) return false;
         
         inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
@@ -360,6 +377,23 @@ public class FlexBoxGui {
         return true;
     }
 
+    private void addBasketItem(Box box) {
+        JPanel outerPanel = new JPanel();
+        JLabel labelItem = createCenteredLabel(
+                Integer.toString(orderSession.getItemsSize()), 
+                10.0f);
+        String w = Double.toString(box.getData().getWidth());
+        String h = Double.toString(box.getData().getHeight());
+        String l = Double.toString(box.getData().getLength());
+        
+        JLabel labelSize = createCenteredLabel(w + "x" + h + "x" + l, 10.0f);
+         
+        outerPanel.add(createLabeledComponentPanelRow("Box #", labelItem));
+        outerPanel.add(createLabeledComponentPanelStack("Size", labelSize));
+
+        outerPanel.setPreferredSize(new Dimension(0, 30));
+        basketPane.add(outerPanel);
+    }
     
     /**
      * Tries to add a quantity of boxes to the basket
@@ -389,6 +423,7 @@ public class FlexBoxGui {
             labelTotalCost.setText("£" + orderSession.getTotalCost());
             labelTotalBoxes.setText(
                     Integer.toString(orderSession.getTotalBoxQuantity()));
+            addBasketItem(box);
         } else {
            promptError("FlexBox does not supply this type of box.",
                        "Box Type Not Supplied");
