@@ -18,88 +18,87 @@ public class OrderSession {
     
        public boolean validateBoxType1(Box box) {
         
-        if (box.getData().getGrade() > 3 ||
-           (box.getData().getColour() == 1 || box.getData().getColour() == 2) ||
-            box.getData().isBottomReinforced() == true ||
-            box.getData().isCornerReinforced() == true) {
+        if (box.getData().getGrade() <= 3 &&
+            box.getData().getColour() == 0 &&
+            box.getData().isBottomReinforced() == false &&
+            box.getData().isCornerReinforced() == false) {
             
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
     
     public boolean validateBoxType2(Box box) {
         
-        if (box.getData().getGrade() < 2 || box.getData().getGrade() > 4 ||
-           (box.getData().getColour() == 0 || box.getData().getColour() == 2) ||
-            box.getData().isBottomReinforced() == true ||
-            box.getData().isCornerReinforced() == true) {
+        if (box.getData().getGrade() >= 2 && box.getData().getGrade() <= 4 &&
+            box.getData().getColour() == 1 &&
+            box.getData().isBottomReinforced() == false &&
+            box.getData().isCornerReinforced() == false) {
            
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
     
     
     public boolean validateBoxType3(Box box) {
         
-        if (box.getData().getGrade() < 2 ||
-           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
-            box.getData().isBottomReinforced() == true ||
-            box.getData().isCornerReinforced() == true) {
+        if (box.getData().getGrade() >= 2 &&
+            box.getData().getColour() == 2 &&
+            box.getData().isBottomReinforced() == false &&
+            box.getData().isCornerReinforced() == false) {
             
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
         
     }
     
     public boolean validateBoxType4(Box box) {
         
-        if (box.getData().getGrade() < 2 ||
-           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
-            box.getData().isBottomReinforced() == false ||
-            box.getData().isCornerReinforced() == true) {
+        if (box.getData().getGrade() >= 2 &&
+            box.getData().getColour() == 2 &&
+            box.getData().isBottomReinforced() == true &&
+            box.getData().isCornerReinforced() == false) {
             
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
         
     }
     
     public boolean validateBoxType5(Box box) {
         
-        if (box.getData().getGrade() < 3 || 
-           (box.getData().getColour() == 0 || box.getData().getColour() == 1) ||
-            box.getData().isBottomReinforced() == false || 
-            box.getData().isCornerReinforced() == false) {
+        if (box.getData().getGrade() >= 3 && 
+            box.getData().getColour() == 2 &&
+            box.getData().isBottomReinforced() == true && 
+            box.getData().isCornerReinforced() == true) {
             
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
         
     }
     
     public String addBox(Box box) {
         
-        
         if (this.validateBoxType1(box) == true) {
             boxes.add(box);
-           return ("Box type 1 added.");
+            return ("Box type 1 added.");
         }
         else if (this.validateBoxType2(box) == true) {
-           boxes.add(box);
-           return ("Box type 2 added.");
+            boxes.add(box);
+            return ("Box type 2 added.");
         }
         else if (this.validateBoxType3(box) == true) {
             boxes.add(box);
@@ -114,11 +113,8 @@ public class OrderSession {
             return ("Box type 5 added.");
         }
         else {
-            System.out.println(boxes.size());
             return ("Invalid box type");
         }
-        
-        
         
     }
 }
