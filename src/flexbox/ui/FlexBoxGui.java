@@ -1,9 +1,14 @@
 package flexbox.ui;
 
 import flexbox.OrderSession;
+import flexbox.boxtypes.Box;
 import flexbox.boxtypes.BoxData;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.List;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 
 import javax.swing.JButton;
@@ -16,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -23,8 +29,11 @@ import javax.swing.SwingConstants;
  * @author Group D4
  */
 public class FlexBoxGui {
-    private static final float FONT_SIZE_LABELS = 15.0f;
-    private static final float FONT_SIZE_SECTION_TITLES = 18.0f;
+    private static final float FONT_SIZE_TITLE          = 30.0f;
+    private static final float FONT_SIZE_ZONE_TITLES    = 25.0f;
+    private static final float FONT_SIZE_SECTION_TITLES = 20.0f;
+    private static final float FONT_SIZE_LABELS         = 15.0f;
+    
     
     private final JFrame frame = new JFrame("FlexBox Ordering System");
     private final OrderSession orderSession;
@@ -51,20 +60,25 @@ public class FlexBoxGui {
     
     private final JButton submitButton = new JButton("Add to Basket");
     
+    private ArrayList<JPanel> basketItems = new ArrayList<>();
+    
     /**
      * OUTPUT COMPONENTS
      */
-    JLabel labelTotalCost = new JLabel();
+    JLabel labelTotalCost = new JLabel("£0.00");
+    JLabel labelTotalBoxes = new JLabel("0");
+    JPanel basketPane = new JPanel();
     
     public FlexBoxGui(OrderSession orderSession) {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setVisible(true);
+        frame.setSize(1200, 420);
         
         this.orderSession = orderSession;
 
         initGUI();
         
-        frame.pack();
+        //frame.pack();
     }
 
 
@@ -74,7 +88,7 @@ public class FlexBoxGui {
     private void initGUI() {
         JPanel mainOuterPanel = new JPanel();
         mainOuterPanel.setLayout(new BoxLayout(mainOuterPanel, BoxLayout.Y_AXIS));
-        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", 26.0f)); 
+        mainOuterPanel.add(createCenteredLabel("FlexBox Order System", FONT_SIZE_TITLE)); 
         
         //Create the UI
         JPanel uiPanel = new JPanel();
@@ -95,10 +109,34 @@ public class FlexBoxGui {
         JPanel outputPanel = new JPanel();
         outputPanel.setLayout(new BoxLayout(outputPanel, BoxLayout.Y_AXIS));
         outputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        outputPanel.add(createCenteredLabel("Basket", 24.0f));
+        outputPanel.add(createCenteredLabel("Basket", FONT_SIZE_ZONE_TITLES));
+        
+        setUpBasketHeader(outputPanel);
+        setUpBasketPanel(outputPanel);
         
         
         return outputPanel;
+    }
+    
+    private void setUpBasketHeader(JPanel outerPanel) {
+        JPanel header = createSectionPanel("Basket Info", outerPanel);
+        JPanel innerPanel = new JPanel();
+        innerPanel.setLayout(new GridLayout());
+        innerPanel.add(createLabeledComponentPanelStack("Items in Basket", labelTotalBoxes));
+        innerPanel.add(createLabeledComponentPanelStack("Total Cost", labelTotalCost));
+        labelTotalBoxes.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelTotalCost.setAlignmentX(Component.CENTER_ALIGNMENT);
+        header.add(innerPanel);
+    }
+    
+    private void setUpBasketPanel(JPanel outerPanel) {
+        JPanel out = createSectionPanel("Boxes In Your Basket", outerPanel);
+        JScrollPane scroll = new JScrollPane(basketPane);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //basketPane.setLayout(new BoxLayout(basketPane, BoxLayout.PAGE_AXIS));
+        basketPane.setLayout(new GridLayout(0, 1));
+        scroll.setPreferredSize(new Dimension(100, 210));
+        out.add(scroll);
     }
     
     /**
@@ -110,11 +148,12 @@ public class FlexBoxGui {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         inputPanel.setBorder(BorderFactory.createBevelBorder(0));
-        inputPanel.add(createCenteredLabel("Input Box Specifications", 24.0f));
+        inputPanel.add(createCenteredLabel("Enter Box Specifications:", FONT_SIZE_ZONE_TITLES));
         textBoxHeight.setColumns(10);
         textBoxLength.setColumns(10);
         textBoxWidth.setColumns(10);
         textBoxQuantity.setColumns(10);
+        
         
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout());
@@ -140,8 +179,8 @@ public class FlexBoxGui {
         JPanel innerPanel = new JPanel();
         outerPanel.add(innerPanel);
         innerPanel.add(createLabeledComponentPanelStack("Box Width (m)  ", textBoxWidth));
-        innerPanel.add(createLabeledComponentPanelStack("Box Length (m) ", textBoxLength));
         innerPanel.add(createLabeledComponentPanelStack("Box Height (m) ", textBoxHeight));
+        innerPanel.add(createLabeledComponentPanelStack("Box Length (m) ", textBoxLength));
     }
 
     /**
@@ -181,13 +220,159 @@ public class FlexBoxGui {
        JPanel outerPanel = createSectionPanel("Add box to basket", panel);
        JPanel innerPanel = createStackPanel();
        outerPanel.add(innerPanel);
-       JPanel p  = createLabeledComponentPanelStack("Quantity of Boxes", textBoxQuantity);
+       JPanel p  = createLabeledComponentPanelRow("Quantity of Boxes", textBoxQuantity);
+
        JPanel p1 = createLabeledComponentPanelStack("", submitButton);
        
        p.setAlignmentX(Component.CENTER_ALIGNMENT);
        p1.setAlignmentX(Component.CENTER_ALIGNMENT);
        innerPanel.add(p);
        innerPanel.add(p1);
+    }
+    
+    /// INPUT FIELD VALIDATION FUNCTIONS
+    /// Functions to help validate the user input
+    /**
+     * Prompts an error to the user
+     * @param title The title of the error box
+     * @param text  The text of the error
+     */
+    private void promptError(String title, String text) {
+        JOptionPane.showMessageDialog(frame, title, text,
+                    JOptionPane.WARNING_MESSAGE);
+    }
+    
+    /**
+     * Tries to parse an input field into a double, and returns input if it is valid,
+     * -1 otherwise
+     * @param field The JTextField to parse
+     * @param hint Incase of an error, the hint is used to produce the error text
+     * @return The parsed input is successful, otherwise return -1 on error
+     */
+    private double tryParseInputField(JTextField field, String hint, double min) {
+        String input = field.getText();
+        double result = 0;
+        if (input.length() == 0) {
+            promptError("Input field for \"Box " + hint + "\" is empty, please enter a value",
+                        "Empty Input");
+            return -1;
+        }
+        try { 
+            result = Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            promptError("Input field for \"Box " + hint + "\" should be a number.",
+                        "Invalid Input Type");
+            return -1;
+        }
+        if (result < min) {
+            promptError(
+                    "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
+                    "Number to small");
+            return -1;
+        }
+        return result;
+    }
+    
+    private boolean tryGetTextFieldInfo(BoxData data) {
+        double inputDouble = 0;
+        
+        //Validate the text fields are valid
+        inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
+        if ((int)inputDouble == -1) return false;
+        data.setWidth(inputDouble);
+        
+        
+        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
+        if ((int)inputDouble == -1) return false;
+        data.setHeight(inputDouble);
+        
+        
+        inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
+        if ((int)inputDouble == -1) return false;
+        data.setLength(inputDouble);
+        
+        
+        return true;
+    }
+
+    private void addBasketItem(Box box) {
+        JPanel basketPanel = new JPanel();
+        basketPanel.setLayout(new BoxLayout(basketPanel, BoxLayout.X_AXIS));
+        basketPanel.add(new JLabel("No. " + orderSession.getItemsSize()));
+        basketPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        JPanel sizeStack = createStackPanel();
+        sizeStack.add(new JLabel("Width: "  + box.getData().getWidth ()));
+        sizeStack.add(new JLabel("Height: " + box.getData().getHeight()));
+        sizeStack.add(new JLabel("Length: " + box.getData().getLength()));
+        
+
+        JLabel cornerLabel = new JLabel("Corner Reinforced? " + 
+                (box.getData().isCornerReinforced()? "Yes" : "No"));
+        JLabel bottomLabel = new JLabel("Bottom Reinforced? " + 
+                (box.getData().isBottomReinforced()? "Yes" : "No"));
+        JLabel sealableLabel = new JLabel("Top Sealable? " + 
+                (box.getData().isTopSealable() ? "Yes" : "No"));
+        
+        JPanel reinforcementStack = createStackPanel();
+        reinforcementStack.add(cornerLabel);
+        reinforcementStack.add(bottomLabel);
+        reinforcementStack.add(sealableLabel);
+        
+        JPanel qualityStack = createStackPanel();
+        qualityStack.add(new JLabel("Grade: " + box.getData().getGrade()));
+        qualityStack.add(new JLabel("Colours: " + box.getData().getColour()));
+        
+        JPanel costStack = createStackPanel();
+        costStack.add(new JLabel("Quantity: "   + box.getQuantity()));
+        costStack.add(new JLabel("Total Cost: £" + box.calculateCost()));
+        
+        //sizeStack.setBorder(BorderFactory.createEtchedBorder());
+        //reinforcementStack.setBorder(BorderFactory.createEtchedBorder());
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(sizeStack);
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(qualityStack);
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(reinforcementStack);
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(costStack);
+        this.basketPane.add(basketPanel);
+    }
+    
+    /**
+     * Tries to add a quantity of boxes to the basket
+     */
+    private void tryAddToBasket() {
+        BoxData data = new BoxData();
+        
+        //Validate the text fields are valid, if not then return early
+        if (!tryGetTextFieldInfo(data)) {
+            return;
+        }
+        
+        //Get the box quality options
+        data.setGrade(comboBoxGrade.getSelectedIndex() + 1);
+        data.setColour(comboBoxColourPrint.getSelectedIndex());
+       
+        //Get box reinforcement details
+        data.setBottomReinforcement(checkBoxBottomReinforce.isSelected());
+        data.setCornerReinforcement(checkBoxCornerReinforcement.isSelected());
+        data.setTopSealable(checkBoxSealableTop.isSelected());
+        
+        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
+        if (quantity == -1) return;
+        
+        Box box = this.orderSession.tryAddBox(data, quantity);
+        if (box != null) {
+            labelTotalCost.setText("£" + orderSession.getTotalCost());
+            labelTotalBoxes.setText(
+                    Integer.toString(orderSession.getTotalBoxQuantity()));
+            addBasketItem(box);
+        } else {
+           promptError("FlexBox does not supply this type of box.",
+                       "Box Type Not Supplied");
+        }
     }
     
     /// HELPER FUNCTIONS
@@ -225,6 +410,7 @@ public class FlexBoxGui {
         return panel;
     }
     
+
     /**
      * Creates a centre aligned label
      * @param titleText The text for the label
@@ -259,106 +445,7 @@ public class FlexBoxGui {
      */
     private JPanel createStackPanel() {
         JPanel sect = new JPanel();
-        sect.setLayout(new BoxLayout(sect, BoxLayout.Y_AXIS));
+        sect.setLayout(new BoxLayout(sect, BoxLayout.PAGE_AXIS));
         return sect;
-    }
-    
-    /// INPUT FIELD VALIDATION FUNCTIONS
-    /// Functions to help validate the user input
-    
-    /**
-     * Prompts an error to the user
-     * @param title The title of the error box
-     * @param text  The text of the error
-     */
-    private void promptError(String title, String text) {
-        JOptionPane.showMessageDialog(frame, title, text,
-                    JOptionPane.WARNING_MESSAGE);
-    }
-    
-    /**
-     * Tries to parse an input field into a double, and returns input if it is valid,
-     * -1 otherwise
-     * @param field The JTextField to parse
-     * @param hint Incase of an error, the hint is used to produce the error text
-     * @return The parsed input is successful, otherwise return -1 on error
-     */
-    private double tryParseInputField(JTextField field, String hint, double min) {
-        String input = field.getText();
-        double result = 0;
-        if (input.length() == 0) {
-            promptError("Input field for \"Box " + hint + "\" is empty.",
-                        "Empty Input");
-            return -1;
-        }
-        try { 
-            result = Double.parseDouble(input);
-        } catch (NumberFormatException e) {
-            promptError("Input field for \"Box " + hint + "\" should be a number.",
-                        "Invalid Input Type");
-            return -1;
-        }
-        if (result < min) {
-            promptError(
-                    "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
-                    "Number to small");
-            return -1;
-        }
-        return result;
-    }
-    
-    private boolean tryGetTextFieldInfo(BoxData data) {
-        double inputDouble;
-        //Validate the text fields are valid
-        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
-        data.setHeight(inputDouble);
-        if ((int)inputDouble == -1) return false;
-        
-        inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
-        data.setWidth(inputDouble);
-        if ((int)inputDouble == -1) return false;
-        
-        inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
-        data.setLength(inputDouble);
-        if ((int)inputDouble == -1) return false;
-        
-        int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
-        data.setWidth(inputDouble);
-        if (quantity == -1) return false;
-        
-        return true;
-    }
-
-    
-    /**
-     * Tries to add a quantity of boxes to the basket
-     */
-    private void tryAddToBasket() {
-        BoxData data = new BoxData();
-        
-        //Validate the text fields are valid, if not then return early
-        if (!tryGetTextFieldInfo(data)) {
-            return;
-        }
-        
-        //Get the box quality options
-        data.setGrade(comboBoxGrade.getSelectedIndex() + 1);
-        data.setColour(comboBoxColourPrint.getSelectedIndex());
-       
-        //Get box reinforcement details
-        data.setBottomReinforcement(checkBoxBottomReinforce.isSelected());
-        data.setCornerReinforcement(checkBoxCornerReinforcement.isSelected());
-        data.setTopSealable(checkBoxSealableTop.isSelected());
-        
-        /**
-          * @TODO 
-          *     Do box type validation here.
-          *     Use the OrderSession class for this
-        */
-        
-        /**
-         * @TODO
-         *      Add the boxes to the basket 
-         */
     }
 }

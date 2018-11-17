@@ -28,6 +28,10 @@ public class Box {
     public void setData(BoxData data) {
         this.data = data;
     }
+        
+    public int getQuantity() {
+        return quantity;
+    }
 
     public double calculateCost() {
         double area = (
@@ -39,19 +43,19 @@ public class Box {
 
         switch (data.getGrade()) {
             case 1:
-                cost = area * 55;
+                cost = area * 0.55;
                 break;
             case 2:
-                cost = area * 65;
+                cost = area * 0.65;
                 break;
             case 3:
-                cost = area * 82;
+                cost = area * 0.82;
                 break;
             case 4:
-                cost = area * 98;
+                cost = area * 0.98;
                 break;
             default:
-                cost = area * 150;
+                cost = area * 1.50;
                 break;
         }
 
@@ -73,13 +77,11 @@ public class Box {
         if(data.isTopSealable()) {
             cost *= 1.10;
         }
-        
-        //Convert pennies into pounds
-        cost /= 100;
+
         
         //Get total cost from box quantities
         cost *= quantity;
-        
+        System.out.println(cost);
         return Util.roundDoubleTo2dp(cost);
     }
 }
