@@ -230,83 +230,8 @@ public class FlexBoxGui {
        innerPanel.add(p1);
     }
     
-    /// HELPER FUNCTIONS
-    /// The functions below help with the creation of the UI by avoiding a lot of
-    /// repeated code
-    /**
-     * Creates a JPanel with 2 elements:
-     *  - A JLabel
-     *  - A JComponent
-     *  These will be added in a fashion where the label is above the component.
-     * @param labelText The text of the label 
-     * @param component The component to labelled
-     * @return A JPanel with the label and component
-     */
-    private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
-        JPanel panel =  createStackPanel();
-        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS));
-        panel.add(component);
-        return panel;
-    }
-    
-    /**
-     * Creates a JPanel with 2 elements:
-     *  - A JLabel
-     *  - A JComponent
-     *  These will be added in a fashion where the label is left of the component.
-     * @param labelText The text of the label 
-     * @param component The component to labelled
-     * @return A JPanel with the label and component
-     */
-    private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
-        JPanel panel = new JPanel();
-        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS));
-        panel.add(component);
-        return panel;
-    }
-    
-
-    /**
-     * Creates a centre aligned label
-     * @param titleText The text for the label
-     * @param fontSize The font size for the label
-     * @return A centre aligned JLabel
-     */
-    private JLabel createCenteredLabel(String titleText, float fontSize) {
-        JLabel title = new JLabel(titleText, SwingConstants.CENTER);
-        title.setFont(title.getFont().deriveFont(fontSize));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return title;
-    }
-    
-    /**
-     * Creates a section JPanel, meaning one of which has a title and border
-     * @param title The title for the label of the section
-     * @param outerPanel The JPanel to add this to
-     * @return The section panel
-     */
-    private JPanel createSectionPanel(String title, JPanel outerPanel) {
-        JPanel sect =  createStackPanel();
-        outerPanel.add(sect);
-        sect.setBorder(BorderFactory.createBevelBorder(1));
-        sect.add(createCenteredLabel(title, FONT_SIZE_SECTION_TITLES));
-        return sect;
-    }
-    
-    /**
-     * Creates a JPanel where the JComponenets added will be vertically aligned
-     * using BoxLayout
-     * @return Vertically aligned JPanel
-     */
-    private JPanel createStackPanel() {
-        JPanel sect = new JPanel();
-        sect.setLayout(new BoxLayout(sect, BoxLayout.PAGE_AXIS));
-        return sect;
-    }
-    
     /// INPUT FIELD VALIDATION FUNCTIONS
     /// Functions to help validate the user input
-    
     /**
      * Prompts an error to the user
      * @param title The title of the error box
@@ -448,5 +373,79 @@ public class FlexBoxGui {
            promptError("FlexBox does not supply this type of box.",
                        "Box Type Not Supplied");
         }
+    }
+    
+    /// HELPER FUNCTIONS
+    /// The functions below help with the creation of the UI by avoiding a lot of
+    /// repeated code
+    /**
+     * Creates a JPanel with 2 elements:
+     *  - A JLabel
+     *  - A JComponent
+     *  These will be added in a fashion where the label is above the component.
+     * @param labelText The text of the label 
+     * @param component The component to labelled
+     * @return A JPanel with the label and component
+     */
+    private JPanel createLabeledComponentPanelStack(String labelText, JComponent component) {
+        JPanel panel =  createStackPanel();
+        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS));
+        panel.add(component);
+        return panel;
+    }
+    
+    /**
+     * Creates a JPanel with 2 elements:
+     *  - A JLabel
+     *  - A JComponent
+     *  These will be added in a fashion where the label is left of the component.
+     * @param labelText The text of the label 
+     * @param component The component to labelled
+     * @return A JPanel with the label and component
+     */
+    private JPanel createLabeledComponentPanelRow(String labelText, JComponent component) {
+        JPanel panel = new JPanel();
+        panel.add(createCenteredLabel(labelText, FONT_SIZE_LABELS));
+        panel.add(component);
+        return panel;
+    }
+    
+
+    /**
+     * Creates a centre aligned label
+     * @param titleText The text for the label
+     * @param fontSize The font size for the label
+     * @return A centre aligned JLabel
+     */
+    private JLabel createCenteredLabel(String titleText, float fontSize) {
+        JLabel title = new JLabel(titleText, SwingConstants.CENTER);
+        title.setFont(title.getFont().deriveFont(fontSize));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return title;
+    }
+    
+    /**
+     * Creates a section JPanel, meaning one of which has a title and border
+     * @param title The title for the label of the section
+     * @param outerPanel The JPanel to add this to
+     * @return The section panel
+     */
+    private JPanel createSectionPanel(String title, JPanel outerPanel) {
+        JPanel sect =  createStackPanel();
+        outerPanel.add(sect);
+        sect.setBorder(BorderFactory.createBevelBorder(1));
+        sect.add(createCenteredLabel(title, FONT_SIZE_SECTION_TITLES));
+        return sect;
+    }
+    
+    /**
+     * Creates a JPanel where the JComponenets added will be vertically aligned
+     * using BoxLayout
+     * @return Vertically aligned JPanel
+     */
+    private JPanel createStackPanel() {
+        JPanel sect = new JPanel();
+        sect.setLayout(new BoxLayout(sect, BoxLayout.PAGE_AXIS));
+        return sect;
     }
 }
