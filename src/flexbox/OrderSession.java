@@ -74,9 +74,8 @@ public class OrderSession {
     public boolean validateBoxType4(BoxData boxData) {
         if (boxData.getGrade() < 2 ||
            (boxData.getColour() == 0 || boxData.getColour() == 1) ||
-            boxData.isBottomReinforced() == false ||
-            boxData.isCornerReinforced() == true) {
-            
+            !boxData.isBottomReinforced() ||
+            boxData.isCornerReinforced()) {
             return false;
         }
         else {
@@ -88,8 +87,8 @@ public class OrderSession {
     public boolean validateBoxType5(BoxData boxData) {
         if (boxData.getGrade() < 3 || 
            (boxData.getColour() == 0 || boxData.getColour() == 1) ||
-            boxData.isBottomReinforced() == false || 
-            boxData.isCornerReinforced() == false) {
+            !boxData.isBottomReinforced() || 
+            !boxData.isCornerReinforced()) {
             
             return false;
         }
@@ -106,23 +105,23 @@ public class OrderSession {
     
     public Box tryAddBox(BoxData boxData, int quantity) {
         Box box = new Box(boxData, quantity);
-        if (this.validateBoxType1(boxData) == true) {
+        if (this.validateBoxType1(boxData)) {
             addBox(box);
             return box;//1
         }
-        else if (this.validateBoxType2(boxData) == true) {
+        else if (this.validateBoxType2(boxData)) {
            addBox(box);
            return box;//2
         }
-        else if (this.validateBoxType3(boxData) == true) {
+        else if (this.validateBoxType3(boxData)) {
             addBox(box);
             return box;//3
         }
-        else if (this.validateBoxType4(boxData) == true) {
+        else if (this.validateBoxType4(boxData)) {
             addBox(box);
             return box;//4
         }
-        else if (this.validateBoxType5(boxData) == true) {
+        else if (this.validateBoxType5(boxData)) {
             addBox(box);
             return box;//5
         }
