@@ -20,7 +20,7 @@ public class OrderSession {
     }
     
     public double getTotalCost() {
-        return totalCost;
+        return Util.roundDoubleTo2dp(totalCost);
     }
     
     public int getTotalBoxQuantity() {
