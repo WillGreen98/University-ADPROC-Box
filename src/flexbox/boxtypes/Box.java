@@ -32,8 +32,8 @@ public class Box {
     public int getQuantity() {
         return quantity;
     }
-
-    public double calculateCost() {
+    
+    public double calculateSingleBoxCost() {
         double area = (
                 data.getLength() * data.getLength() + 
                 data.getHeight() * data.getHeight() + 
@@ -78,10 +78,10 @@ public class Box {
             cost *= 1.10;
         }
 
-        
-        //Get total cost from box quantities
-        cost *= quantity;
-        System.out.println(cost);
-        return Util.roundDoubleTo2dp(cost);
+        return cost;
+    }
+
+    public double calculateCost() {
+        return calculateSingleBoxCost() * quantity;
     }
 }

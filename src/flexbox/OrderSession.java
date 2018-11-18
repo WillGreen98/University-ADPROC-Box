@@ -9,6 +9,7 @@ import flexbox.boxtypes.BoxTypeThreeValidator;
 import flexbox.boxtypes.BoxTypeFourValidator;
 import flexbox.boxtypes.BoxTypeFiveValidator;
 import flexbox.boxtypes.BoxValidator;
+import flexbox.ui.BasketItemInfo;
 
 import java.util.ArrayList;
 
@@ -74,16 +75,16 @@ public class OrderSession {
      * Tries to add the box to the basket, given FlexBox supplis this type of box
      * @param boxData The data of the box
      * @param quantity The amount of said box
-     * @return The box if it was added, else null
+     * @return The box and box type if it was added, else null
      */
-    public Box tryAddBox(BoxData boxData, int quantity) {
+    public BasketItemInfo tryAddBox(BoxData boxData, int quantity) {
         Box box = new Box(boxData, quantity);
 
         //Validate FlexBox supplies this box type
         for (BoxValidator validator : boxValidators) {
             if (validator.isValidForThisType(box.getData())) {
                 addBox(box);
-                return box;
+                return new BasketItemInfo(box, validator.getBoxType());
             }
         }
         //return null if the box type is not supplied

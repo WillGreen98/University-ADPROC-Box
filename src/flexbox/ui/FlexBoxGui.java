@@ -1,16 +1,16 @@
 package flexbox.ui;
 
 import flexbox.OrderSession;
+import flexbox.Util;
 import flexbox.boxtypes.Box;
 import flexbox.boxtypes.BoxData;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -72,7 +72,7 @@ public class FlexBoxGui {
     public FlexBoxGui(OrderSession orderSession) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setVisible(true);
-        frame.setSize(1200, 420);
+        frame.setSize(1280, 420);
         
         this.orderSession = orderSession;
 
@@ -118,6 +118,10 @@ public class FlexBoxGui {
         return outputPanel;
     }
     
+    /**
+     * Sets up the top of the basket panel
+     * @param outerPanel The panel to add this one to
+     */
     private void setUpBasketHeader(JPanel outerPanel) {
         JPanel header = createSectionPanel("Basket Info", outerPanel);
         JPanel innerPanel = new JPanel();
@@ -129,6 +133,10 @@ public class FlexBoxGui {
         header.add(innerPanel);
     }
     
+    /**
+     * Sets up the box containing the panel where basket items are displayed
+     * @param outerPanel The panel to add the basket panel to
+     */
     private void setUpBasketPanel(JPanel outerPanel) {
         JPanel out = createSectionPanel("Boxes In Your Basket", outerPanel);
         JScrollPane scroll = new JScrollPane(basketPane);
@@ -192,7 +200,7 @@ public class FlexBoxGui {
         JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
         JPanel innerPanel = createStackPanel();
         outerPanel.add(innerPanel);
-        innerPanel.add(createLabeledComponentPanelRow("Box Grade", comboBoxGrade));
+        innerPanel.add(createLabeledComponentPanelRow("Cardboard Grade", comboBoxGrade));
         innerPanel.add(createLabeledComponentPanelRow("Box Colors", comboBoxColourPrint));
     }
     
@@ -273,15 +281,20 @@ public class FlexBoxGui {
         return result;
     }
     
+    /**
+     * 
+     * @param data
+     * @return true if all text fields pass the tests, false otherwise
+     */
     private boolean tryGetTextFieldInfo(BoxData data) {
         double inputDouble = 0;
         
-        //Validate the text fields are valid
+        //Validate the text field for box width is valid
         inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
         if ((int)inputDouble == -1) return false;
         data.setWidth(inputDouble);
         
-        
+        //Validate the text field for box width is valid
         inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
         if ((int)inputDouble == -1) return false;
         data.setHeight(inputDouble);
@@ -294,49 +307,102 @@ public class FlexBoxGui {
         
         return true;
     }
+    
+    /**
+     * Creates a basket label panel for some box information
+     * @param labelName The label for the information
+     * @param variableString The string that contains the information
+     * @return JPanel containing 2 JLabels 
+     */
+    JPanel makeBasketLabel(String labelName, String variableString) {
+        JPanel panel    = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
+        JLabel left     = new JLabel(labelName);
+        JLabel right    = new JLabel(variableString);
+        
+        Font font = right.getFont();
+        right.setFont(
+                font.deriveFont(font.getStyle() | Font.ITALIC | ~Font.ITALIC)); //not bold
+        
+        panel.add(left);
+        panel.add(right);
+        return panel;
+    }
+    
+    /**
+     * Creates a basket label panel for some box information
+     * @param labelName The label for the information
+     * @param varInt The int that contains the information
+     * @return JPanel containing 2 JLabels 
+     */
+    JPanel makeBasketLabel(String labelName, int varInt) {
+        return makeBasketLabel(labelName, Integer.toString(varInt));
+    }
+    
+    /**
+     * Creates a basket label panel for some box information
+     * @param labelName The label for the information
+     * @param varDouble The double that contains the information
+     * @return JPanel containing 2 JLabels 
+     */
+    JPanel makeBasketLabel(String labelName, double varDouble) {
+        return makeBasketLabel(labelName, Double.toString(varDouble));
+    }
 
-    private void addBasketItem(Box box) {
+    /**
+     * Adds box information to display onto the basket panel
+     * @param basketItemInfo 
+     */
+    private void addBasketItem(BasketItemInfo basketItemInfo) {
+        Box box = basketItemInfo.getBox();
         JPanel basketPanel = new JPanel();
         basketPanel.setLayout(new BoxLayout(basketPanel, BoxLayout.X_AXIS));
-        basketPanel.add(new JLabel("No. " + orderSession.getNumberItemsInBasket()));
-        basketPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
+        //Add basket item information
+        JPanel itemInfoStack = createStackPanel();
+        itemInfoStack.add(makeBasketLabel("Item #", orderSession.getNumberItemsInBasket()));
+        itemInfoStack.add(makeBasketLabel("Box Type: ", basketItemInfo.getBoxType()));
+        
+        //Add box dimension info
         JPanel sizeStack = createStackPanel();
-        sizeStack.add(new JLabel("Width: "  + box.getData().getWidth ()));
-        sizeStack.add(new JLabel("Height: " + box.getData().getHeight()));
-        sizeStack.add(new JLabel("Length: " + box.getData().getLength()));
+        sizeStack.add(makeBasketLabel("Width: ", box.getData().getWidth ()));
+        sizeStack.add(makeBasketLabel("Height: ", box.getData().getHeight()));
+        sizeStack.add(makeBasketLabel("Length: ", box.getData().getLength()));
         
-
-        JLabel cornerLabel = new JLabel("Corner Reinforced? " + 
-                (box.getData().isCornerReinforced()? "Yes" : "No"));
-        JLabel bottomLabel = new JLabel("Bottom Reinforced? " + 
-                (box.getData().isBottomReinforced()? "Yes" : "No"));
-        JLabel sealableLabel = new JLabel("Top Sealable? " + 
-                (box.getData().isTopSealable() ? "Yes" : "No"));
-        
+        //Add reinforcement info
         JPanel reinforcementStack = createStackPanel();
-        reinforcementStack.add(cornerLabel);
-        reinforcementStack.add(bottomLabel);
-        reinforcementStack.add(sealableLabel);
+        reinforcementStack.add(makeBasketLabel("Corner Reinforced? ",
+                (box.getData().isCornerReinforced()? "Yes" : "No")));
+        reinforcementStack.add(makeBasketLabel("Bottom Reinforced? ",
+                (box.getData().isBottomReinforced()? "Yes" : "No")));
+        reinforcementStack.add(makeBasketLabel("Top Sealable? ",
+                (box.getData().isTopSealable()? "Yes" : "No")));
         
+        //Add box/ cardboard quality info
         JPanel qualityStack = createStackPanel();
-        qualityStack.add(new JLabel("Grade: " + box.getData().getGrade()));
-        qualityStack.add(new JLabel("Colours: " + box.getData().getColour()));
+        qualityStack.add(makeBasketLabel("Grade: ", box.getData().getGrade()));
+        qualityStack.add(makeBasketLabel("Colours: ", box.getData().getColour()));
         
+        //Add box cost and quantity information
+        double singleCost = Util.roundDoubleTo2dp(box.calculateSingleBoxCost());
+        double totalCost  = Util.roundDoubleTo2dp(box.calculateCost());
         JPanel costStack = createStackPanel();
-        costStack.add(new JLabel("Quantity: "   + box.getQuantity()));
-        costStack.add(new JLabel("Total Cost: £" + box.calculateCost()));
+        costStack.add(makeBasketLabel("Quantity: ",      box.getQuantity()));
+        costStack.add(makeBasketLabel("Cost Per Box: ", "£" + singleCost));
+        costStack.add(makeBasketLabel("Total Cost: ",   "£" + totalCost));
         
-        //sizeStack.setBorder(BorderFactory.createEtchedBorder());
-        //reinforcementStack.setBorder(BorderFactory.createEtchedBorder());
-        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        //Aff the information to the basket
+        int gap = 14;
+        basketPanel.add(itemInfoStack); 
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
         basketPanel.add(sizeStack);
-        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
         basketPanel.add(qualityStack);
-        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
         basketPanel.add(reinforcementStack);
-        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(15,0)));
+        basketPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
         basketPanel.add(costStack);
+        basketPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.basketPane.add(basketPanel);
     }
     
@@ -363,7 +429,7 @@ public class FlexBoxGui {
         int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
         if (quantity == -1) return;
         
-        Box box = this.orderSession.tryAddBox(data, quantity);
+        BasketItemInfo box = this.orderSession.tryAddBox(data, quantity);
         if (box != null) {
             labelTotalCost.setText("£" + orderSession.getTotalCost());
             labelTotalBoxes.setText(

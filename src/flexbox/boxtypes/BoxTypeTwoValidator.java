@@ -13,5 +13,13 @@ public class BoxTypeTwoValidator extends BoxValidator {
             !data.isBottomReinforced() &&
             !data.isCornerReinforced();
     }
-
+    
+    /**
+     * Gets the box type for this validator
+     * @return The box type
+     */
+    @Override
+    public int getBoxType() {
+        return 2;
+    }
 }

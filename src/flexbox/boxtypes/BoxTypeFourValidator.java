@@ -10,8 +10,16 @@ public class BoxTypeFourValidator extends BoxValidator {
         return 
             data.getGrade() >= 2 &&
             data.getColour() == 2 &&
-            !data.isBottomReinforced() &&
+            data.isBottomReinforced() &&
             !data.isCornerReinforced();
     }
-
+    
+    /**
+     * Gets the box type for this validator
+     * @return The box type
+     */
+    @Override
+    public int getBoxType() {
+        return 4;
+    }
 }
