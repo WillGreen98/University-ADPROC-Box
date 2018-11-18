@@ -5,6 +5,11 @@ package flexbox.boxtypes;
  * @author Group D4
  */
 public class BoxTypeTwoValidator extends BoxValidator {
+    /**
+     * Check if the box data passed in passed for FlexBox type2 2
+     * @param data The box data
+     * @return true if data is valid for this box type
+     */
     @Override
     public boolean isValidForThisType(BoxData data) {
         return 
