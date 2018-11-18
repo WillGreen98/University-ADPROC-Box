@@ -319,7 +319,7 @@ public class FlexBoxGui {
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         JLabel left     = new JLabel(labelName);
         JLabel right    = new JLabel(variableString);
-        
+
         Font font = right.getFont();
         right.setFont(
                 font.deriveFont(font.getStyle() | Font.ITALIC | ~Font.ITALIC)); //not bold
