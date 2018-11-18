@@ -22,14 +22,17 @@ public class OrderSession {
     double totalCost = 0;
     int totalBoxes = 0;
     
+    /**
+     * Creates a new order session object
+     */
     public OrderSession() {
         boxes = new ArrayList<>();
         boxValidators = new ArrayList(5);
-        boxValidators.push(new BoxTypeOneValidator());
-        boxValidators.push(new BoxTypeTwoValidator());
-        boxValidators.push(new BoxTypeThreeValidator());
-        boxValidators.push(new BoxTypeFourValidator());
-        boxValidators.push(new BoxTypeFiveValidator());
+        boxValidators.add(new BoxTypeOneValidator());
+        boxValidators.add(new BoxTypeTwoValidator());
+        boxValidators.add(new BoxTypeThreeValidator());
+        boxValidators.add(new BoxTypeFourValidator());
+        boxValidators.add(new BoxTypeFiveValidator());
     }
 
     public double getTotalCost() {
