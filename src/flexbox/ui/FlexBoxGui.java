@@ -298,7 +298,7 @@ public class FlexBoxGui {
     private void addBasketItem(Box box) {
         JPanel basketPanel = new JPanel();
         basketPanel.setLayout(new BoxLayout(basketPanel, BoxLayout.X_AXIS));
-        basketPanel.add(new JLabel("No. " + orderSession.getItemsSize()));
+        basketPanel.add(new JLabel("No. " + orderSession.getNumberItemsInBasket()));
         basketPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         JPanel sizeStack = createStackPanel();

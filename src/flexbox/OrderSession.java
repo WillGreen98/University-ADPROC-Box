@@ -35,30 +35,54 @@ public class OrderSession {
         boxValidators.add(new BoxTypeFiveValidator());
     }
 
+    /**
+     * Gets the total cost of all the boxes (including their quantity considered
+     * in the cost). stored in the basket
+     * @return Total cost of all boxes
+     */
     public double getTotalCost() {
         return Util.roundDoubleTo2dp(totalCost);
     }
     
+    /**
+     * Gets the total box count, with the quantity considered
+     * @return Total boxes stored
+     */
     public int getTotalBoxQuantity() {
         return totalBoxes;
     }
     
-    public int getItemsSize() {
+    /**
+     * Gets the total number of items in the basket
+     * @return Total items in basket
+     */
+    public int getNumberItemsInBasket() {
         return boxes.size();
     }    
 
-    void addBox(Box box) {
+    /**
+     * Adds a box to the basket, also recalculating the basket stats eg total cost 
+     * @param box The box to add to the basket
+     */
+    private void addBox(Box box) {
         boxes.add(box);
         totalCost += box.calculateCost();
         totalBoxes += box.getQuantity();
     }
     
+    /**
+     * Tries to add the box to the basket, given FlexBox supplis this type of box
+     * @param boxData The data of the box
+     * @param quantity The amount of said box
+     * @return The box if it was added, else null
+     */
     public Box tryAddBox(BoxData boxData, int quantity) {
         Box box = new Box(boxData, quantity);
 
         //Validate FlexBox supplies this box type
         for (BoxValidator validator : boxValidators) {
             if (validator.isValidForThisType(box.getData())) {
+                addBox(box);
                 return box;
             }
         }
