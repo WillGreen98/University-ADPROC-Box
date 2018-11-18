@@ -19,11 +19,11 @@ public class OrderSession {
         boxes = new ArrayList<>();
     }
     
-    public boolean validateBoxType1(Box box) {
-        if (box.getData().getGrade() <= 3 &&
-            box.getData().getColour() == 0 &&
-            !box.getData().isBottomReinforced() &&
-            !box.getData().isCornerReinforced()) {
+    public boolean validateBoxType1(BoxData data) {
+        if (data.getGrade() <= 3 &&
+            data.getColour() == 0 &&
+            !data.isBottomReinforced() &&
+            !data.isCornerReinforced()) {
           return true;
         } 
       return false;
@@ -42,12 +42,12 @@ public class OrderSession {
     }
     
 
-    public boolean validateBoxType2(Box box) {
+    public boolean validateBoxType2(BoxData data) {
         
-        if (box.getData().getGrade() >= 2 && box.getData().getGrade() <= 4 &&
-            box.getData().getColour() == 1 &&
-            !box.getData().isBottomReinforced() &&
-            !box.getData().isCornerReinforced()) {
+        if (data.getGrade() >= 2 && data.getGrade() <= 4 &&
+            data.getColour() == 1 &&
+            !data.isBottomReinforced() &&
+            !data.isCornerReinforced()) {
             return true;
         }
         return false;
@@ -55,34 +55,34 @@ public class OrderSession {
     
     
 
-    public boolean validateBoxType3(Box box) {
-        if (box.getData().getGrade() >= 2 &&
-            box.getData().getColour() == 2 &&
-            !box.getData().isBottomReinforced() &&
-            !box.getData().isCornerReinforced()) {
+    public boolean validateBoxType3(BoxData data) {
+        if (data.getGrade() >= 2 &&
+            data.getColour() == 2 &&
+            !data.isBottomReinforced() &&
+            !data.isCornerReinforced()) {
             return true;
         }
         return false;
     }
     
 
-    public boolean validateBoxType4(Box box) {
+    public boolean validateBoxType4(BoxData data) {
         
-        if (box.getData().getGrade() >= 2 &&
-            box.getData().getColour() == 2 &&
-            box.getData().isBottomReinforced() &&
-            !box.getData().isCornerReinforced()) {
+        if (data.getGrade() >= 2 &&
+            data.getColour() == 2 &&
+            data.isBottomReinforced() &&
+            !data.isCornerReinforced()) {
             
             return true;
         }
         return false;
     }
     
-    public boolean validateBoxType5(Box box) {
-        if (box.getData().getGrade() >= 3 && 
-            box.getData().getColour() == 2 &&
-            box.getData().isBottomReinforced() && 
-            box.getData().isCornerReinforced()) {
+    public boolean validateBoxType5(BoxData data) {
+        if (data.getGrade() >= 3 && 
+            data.getColour() == 2 &&
+            data.isBottomReinforced() && 
+            data.isCornerReinforced()) {
             return true;
         }
        return false;
