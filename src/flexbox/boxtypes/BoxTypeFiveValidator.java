@@ -4,7 +4,7 @@ package flexbox.boxtypes;
  * Box validator for Box Type 5
  * @author Group D4
  */
-public class BoxTypeOneValidator extends BoxValidator {
+public class BoxTypeFiveValidator extends BoxValidator {
     @Override
     public boolean isValidForThisType(BoxData data) {
         return 
