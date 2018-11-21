@@ -7,11 +7,10 @@ import flexbox.Util;
  * @author Group D4
  */
 public class Box {
-    
     private BoxData data;
     private int quantity;
-    
-    public Box() { 
+
+    public Box() {
         data = new BoxData();
         quantity = 0;
     }  
@@ -34,14 +33,14 @@ public class Box {
     }
     
     public double calculateSingleBoxCost() {
+        double cost = 0;
+
         double area = (
                 data.getLength() * data.getLength() + 
                 data.getHeight() * data.getHeight() + 
                 data.getWidth()  * data.getWidth()) * 2;
-        
-        double cost = 0;
 
-        switch (data.getGrade()) {
+        switch(data.getGrade()) {
             case 1:
                 cost = area * 0.55;
                 break;
@@ -59,10 +58,9 @@ public class Box {
                 break;
         }
 
-  
         if(data.getColour() == 1) {
             cost *= 1.12;
-        } else if (data.getColour() == 2) {
+        } else if(data.getColour() == 2) {
             cost *= 1.15;
         }
         

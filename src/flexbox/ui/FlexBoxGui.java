@@ -33,8 +33,7 @@ public class FlexBoxGui {
     private static final float FONT_SIZE_ZONE_TITLES    = 25.0f;
     private static final float FONT_SIZE_SECTION_TITLES = 20.0f;
     private static final float FONT_SIZE_LABELS         = 15.0f;
-    
-    
+
     private final JFrame frame = new JFrame("FlexBox Ordering System");
     private final OrderSession orderSession;
     /**
@@ -81,7 +80,6 @@ public class FlexBoxGui {
         //frame.pack();
     }
 
-
     /**
      * Creates the input and output sections of the UI
      */
@@ -113,7 +111,6 @@ public class FlexBoxGui {
         
         setUpBasketHeader(outputPanel);
         setUpBasketPanel(outputPanel);
-        
         
         return outputPanel;
     }
@@ -162,7 +159,6 @@ public class FlexBoxGui {
         textBoxWidth.setColumns(10);
         textBoxQuantity.setColumns(10);
         
-        
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout());
         
@@ -171,8 +167,7 @@ public class FlexBoxGui {
         setUpReinforcementPanel(centerPanel);
         inputPanel.add(centerPanel);
         setUpAddItemPanel(inputPanel);
-        
-        
+
         submitButton.addActionListener(event -> tryAddToBasket());
         return inputPanel;
     }
@@ -318,7 +313,7 @@ public class FlexBoxGui {
      * @param variableString The string that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, String variableString) {
+    private JPanel makeBasketLabel(String labelName, String variableString) {
         JPanel panel    = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         JLabel left     = new JLabel(labelName);
@@ -339,7 +334,7 @@ public class FlexBoxGui {
      * @param varInt The int that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, int varInt) {
+    private JPanel makeBasketLabel(String labelName, int varInt) {
         return makeBasketLabel(labelName, Integer.toString(varInt));
     }
     
@@ -349,7 +344,7 @@ public class FlexBoxGui {
      * @param varDouble The double that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, double varDouble) {
+    private JPanel makeBasketLabel(String labelName, double varDouble) {
         return makeBasketLabel(labelName, Double.toString(varDouble));
     }
 
@@ -417,7 +412,7 @@ public class FlexBoxGui {
         BoxData data = new BoxData();
         
         //Validate the text fields are valid, if not then return early
-        if (!tryGetTextFieldInfo(data)) {
+        if(!tryGetTextFieldInfo(data)) {
             return;
         }
         
@@ -431,10 +426,10 @@ public class FlexBoxGui {
         data.setTopSealable(checkBoxSealableTop.isSelected());
         
         int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
-        if (quantity == -1) return;
+        if(quantity == -1) return;
         
         BasketItemInfo box = this.orderSession.tryAddBox(data, quantity);
-        if (box != null) {
+        if(box != null) {
             labelTotalCost.setText("£" + orderSession.getTotalCost());
             labelTotalBoxes.setText(
                     Integer.toString(orderSession.getTotalBoxQuantity()));
@@ -479,7 +474,6 @@ public class FlexBoxGui {
         panel.add(component);
         return panel;
     }
-    
 
     /**
      * Creates a centre aligned label
