@@ -48,7 +48,7 @@ public class FlexBoxGui {
         "1", "2", "3", "4", "5"
     });
 
-    private final JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[]{
+    private final JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[] {
         "None", "1 Colours", "2 Colours"
     });
     
@@ -65,9 +65,9 @@ public class FlexBoxGui {
     /**
      * OUTPUT COMPONENTS
      */
-    JLabel labelTotalCost = new JLabel("£0.00");
-    JLabel labelTotalBoxes = new JLabel("0");
-    JPanel basketPane = new JPanel();
+    private JLabel labelTotalCost = new JLabel("£0.00");
+    private JLabel labelTotalBoxes = new JLabel("0");
+    private JPanel basketPane = new JPanel();
     
     public FlexBoxGui(OrderSession orderSession) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -194,7 +194,7 @@ public class FlexBoxGui {
     /**
      * Adds a JPanel to an existing one, containing JComponents for getting 
      * box quality (Grade and Colour Prints)
-     * @param panel The JPanel to add the panel to 
+     * @param centerPanel The JPanel to add the panel to
      */
     private void setUpQualityPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
@@ -207,7 +207,7 @@ public class FlexBoxGui {
     /**
      * Adds a JPanel to an existing one, containing JComponents for getting 
      * box reinforcement details (bottom & top reinforcement, sealable top)
-     * @param panel The JPanel to add the panel to 
+     * @param centerPanel The JPanel to add the panel to
      */
      private void setUpReinforcementPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Reinforcement", centerPanel);
@@ -260,11 +260,13 @@ public class FlexBoxGui {
     private double tryParseInputField(JTextField field, String hint, double min) {
         String input = field.getText();
         double result = 0;
+
         if (input.length() == 0) {
             promptError("Input field for \"Box " + hint + "\" is empty, please enter a value",
                         "Empty Input");
             return -1;
         }
+
         try { 
             result = Double.parseDouble(input);
         } catch (NumberFormatException e) {
@@ -272,12 +274,14 @@ public class FlexBoxGui {
                         "Invalid Input Type");
             return -1;
         }
+
         if (result < min) {
             promptError(
                     "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
                     "Number to small");
             return -1;
         }
+
         return result;
     }
     
