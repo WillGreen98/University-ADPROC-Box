@@ -1,14 +1,7 @@
 package flexbox;
 
 import flexbox.Util;
-import flexbox.boxtypes.Box;
-import flexbox.boxtypes.BoxData;
-import flexbox.boxtypes.BoxTypeOneValidator;
-import flexbox.boxtypes.BoxTypeTwoValidator;
-import flexbox.boxtypes.BoxTypeThreeValidator;
-import flexbox.boxtypes.BoxTypeFourValidator;
-import flexbox.boxtypes.BoxTypeFiveValidator;
-import flexbox.boxtypes.BoxValidator;
+import flexbox.boxtypes.*;
 import flexbox.ui.BasketItemInfo;
 
 import java.util.ArrayList;
