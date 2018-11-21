@@ -3,6 +3,7 @@ package flexbox;
 import flexbox.boxtypes.BoxData;
 import flexbox.boxtypes.Box;
 import flexbox.ui.FlexBoxGui;
+import flexbox.ui.GUI;
 import java.awt.EventQueue;
 
 /**
@@ -12,5 +13,11 @@ import java.awt.EventQueue;
 public class Main {
     public static void main(String[] args) {
         FlexBoxGui ui = new FlexBoxGui(new OrderSession());
+        
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GUI(new OrderSession()).setVisible(true);
+            }
+        });
     }
 }
