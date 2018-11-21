@@ -15,7 +15,7 @@ public class BasketItemInfo {
      * @param box The box that is being added to the basket
      * @param boxType The box type of the box
      */
-    public BasketItemInfo (Box box, int boxType) {
+    public BasketItemInfo(Box box, int boxType) {
         this.box = box;
         this.boxType = boxType;
     }

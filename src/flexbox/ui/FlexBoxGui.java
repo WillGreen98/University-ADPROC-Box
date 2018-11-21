@@ -33,8 +33,7 @@ public class FlexBoxGui {
     private static final float FONT_SIZE_ZONE_TITLES    = 25.0f;
     private static final float FONT_SIZE_SECTION_TITLES = 20.0f;
     private static final float FONT_SIZE_LABELS         = 15.0f;
-    
-    
+
     private final JFrame frame = new JFrame("FlexBox Ordering System");
     private final OrderSession orderSession;
     /**
@@ -48,7 +47,7 @@ public class FlexBoxGui {
         "1", "2", "3", "4", "5"
     });
 
-    private final JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[]{
+    private final JComboBox<String> comboBoxColourPrint = new JComboBox<>(new String[] {
         "None", "1 Colours", "2 Colours"
     });
     
@@ -65,9 +64,9 @@ public class FlexBoxGui {
     /**
      * OUTPUT COMPONENTS
      */
-    JLabel labelTotalCost = new JLabel("£0.00");
-    JLabel labelTotalBoxes = new JLabel("0");
-    JPanel basketPane = new JPanel();
+    private JLabel labelTotalCost = new JLabel("£0.00");
+    private JLabel labelTotalBoxes = new JLabel("0");
+    private JPanel basketPane = new JPanel();
     
     public FlexBoxGui(OrderSession orderSession) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -80,7 +79,6 @@ public class FlexBoxGui {
         
         //frame.pack();
     }
-
 
     /**
      * Creates the input and output sections of the UI
@@ -113,7 +111,6 @@ public class FlexBoxGui {
         
         setUpBasketHeader(outputPanel);
         setUpBasketPanel(outputPanel);
-        
         
         return outputPanel;
     }
@@ -162,7 +159,6 @@ public class FlexBoxGui {
         textBoxWidth.setColumns(10);
         textBoxQuantity.setColumns(10);
         
-        
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout());
         
@@ -171,8 +167,7 @@ public class FlexBoxGui {
         setUpReinforcementPanel(centerPanel);
         inputPanel.add(centerPanel);
         setUpAddItemPanel(inputPanel);
-        
-        
+
         submitButton.addActionListener(event -> tryAddToBasket());
         return inputPanel;
     }
@@ -194,7 +189,7 @@ public class FlexBoxGui {
     /**
      * Adds a JPanel to an existing one, containing JComponents for getting 
      * box quality (Grade and Colour Prints)
-     * @param panel The JPanel to add the panel to 
+     * @param centerPanel The JPanel to add the panel to
      */
     private void setUpQualityPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Quality", centerPanel);
@@ -207,7 +202,7 @@ public class FlexBoxGui {
     /**
      * Adds a JPanel to an existing one, containing JComponents for getting 
      * box reinforcement details (bottom & top reinforcement, sealable top)
-     * @param panel The JPanel to add the panel to 
+     * @param centerPanel The JPanel to add the panel to
      */
      private void setUpReinforcementPanel(JPanel centerPanel) {
         JPanel outerPanel = createSectionPanel("Box Reinforcement", centerPanel);
@@ -260,11 +255,13 @@ public class FlexBoxGui {
     private double tryParseInputField(JTextField field, String hint, double min) {
         String input = field.getText();
         double result = 0;
+
         if (input.length() == 0) {
             promptError("Input field for \"Box " + hint + "\" is empty, please enter a value",
                         "Empty Input");
             return -1;
         }
+
         try { 
             result = Double.parseDouble(input);
         } catch (NumberFormatException e) {
@@ -272,12 +269,14 @@ public class FlexBoxGui {
                         "Invalid Input Type");
             return -1;
         }
+
         if (result < min) {
             promptError(
                     "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
                     "Number to small");
             return -1;
         }
+
         return result;
     }
     
@@ -314,7 +313,7 @@ public class FlexBoxGui {
      * @param variableString The string that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, String variableString) {
+    private JPanel makeBasketLabel(String labelName, String variableString) {
         JPanel panel    = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         JLabel left     = new JLabel(labelName);
@@ -335,7 +334,7 @@ public class FlexBoxGui {
      * @param varInt The int that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, int varInt) {
+    private JPanel makeBasketLabel(String labelName, int varInt) {
         return makeBasketLabel(labelName, Integer.toString(varInt));
     }
     
@@ -345,7 +344,7 @@ public class FlexBoxGui {
      * @param varDouble The double that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, double varDouble) {
+    private JPanel makeBasketLabel(String labelName, double varDouble) {
         return makeBasketLabel(labelName, Double.toString(varDouble));
     }
 
@@ -413,7 +412,7 @@ public class FlexBoxGui {
         BoxData data = new BoxData();
         
         //Validate the text fields are valid, if not then return early
-        if (!tryGetTextFieldInfo(data)) {
+        if(!tryGetTextFieldInfo(data)) {
             return;
         }
         
@@ -427,10 +426,10 @@ public class FlexBoxGui {
         data.setTopSealable(checkBoxSealableTop.isSelected());
         
         int quantity = (int)tryParseInputField(this.textBoxQuantity, "Quantity", 1);
-        if (quantity == -1) return;
+        if(quantity == -1) return;
         
         BasketItemInfo box = this.orderSession.tryAddBox(data, quantity);
-        if (box != null) {
+        if(box != null) {
             labelTotalCost.setText("£" + orderSession.getTotalCost());
             labelTotalBoxes.setText(
                     Integer.toString(orderSession.getTotalBoxQuantity()));
@@ -475,7 +474,6 @@ public class FlexBoxGui {
         panel.add(component);
         return panel;
     }
-    
 
     /**
      * Creates a centre aligned label

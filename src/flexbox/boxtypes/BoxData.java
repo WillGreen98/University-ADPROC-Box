@@ -22,39 +22,7 @@ public class BoxData {
         this.cornerReinforcement = cornerReinforcement;
         this.sealableTop = sealableTop;
     }
-    
-    public double getHeight () {
-        return height;
-    }
 
-    public double getLength () {
-        return length;
-    }
-
-    public double getWidth () {
-        return width;
-    }
-
-    public int getGrade () {
-        return grade;
-    }
-
-    public int getColour () {
-        return colour;
-    }
-
-    public boolean isBottomReinforced(){
-        return bottomReinforcement;
-    }
-
-    public boolean isCornerReinforced(){
-        return cornerReinforcement;
-    }
-
-    public boolean isTopSealable(){
-        return sealableTop;
-    }
-    
     // ============== Setters ===============
     public void setLength(double length) {
         this.length = (length > 0) ? length : 0;
@@ -81,7 +49,7 @@ public class BoxData {
     public void setColour(int colour) {
         if(colour >= 0 && colour <= 2) {
             this.colour = colour;
-        } else if (colour < 0) {
+        } else if(colour < 0) {
             this.colour = 0;
         } else {
             this.colour = 2;
@@ -95,7 +63,40 @@ public class BoxData {
     public void setCornerReinforcement(boolean cornerReinforcement){
         this.cornerReinforcement = cornerReinforcement;
     }
+
     public void setTopSealable(boolean sealableTop){
         this.sealableTop = sealableTop;
+    }
+    
+    public double getHeight() {
+        return height;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public int getColour() {
+        return colour;
+    }
+
+    public boolean isBottomReinforced(){
+        return bottomReinforcement;
+    }
+
+    public boolean isCornerReinforced(){
+        return cornerReinforcement;
+    }
+
+    public boolean isTopSealable(){
+        return sealableTop;
     }
 }

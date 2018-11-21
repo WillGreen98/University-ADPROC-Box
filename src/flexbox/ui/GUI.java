@@ -25,7 +25,6 @@ import javax.swing.JTextField;
  * @author matt
  */
 public class GUI extends javax.swing.JFrame {
-
     OrderSession session;
     JPanel basketMainPanel = new JPanel();
     
@@ -33,6 +32,8 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      * @param session The order session for this FlexBox order
      */
+
+    GUI() {}
     public GUI(OrderSession session) {
         initComponents();
         this.session = session;
@@ -48,7 +49,6 @@ public class GUI extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         jLabel1 = new javax.swing.JLabel();
@@ -553,7 +553,7 @@ public class GUI extends javax.swing.JFrame {
      * @param variableString The string that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, String variableString) {
+    private JPanel makeBasketLabel(String labelName, String variableString) {
         JPanel panel    = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
         JLabel left     = new JLabel(labelName);
@@ -574,7 +574,7 @@ public class GUI extends javax.swing.JFrame {
      * @param varInt The int that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, int varInt) {
+    private JPanel makeBasketLabel(String labelName, int varInt) {
         return makeBasketLabel(labelName, Integer.toString(varInt));
     }
     
@@ -584,7 +584,7 @@ public class GUI extends javax.swing.JFrame {
      * @param varDouble The double that contains the information
      * @return JPanel containing 2 JLabels 
      */
-    JPanel makeBasketLabel(String labelName, double varDouble) {
+    private JPanel makeBasketLabel(String labelName, double varDouble) {
         return makeBasketLabel(labelName, Double.toString(varDouble));
     }
 
@@ -655,6 +655,7 @@ public class GUI extends javax.swing.JFrame {
         sect.setLayout(new BoxLayout(sect, BoxLayout.PAGE_AXIS));
         return sect;
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane basketPane;
     private javax.swing.JButton buttonAddToBasket;

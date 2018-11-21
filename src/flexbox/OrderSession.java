@@ -13,15 +13,15 @@ import java.util.ArrayList;
 public class OrderSession {
     private ArrayList<BoxValidator> boxValidators;
     private ArrayList<Box> boxes;
-    double totalCost = 0;
-    int totalBoxes = 0;
+    private double totalCost = 0;
+    private int totalBoxes = 0;
     
     /**
      * Creates a new order session object
      */
-    public OrderSession() {
+    OrderSession() {
         boxes = new ArrayList<>();
-        boxValidators = new ArrayList(5);
+        boxValidators = new ArrayList<>(5);
         boxValidators.add(new BoxTypeOneValidator());
         boxValidators.add(new BoxTypeTwoValidator());
         boxValidators.add(new BoxTypeThreeValidator());
