@@ -541,11 +541,12 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         
         BasketItemInfo box = this.session.tryAddBox(data, quantity);
         if (box != null) {
-            labelOrderCost.setText("£" + Util.formatMoneyValue(session.getTotalCost()));
+            labelOrderCost.setText("£" + 
+                    Util.formatNumberWithSeperators(session.getTotalCost()));
             labelBasketItems.setText(
                     Integer.toString(session.getNumberItemsInBasket()));
             labelTotalBoxes.setText(
-                    Integer.toString(session.getTotalBoxQuantity()));
+                    Util.formatNumberWithSeperators(session.getTotalBoxQuantity()));
             
             basketMainPanel.add(new BasketItemPanel(box, session));
         } else {

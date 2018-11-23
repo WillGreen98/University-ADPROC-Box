@@ -10,8 +10,8 @@ import flexbox.Util;
 import flexbox.boxtypes.BoxData;
 
 /**
- *
- * @author matt
+ * A panel for the basket items
+ * @author Group D4
  */
 public class BasketItemPanel extends javax.swing.JPanel {
 
@@ -41,9 +41,12 @@ public class BasketItemPanel extends javax.swing.JPanel {
         
         double singleCost = Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost());
         double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateCost());
-        labelBoxQuantity.setText(Integer.toString(info.getBox().getQuantity()));
-        labelCostPerBox.setText("£" + Util.formatMoneyValue(singleCost));
-        labelCostTotal.setText("£" + Util.formatMoneyValue(totalCost));
+        labelBoxQuantity.setText(
+                Util.formatNumberWithSeperators(info.getBox().getQuantity()));
+        labelCostPerBox.setText("£" + 
+                Util.formatNumberWithSeperators(singleCost));
+        labelCostTotal.setText("£" + 
+                Util.formatNumberWithSeperators(totalCost));
     }
 
     /**
@@ -57,12 +60,10 @@ public class BasketItemPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        itemNumber = new javax.swing.JLabel();
         labelBoxType = new javax.swing.JLabel();
         labelBoxQuantity = new javax.swing.JLabel();
         labelCostPerBox = new javax.swing.JLabel();
@@ -84,6 +85,9 @@ public class BasketItemPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        itemNumber = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,8 +104,6 @@ public class BasketItemPanel extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel1.setText("Item #");
-
         jLabel2.setText("Box Type:");
 
         jLabel11.setText("Quantity:");
@@ -109,8 +111,6 @@ public class BasketItemPanel extends javax.swing.JPanel {
         jLabel12.setText("Cost per Box:");
 
         jLabel13.setText("Total Cost:");
-
-        itemNumber.setText("####");
 
         labelBoxType.setText("5");
 
@@ -128,13 +128,11 @@ public class BasketItemPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel13)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(itemNumber)
                     .addComponent(labelBoxType)
                     .addComponent(labelBoxQuantity)
                     .addComponent(labelCostPerBox)
@@ -144,10 +142,7 @@ public class BasketItemPanel extends javax.swing.JPanel {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(itemNumber))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelBoxType))
@@ -284,12 +279,40 @@ public class BasketItemPanel extends javax.swing.JPanel {
                     .addComponent(labelSealableTop)))
         );
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel1.setText("Item Number:");
+
+        itemNumber.setText("####");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(itemNumber)
+                .addGap(38, 38, 38))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(itemNumber))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -297,6 +320,7 @@ public class BasketItemPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -319,6 +343,7 @@ public class BasketItemPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel labelBottomReinforce;
     private javax.swing.JLabel labelBoxQuantity;
     private javax.swing.JLabel labelBoxType;

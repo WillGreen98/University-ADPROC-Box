@@ -19,13 +19,40 @@ public class Util {
         return dec.doubleValue();
     }
     
+    private static String formatStringWithSeperators(String unformattedString, int location) {
+        //Get number of , to insert into the string
+        int seperatorCount = unformattedString.substring(0, location).length() / 3;
+        
+        //Create a string builder to create a new string
+        StringBuilder outputCreator = new StringBuilder(unformattedString);
+        for (int i = 0; i < seperatorCount; i++) {
+            int insertLocation = location - 3 * (i + 1);
+            //Do not allow , to be placed at very start of the string
+            if (insertLocation > 0) { 
+                outputCreator.insert(insertLocation, ',');
+            }
+        }
+        return outputCreator.toString();
+    }
+    
     /**
      * Take a number such as 10393.12 and converts to a more readable format such
      * as as 10,393.12
      * @param value The value to format into a string nicely
      * @return A formatted number using comma separators
      */
-    public static String formatMoneyValue(double value) {
+    public static String formatNumberWithSeperators(int value) {
+        String nString = Integer.toString(value);
+        return formatStringWithSeperators(nString, nString.length());
+    }
+    
+    /**
+     * Take a number such as 10393.12 and converts to a more readable format such
+     * as as 10,393.12
+     * @param value The value to format into a string nicely
+     * @return A formatted number using comma separators
+     */
+    public static String formatNumberWithSeperators(double value) {
         String nString = Double.toString(value);
         
         //Find the decimal point location
@@ -36,18 +63,6 @@ public class Util {
             }
         }
         
-        //Get number of , to insert into the string
-        int seperatorCount = nString.substring(0, location).length() / 3;
-        
-        //Create a string builder to create a new string
-        StringBuilder outputCreator = new StringBuilder(nString);
-        for (int i = 0; i < seperatorCount; i++) {
-            int insertLocation = location - 3 * (i + 1);
-            //Do not allow , to be placed at very start of the string
-            if (insertLocation > 0) { 
-                outputCreator.insert(insertLocation, ',');
-            }
-        }
-        return outputCreator.toString();
+        return formatStringWithSeperators(nString, location);
     }
 }

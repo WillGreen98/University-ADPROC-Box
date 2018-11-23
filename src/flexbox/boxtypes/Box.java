@@ -1,7 +1,5 @@
 package flexbox.boxtypes;
 
-import flexbox.Util;
-
 /**
  * Class to represent a singular box from the order
  * @author Group D4
