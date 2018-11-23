@@ -1,6 +1,5 @@
 package flexbox;
 
-import flexbox.Util;
 import flexbox.boxtypes.*;
 import flexbox.ui.BasketItemInfo;
 
@@ -11,15 +10,15 @@ import java.util.ArrayList;
  * @author Group D4
  */
 public class OrderSession {
-    private ArrayList<BoxValidator> boxValidators;
-    private ArrayList<Box> boxes;
+    private final ArrayList<BoxValidator> boxValidators;
+    private final ArrayList<Box> boxes;
     private double totalCost = 0;
     private int totalBoxes = 0;
     
     /**
      * Creates a new order session object
      */
-    OrderSession() {
+    public OrderSession() {
         boxes = new ArrayList<>();
         boxValidators = new ArrayList<>(5);
         boxValidators.add(new BoxTypeOneValidator());

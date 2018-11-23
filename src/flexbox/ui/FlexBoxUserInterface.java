@@ -7,15 +7,8 @@ package flexbox.ui;
 
 import flexbox.OrderSession;
 import flexbox.Util;
-import flexbox.boxtypes.Box;
 import flexbox.boxtypes.BoxData;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -498,15 +491,13 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
     }
     
     /**
-     * 
-     * @param data
+     * Gets the text field information from the dimension input fields
+     * @param data The box data to set values for
      * @return true if all text fields pass the tests, false otherwise
      */
     private boolean tryGetTextFieldInfo(BoxData data) {
-        double inputDouble = 0;
-        
         //Validate the text field for box width is valid
-        inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
+        double inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
         if ((int)inputDouble == -1) return false;
         data.setWidth(inputDouble);
         

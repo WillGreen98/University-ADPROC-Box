@@ -22,8 +22,8 @@ public class Util {
     /**
      * Take a number such as 10393.12 and converts to a more readable format such
      * as as 10,393.12
-     * @param value
-     * @return 
+     * @param value The value to format into a string nicely
+     * @return A formatted number using comma separators
      */
     public static String formatMoneyValue(double value) {
         String nString = Double.toString(value);
@@ -31,7 +31,6 @@ public class Util {
         //Find the decimal point location
         int location = 0;
         for (; location < nString.length(); location++) {
-            //Found the decimal point, so break out
             if (nString.charAt(location) == '.') {
                 break; 
             }
