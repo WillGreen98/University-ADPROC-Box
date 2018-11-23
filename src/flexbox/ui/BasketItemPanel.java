@@ -28,9 +28,9 @@ public class BasketItemPanel extends javax.swing.JPanel {
         itemNumber.setText(Integer.toString(session.getNumberItemsInBasket()));
         labelBoxType.setText(Integer.toString(info.getBoxType()));
         
-        labelWidth.setText(Double.toString(boxData.getWidth()));
-        labelHeight.setText(Double.toString(boxData.getHeight()));
-        labelLength.setText(Double.toString(boxData.getLength()));
+        labelWidth.setText(Integer.toString(boxData.getWidth()));
+        labelHeight.setText(Integer.toString(boxData.getHeight()));
+        labelLength.setText(Integer.toString(boxData.getLength()));
         
         labelBottomReinforce.setText(boxData.isBottomReinforced() ? "Yes" : "No");
         labelCornerReinforce.setText(boxData.isCornerReinforced() ? "Yes" : "No");
@@ -158,7 +158,7 @@ public class BasketItemPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(labelCostTotal))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jLabel5.setText("Length");
@@ -314,7 +314,8 @@ public class BasketItemPanel extends javax.swing.JPanel {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

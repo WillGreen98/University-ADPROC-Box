@@ -32,11 +32,17 @@ public class Box {
     
     public double calculateSingleBoxCost() {
         double cost = 0;
+        
+        //Convert the values into meters
+        double lengthInMeters = (double)data.getLength() / 100.0;
+        double heightInMeters = (double)data.getHeight() / 100.0;
+        double widthInMeters  = (double)data.getWidth()  / 100.0;
 
+        //Calulcate the surface area of all 6 sides of the box
         double area = (
-                data.getLength() * data.getLength() + 
-                data.getHeight() * data.getHeight() + 
-                data.getWidth()  * data.getWidth()) * 2;
+                Math.pow(lengthInMeters, 2) + 
+                Math.pow(heightInMeters, 2) + 
+                Math.pow(widthInMeters,  2)) * 2;
 
         switch(data.getGrade()) {
             case 1:

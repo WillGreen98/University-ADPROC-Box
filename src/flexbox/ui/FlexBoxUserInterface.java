@@ -242,11 +242,11 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         jLabel35.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel35.setText("Dimensions");
 
-        jLabel36.setText("Box Width (m)");
+        jLabel36.setText("Box Width (cm)");
 
-        jLabel37.setText("Box Height (m)");
+        jLabel37.setText("Box Height (cm)");
 
-        jLabel38.setText("Box Length (m)");
+        jLabel38.setText("Box Length (cm)");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -263,11 +263,11 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                                 .addComponent(jLabel36))
                             .addComponent(textBoxWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textBoxHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel37))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textBoxLength, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel38))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -369,7 +369,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(labelTotalBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,26 +466,32 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
      * @param hint Incase of an error, the hint is used to produce the error text
      * @return The parsed input is successful, otherwise return -1 on error
      */
-    private double tryParseInputField(JTextField field, String hint, double min) {
+    private int tryParseInputField(JTextField field, String hint, int min, int max) {
         String input = field.getText();
-        double result = 0;
+        int result = 0;
         if (input.length() == 0) {
             promptError("Input field for \"Box " + hint + "\" is empty, please enter a value",
                         "Empty Input");
             return -1;
         }
         try { 
-            result = Double.parseDouble(input);
-        } catch (NumberFormatException e) {
-            promptError("Input field for \"Box " + hint + "\" should be a number.",
+            result = Integer.parseInt(input);
+        } catch (NumberFormatException expection) {
+            promptError("Input field for \"Box " + hint + "\" should be an integer number.",
                         "Invalid Input Type");
             return -1;
         }
         if (result < min) {
             promptError(
                     "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
-                    "Number to small");
+                    "Number to small.");
             return -1;
+        }
+        else if (result > max) {
+            promptError(
+                    "Input field for \"Box " + hint + "\" must be smaller than or equal to " + max + ".",
+                    "Number to large.");
+            return -1; 
         }
         return result;
     }
@@ -497,19 +503,19 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
      */
     private boolean tryGetTextFieldInfo(BoxData data) {
         //Validate the text field for box width is valid
-        double inputDouble = tryParseInputField(this.textBoxWidth, "Width", 0.1);
-        if ((int)inputDouble == -1) return false;
-        data.setWidth(inputDouble);
+        int inputInt = tryParseInputField(this.textBoxWidth, "Width in cm", 1, 350);
+        if (inputInt == -1) return false;
+        data.setWidth(inputInt);
         
         //Validate the text field for box width is valid
-        inputDouble = tryParseInputField(this.textBoxHeight, "Height", 0.1);
-        if ((int)inputDouble == -1) return false;
-        data.setHeight(inputDouble);
+        inputInt = tryParseInputField(this.textBoxHeight, "Height in cm", 1, 350);
+        if (inputInt == -1) return false;
+        data.setHeight(inputInt);
         
         
-        inputDouble = tryParseInputField(this.textBoxLength, "Length", 0.1);
-        if ((int)inputDouble == -1) return false;
-        data.setLength(inputDouble);
+        inputInt = tryParseInputField(this.textBoxLength, "Length in cm", 1, 350);
+        if (inputInt == -1) return false;
+        data.setLength(inputInt);
         
         
         return true;
@@ -536,7 +542,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         data.setCornerReinforcement(checkBoxCorners.isSelected());
         data.setTopSealable(checkBoxTop.isSelected());
         
-        int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1);
+        int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1, 25000);
         if (quantity == -1) return;
         
         BasketItemInfo box = this.session.tryAddBox(data, quantity);

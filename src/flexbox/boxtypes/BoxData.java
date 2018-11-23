@@ -5,12 +5,12 @@ package flexbox.boxtypes;
  * @author Group D4
  */
 public class BoxData {
-    private double length, height, width;
+    private int length, height, width;
     private int grade, colour;
     private boolean bottomReinforcement, cornerReinforcement, sealableTop;
     
     public BoxData() {}
-    public BoxData(double length, double height, double width, 
+    public BoxData(int length, int height, int width, 
             int grade, int colour, 
             boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
         this.length = length;
@@ -24,15 +24,15 @@ public class BoxData {
     }
 
     // ============== Setters ===============
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = (length > 0) ? length : 0;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = (height > 0) ? height : 0;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = (width > 0) ? width : 0;
     }
 
@@ -68,15 +68,15 @@ public class BoxData {
         this.sealableTop = sealableTop;
     }
     
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public double getLength() {
+    public int getLength() {
         return length;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
