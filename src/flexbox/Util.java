@@ -19,6 +19,12 @@ public class Util {
         return dec.doubleValue();
     }
     
+    /**
+     * Formats a string with comma separators every 3 digits starting from the back
+     * @param unformattedString The string to insert commas into
+     * @param location For decimal numbers, the location should be the location of the .
+     * @return A formatted string comma separators
+     */
     private static String formatStringWithSeperators(String unformattedString, int location) {
         //Get number of , to insert into the string
         int seperatorCount = unformattedString.substring(0, location).length() / 3;
@@ -36,8 +42,8 @@ public class Util {
     }
     
     /**
-     * Take a number such as 10393.12 and converts to a more readable format such
-     * as as 10,393.12
+     * Take a number such as 10393 and converts to a more readable format such
+     * as as 10,393
      * @param value The value to format into a string nicely
      * @return A formatted number using comma separators
      */
