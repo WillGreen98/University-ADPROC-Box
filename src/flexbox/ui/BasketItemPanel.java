@@ -41,8 +41,8 @@ public class BasketItemPanel extends javax.swing.JPanel {
         double singleCost = Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost());
         double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateCost());
         labelBoxQuantity.setText(Integer.toString(info.getBox().getQuantity()));
-        labelCostPerBox.setText(Double.toString(singleCost));
-        labelCostTotal.setText(Double.toString(totalCost));
+        labelCostPerBox.setText("£" + singleCost);
+        labelCostTotal.setText("£" + totalCost);
     }
 
     /**
@@ -164,8 +164,6 @@ public class BasketItemPanel extends javax.swing.JPanel {
                     .addComponent(labelCostTotal))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel5.setText("Length");
 
@@ -290,11 +288,9 @@ public class BasketItemPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
