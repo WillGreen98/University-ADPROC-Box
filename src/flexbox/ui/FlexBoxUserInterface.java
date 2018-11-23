@@ -25,7 +25,7 @@ import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
  *
  * @author matt
  */
-public class GUI extends javax.swing.JFrame {
+public class FlexBoxUserInterface extends javax.swing.JFrame {
     OrderSession session;
     JPanel basketMainPanel = new JPanel();
     
@@ -34,8 +34,8 @@ public class GUI extends javax.swing.JFrame {
      * @param session The order session for this FlexBox order
      */
 
-    GUI() {}
-    public GUI(OrderSession session) {
+    FlexBoxUserInterface() {}
+    public FlexBoxUserInterface(OrderSession session) {
         initComponents();
         this.session = session;
         
@@ -359,24 +359,24 @@ public class GUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(labelOrderCost)))
+                        .addComponent(labelOrderCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(labelBasketItems, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelBasketItems, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(labelTotalBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(157, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelTotalBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,10 +387,11 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelOrderCost)
-                    .addComponent(labelBasketItems)
-                    .addComponent(labelTotalBoxes))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelOrderCost)
+                        .addComponent(labelBasketItems))
+                    .addComponent(labelTotalBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -549,127 +550,18 @@ public class GUI extends javax.swing.JFrame {
         
         BasketItemInfo box = this.session.tryAddBox(data, quantity);
         if (box != null) {
-            labelOrderCost.setText("£" + session.getTotalCost());
+            labelOrderCost.setText("£" + Util.formatMoneyValue(session.getTotalCost()));
             labelBasketItems.setText(
                     Integer.toString(session.getNumberItemsInBasket()));
             labelTotalBoxes.setText(
                     Integer.toString(session.getTotalBoxQuantity()));
+            
             basketMainPanel.add(new BasketItemPanel(box, session));
-            //addBasketItem(box);
         } else {
            promptError("FlexBox does not supply this type of box.",
                        "Box Type Not Supplied");
         }
     }//GEN-LAST:event_buttonAddToBasketActionPerformed
-
-    /**
-     * Creates a basket label panel for some box information
-     * @param labelName The label for the information
-     * @param variableString The string that contains the information
-     * @return JPanel containing 2 JLabels 
-     */
-    private JPanel makeBasketLabel(String labelName, String variableString) {
-        JPanel panel    = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
-        JLabel left     = new JLabel(labelName);
-        JLabel right    = new JLabel(variableString);
-
-        Font font = right.getFont();
-        right.setFont(
-                font.deriveFont(font.getStyle() | Font.ITALIC | ~Font.ITALIC)); //not bold
-        
-        panel.add(left);
-        panel.add(right);
-        return panel;
-    }
-    
-    /**
-     * Creates a basket label panel for some box information
-     * @param labelName The label for the information
-     * @param varInt The int that contains the information
-     * @return JPanel containing 2 JLabels 
-     */
-    private JPanel makeBasketLabel(String labelName, int varInt) {
-        return makeBasketLabel(labelName, Integer.toString(varInt));
-    }
-    
-    /**
-     * Creates a basket label panel for some box information
-     * @param labelName The label for the information
-     * @param varDouble The double that contains the information
-     * @return JPanel containing 2 JLabels 
-     */
-    private JPanel makeBasketLabel(String labelName, double varDouble) {
-        return makeBasketLabel(labelName, Double.toString(varDouble));
-    }
-
-    /**
-     * Adds box information to display onto the basket panel
-     * @param basketItemInfo 
-     */
-    private void addBasketItem(BasketItemInfo basketItemInfo) {
-        Box box = basketItemInfo.getBox();
-        JPanel newItemPanel = new JPanel();
-        newItemPanel.setLayout(new BoxLayout(newItemPanel, BoxLayout.X_AXIS));
-        
-        //Add basket item information
-        JPanel itemInfoStack = createStackPanel();
-        itemInfoStack.add(makeBasketLabel("Item #", session.getNumberItemsInBasket()));
-        itemInfoStack.add(makeBasketLabel("Box Type: ", basketItemInfo.getBoxType()));
-        
-        //Add box dimension info
-        JPanel sizeStack = createStackPanel();
-        sizeStack.add(makeBasketLabel("Width: ", box.getData().getWidth ()));
-        sizeStack.add(makeBasketLabel("Height: ", box.getData().getHeight()));
-        sizeStack.add(makeBasketLabel("Length: ", box.getData().getLength()));
-        
-        //Add reinforcement info
-        JPanel reinforcementStack = createStackPanel();
-        reinforcementStack.add(makeBasketLabel("Corner Reinforced? ",
-                (box.getData().isCornerReinforced()? "Yes" : "No")));
-        reinforcementStack.add(makeBasketLabel("Bottom Reinforced? ",
-                (box.getData().isBottomReinforced()? "Yes" : "No")));
-        reinforcementStack.add(makeBasketLabel("Top Sealable? ",
-                (box.getData().isTopSealable()? "Yes" : "No")));
-        
-        //Add box/ cardboard quality info
-        JPanel qualityStack = createStackPanel();
-        qualityStack.add(makeBasketLabel("Grade: ", box.getData().getGrade()));
-        qualityStack.add(makeBasketLabel("Colours: ", box.getData().getColour()));
-        
-        //Add box cost and quantity information
-        double singleCost = Util.roundDoubleTo2dp(box.calculateSingleBoxCost());
-        double totalCost  = Util.roundDoubleTo2dp(box.calculateCost());
-        JPanel costStack = createStackPanel();
-        costStack.add(makeBasketLabel("Quantity: ",      box.getQuantity()));
-        costStack.add(makeBasketLabel("Cost Per Box: ", "£" + singleCost));
-        costStack.add(makeBasketLabel("Total Cost: ",   "£" + totalCost));
-        
-        //Aff the information to the basket
-        int gap = 14;
-        newItemPanel.add(itemInfoStack); 
-        newItemPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
-        newItemPanel.add(sizeStack);
-        newItemPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
-        newItemPanel.add(qualityStack);
-        newItemPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
-        newItemPanel.add(reinforcementStack);
-        newItemPanel.add(javax.swing.Box.createRigidArea(new Dimension(gap,0)));
-        newItemPanel.add(costStack);
-        newItemPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        this.basketMainPanel.add(newItemPanel);
-    }
-    
-    /**
-     * Creates a JPanel where the JComponenets added will be vertically aligned
-     * using BoxLayout
-     * @return Vertically aligned JPanel
-     */
-    private JPanel createStackPanel() {
-        JPanel sect = new JPanel();
-        sect.setLayout(new BoxLayout(sect, BoxLayout.PAGE_AXIS));
-        return sect;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane basketPane;

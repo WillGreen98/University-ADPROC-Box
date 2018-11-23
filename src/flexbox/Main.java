@@ -1,6 +1,6 @@
 package flexbox;
 
-import flexbox.ui.GUI;
+import flexbox.ui.FlexBoxUserInterface;
 import java.awt.EventQueue;
 
 /**
@@ -9,6 +9,6 @@ import java.awt.EventQueue;
  */
 public class Main {
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> new GUI(new OrderSession()).setVisible(true));
+        EventQueue.invokeLater(() -> new FlexBoxUserInterface(new OrderSession()).setVisible(true));
     }
 }

@@ -7,7 +7,6 @@ package flexbox.ui;
 
 import flexbox.OrderSession;
 import flexbox.Util;
-import flexbox.boxtypes.Box;
 import flexbox.boxtypes.BoxData;
 
 /**
@@ -18,6 +17,8 @@ public class BasketItemPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form BasketItemPanel
+     * @param info Information about the item added to the basket
+     * @param session The current order session
      */
     public BasketItemPanel(BasketItemInfo info, OrderSession session) {
         initComponents();
@@ -41,8 +42,8 @@ public class BasketItemPanel extends javax.swing.JPanel {
         double singleCost = Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost());
         double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateCost());
         labelBoxQuantity.setText(Integer.toString(info.getBox().getQuantity()));
-        labelCostPerBox.setText("£" + singleCost);
-        labelCostTotal.setText("£" + totalCost);
+        labelCostPerBox.setText("£" + Util.formatMoneyValue(singleCost));
+        labelCostTotal.setText("£" + Util.formatMoneyValue(totalCost));
     }
 
     /**
