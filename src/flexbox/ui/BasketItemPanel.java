@@ -28,9 +28,9 @@ public class BasketItemPanel extends javax.swing.JPanel {
         itemNumber.setText(Integer.toString(session.getNumberItemsInBasket()));
         labelBoxType.setText(Integer.toString(info.getBoxType()));
         
-        labelWidth.setText(Integer.toString(boxData.getWidth()));
-        labelHeight.setText(Integer.toString(boxData.getHeight()));
-        labelLength.setText(Integer.toString(boxData.getLength()));
+        labelWidth.setText(boxData.getWidth() + "cm");
+        labelHeight.setText(boxData.getHeight() + "cm");
+        labelLength.setText(boxData.getLength() + "cm");
         
         labelBottomReinforce.setText(boxData.isBottomReinforced() ? "Yes" : "No");
         labelCornerReinforce.setText(boxData.isCornerReinforced() ? "Yes" : "No");

@@ -503,17 +503,17 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
      */
     private boolean tryGetTextFieldInfo(BoxData data) {
         //Validate the text field for box width is valid
-        int inputInt = tryParseInputField(this.textBoxWidth, "Width in cm", 1, 350);
+        int inputInt = tryParseInputField(this.textBoxWidth, "Width in cm", 20, 350);
         if (inputInt == -1) return false;
         data.setWidth(inputInt);
         
         //Validate the text field for box width is valid
-        inputInt = tryParseInputField(this.textBoxHeight, "Height in cm", 1, 350);
+        inputInt = tryParseInputField(this.textBoxHeight, "Height in cm", 20, 350);
         if (inputInt == -1) return false;
         data.setHeight(inputInt);
         
         
-        inputInt = tryParseInputField(this.textBoxLength, "Length in cm", 1, 350);
+        inputInt = tryParseInputField(this.textBoxLength, "Length in cm", 20, 350);
         if (inputInt == -1) return false;
         data.setLength(inputInt);
         
