@@ -9,10 +9,10 @@ public class BoxData {
     private int length, height, width;
     private int grade, colour;
     private boolean bottomReinforcement, cornerReinforcement, sealableTop;
-    
+
     public BoxData() {}
-    public BoxData(int length, int height, int width, 
-            int grade, int colour, 
+    public BoxData(int length, int height, int width,
+            int grade, int colour,
             boolean bottomReinforcement, boolean cornerReinforcement, boolean sealableTop) {
         this.length = length;
         this.height = height;
@@ -68,7 +68,7 @@ public class BoxData {
     public void setTopSealable(boolean sealableTop){
         this.sealableTop = sealableTop;
     }
-    
+
     public int getHeight() {
         return height;
     }
