@@ -481,17 +481,11 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                         "Invalid Input Type");
             return -1;
         }
-        if (result < min) {
+        if (result < min || result > max) {
             promptError(
-                    "Input field for \"Box " + hint + "\" must be greater than or equal to " + min + ".",
-                    "Number to small.");
+                    "Input field for \"Box " + hint + "\" must be between " + min + "cm and " + max + "cm (inclusive).",
+                    "Number not in correct range.");
             return -1;
-        }
-        else if (result > max) {
-            promptError(
-                    "Input field for \"Box " + hint + "\" must be smaller than or equal to " + max + ".",
-                    "Number to large.");
-            return -1; 
         }
         return result;
     }
