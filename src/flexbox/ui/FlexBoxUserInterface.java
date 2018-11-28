@@ -478,7 +478,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         }
         if (result < min || result > max) {
             promptError(
-                    "Input field for \"Box " + hint + "\" must be between " + min + "cm and " + max + "cm (inclusive).",
+                    "Input field for \"Box " + hint + "\" must be between " + min + " and " + max + " (inclusive).",
                     "Number not in correct range.");
             return -1;
         }

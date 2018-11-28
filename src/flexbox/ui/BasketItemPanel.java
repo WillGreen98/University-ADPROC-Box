@@ -26,9 +26,9 @@ public class BasketItemPanel extends javax.swing.JPanel {
         itemNumber.setText(Integer.toString(session.getNumberItemsInBasket()));
         labelBoxType.setText(Integer.toString(info.getBoxType()));
         
-        labelWidth.setText(boxData.getWidth() + "cm");
-        labelHeight.setText(boxData.getHeight() + "cm");
-        labelLength.setText(boxData.getLength() + "cm");
+        labelWidth.setText(boxData.getWidth() + "mm");
+        labelHeight.setText(boxData.getHeight() + "mm");
+        labelLength.setText(boxData.getLength() + "mm");
         
         labelBottomReinforce.setText(boxData.isBottomReinforced() ? "Yes" : "No");
         labelCornerReinforce.setText(boxData.isCornerReinforced() ? "Yes" : "No");
@@ -37,8 +37,8 @@ public class BasketItemPanel extends javax.swing.JPanel {
         labelGrade.setText(Integer.toString(boxData.getGrade()));
         labelColour.setText(Integer.toString(boxData.getColour()));
 
-        double singleCost = new BigDecimal(Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost())).intValue();
-        double totalCost  = new BigDecimal(Util.roundDoubleTo2dp(info.getBox().calculateCost())).intValue();
+        double singleCost = Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost());
+        double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateCost());
 
         labelBoxQuantity.setText(
                 Util.formatNumberWithSeperators(info.getBox().getQuantity()));
@@ -310,7 +310,7 @@ public class BasketItemPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
