@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * The session of this box order
  * @author Group D4
  */
+
 public class OrderSession {
     private final ArrayList<BoxValidator> boxValidators;
     private final ArrayList<Box> boxes;
@@ -18,7 +19,7 @@ public class OrderSession {
     /**
      * Creates a new order session object
      */
-    public OrderSession() {
+    OrderSession() {
         boxes = new ArrayList<>();
         boxValidators = new ArrayList<>(5);
         boxValidators.add(new BoxTypeOneValidator());
