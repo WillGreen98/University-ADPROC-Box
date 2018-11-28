@@ -34,16 +34,16 @@ public class Box {
         double totalCost, baseCost, colourCost, bottomReinforcementCost, cornerReinforcementCost, sealableTopCost = 0;
        
         
-        //Convert the values into meters
-        double lengthInMeters = (double)data.getLength() / 100.0;
-        double heightInMeters = (double)data.getHeight() / 100.0;
-        double widthInMeters  = (double)data.getWidth()  / 100.0;
+        //Convert the values into millimeters
+        double lengthInMillimeters = (double)data.getLength() / 1000.0;
+        double heightInMillimeters = (double)data.getHeight() / 1000.0;
+        double widthInMillimeters  = (double)data.getWidth()  / 1000.0;
 
         //Calulcate the surface area of all 6 sides of the box
         double area = (
-                Math.pow(lengthInMeters, 2) + 
-                Math.pow(heightInMeters, 2) + 
-                Math.pow(widthInMeters,  2)) * 2;
+                Math.pow(lengthInMillimeters, 2) + 
+                Math.pow(heightInMillimeters, 2) + 
+                Math.pow(widthInMillimeters,  2)) * 2;
 
         switch(data.getGrade()) {
             case 1:
