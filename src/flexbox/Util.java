@@ -7,6 +7,7 @@ import java.math.RoundingMode;
  * Some utility functions that are used throughout the program
  * @author Group D4
  */
+
 public class Util {
     /**
      * Round a double to 2 decimal places

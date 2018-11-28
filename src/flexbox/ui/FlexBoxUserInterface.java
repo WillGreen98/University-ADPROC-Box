@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flexbox.ui;
 
 import flexbox.OrderSession;
@@ -15,9 +10,9 @@ import javax.swing.JTextField;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 
 /**
- *
- * @author matt
+ * @author Group D4
  */
+
 public class FlexBoxUserInterface extends javax.swing.JFrame {
     OrderSession session;
     JPanel basketMainPanel = new JPanel();

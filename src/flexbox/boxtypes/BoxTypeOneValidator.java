@@ -4,6 +4,7 @@ package flexbox.boxtypes;
  * Box validator for Box Type 1
  * @author Group D4
  */
+
 public class BoxTypeOneValidator extends BoxValidator {
     /**
      * Check if the box data passed in passed for FlexBox type 1

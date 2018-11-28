@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * The session of this box order
  * @author Group D4
  */
+
 public class OrderSession {
     private final ArrayList<BoxValidator> boxValidators;
     private final ArrayList<Box> boxes;

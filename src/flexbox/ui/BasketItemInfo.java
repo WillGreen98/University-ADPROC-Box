@@ -6,6 +6,7 @@ import flexbox.boxtypes.Box;
  * Contains information about basket items
  * @author Group D4
  */
+
 public class BasketItemInfo {
     private Box box;
     private int boxType;

@@ -4,6 +4,7 @@ package flexbox.boxtypes;
  * Class to handle box data
  * @author Group D4
  */
+
 public class BoxData {
     private int length, height, width;
     private int grade, colour;
