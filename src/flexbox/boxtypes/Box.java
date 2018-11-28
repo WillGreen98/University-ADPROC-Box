@@ -31,7 +31,8 @@ public class Box {
     }
     
     public double calculateSingleBoxCost() {
-        double cost = 0;
+        double totalCost, baseCost, colourCost, bottomReinforcementCost, cornerReinforcementCost, sealableTopCost = 0;
+       
         
         //Convert the values into meters
         double lengthInMeters = (double)data.getLength() / 100.0;
@@ -46,41 +47,54 @@ public class Box {
 
         switch(data.getGrade()) {
             case 1:
-                cost = area * 0.55;
+                baseCost = area * 0.55;
                 break;
             case 2:
-                cost = area * 0.65;
+                baseCost = area * 0.65;
                 break;
             case 3:
-                cost = area * 0.82;
+                baseCost = area * 0.82;
                 break;
             case 4:
-                cost = area * 0.98;
+                baseCost = area * 0.98;
                 break;
             default:
-                cost = area * 1.50;
+                baseCost = area * 1.50;
                 break;
         }
 
         if(data.getColour() == 1) {
-            cost *= 1.12;
+            colourCost = baseCost * 0.12;
         } else if(data.getColour() == 2) {
-            cost *= 1.15;
+            colourCost = baseCost * 0.15;
+        }
+        else {
+            colourCost = 0;
         }
         
         if(data.isBottomReinforced()) {
-            cost *= 1.13;
+            bottomReinforcementCost = baseCost * 0.13;
+        }
+        else {
+            bottomReinforcementCost = 0;
         }
         
         if(data.isCornerReinforced()) {
-            cost *= 1.12;
+            cornerReinforcementCost = baseCost * 0.12;
+        }
+        else {
+            cornerReinforcementCost = 0;
         }
         
         if(data.isTopSealable()) {
-            cost *= 1.10;
+            sealableTopCost = baseCost * 0.10;
         }
-
-        return cost;
+        else {
+            sealableTopCost = 0;
+        }
+        
+        totalCost = baseCost + colourCost + bottomReinforcementCost + cornerReinforcementCost + sealableTopCost;
+        return totalCost;
     }
 
     public double calculateCost() {
