@@ -457,7 +457,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel36">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Box Width (cm)"/>
+                <Property name="text" type="java.lang.String" value="Box Width (mm)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textBoxWidth">
@@ -466,14 +466,14 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel37">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Box Height (cm)"/>
+                <Property name="text" type="java.lang.String" value="Box Height (mm)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textBoxLength">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel38">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Box Length (cm)"/>
+                <Property name="text" type="java.lang.String" value="Box Length (mm)"/>
               </Properties>
             </Component>
           </SubComponents>

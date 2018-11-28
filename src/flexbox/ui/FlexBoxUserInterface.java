@@ -237,11 +237,11 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         jLabel35.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel35.setText("Dimensions");
 
-        jLabel36.setText("Box Width (cm)");
+        jLabel36.setText("Box Width (mm)");
 
-        jLabel37.setText("Box Height (cm)");
+        jLabel37.setText("Box Height (mm)");
 
-        jLabel38.setText("Box Length (cm)");
+        jLabel38.setText("Box Length (mm)");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -498,17 +498,17 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
      */
     private boolean tryGetTextFieldInfo(BoxData data) {
         //Validate the text field for box width is valid
-        int inputInt = tryParseInputField(this.textBoxWidth, "Width in cm", 20, 350);
+        int inputInt = tryParseInputField(this.textBoxWidth, "Width in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setWidth(inputInt);
         
         //Validate the text field for box width is valid
-        inputInt = tryParseInputField(this.textBoxHeight, "Height in cm", 20, 350);
+        inputInt = tryParseInputField(this.textBoxHeight, "Height in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setHeight(inputInt);
         
         
-        inputInt = tryParseInputField(this.textBoxLength, "Length in cm", 20, 350);
+        inputInt = tryParseInputField(this.textBoxLength, "Length in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setLength(inputInt);
         
@@ -537,7 +537,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         data.setCornerReinforcement(checkBoxCorners.isSelected());
         data.setTopSealable(checkBoxTop.isSelected());
         
-        int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1, 25000);
+        int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1, 200);
         if (quantity == -1) return;
         
         BasketItemInfo box = this.session.tryAddBox(data, quantity);
