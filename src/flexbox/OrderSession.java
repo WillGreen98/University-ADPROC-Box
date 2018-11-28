@@ -18,7 +18,7 @@ public class OrderSession {
     /**
      * Creates a new order session object
      */
-    public OrderSession() {
+    OrderSession() {
         boxes = new ArrayList<>();
         boxValidators = new ArrayList<>(5);
         boxValidators.add(new BoxTypeOneValidator());
