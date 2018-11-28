@@ -9,6 +9,8 @@ import flexbox.OrderSession;
 import flexbox.Util;
 import flexbox.boxtypes.BoxData;
 
+import java.math.BigDecimal;
+
 /**
  * A panel for the basket items
  * @author Group D4
@@ -38,9 +40,10 @@ public class BasketItemPanel extends javax.swing.JPanel {
         
         labelGrade.setText(Integer.toString(boxData.getGrade()));
         labelColour.setText(Integer.toString(boxData.getColour()));
-        
-        double singleCost = Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost());
-        double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateCost());
+
+        double singleCost = new BigDecimal(Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost())).intValue();
+        double totalCost  = new BigDecimal(Util.roundDoubleTo2dp(info.getBox().calculateCost())).intValue();
+
         labelBoxQuantity.setText(
                 Util.formatNumberWithSeperators(info.getBox().getQuantity()));
         labelCostPerBox.setText("£" + 
