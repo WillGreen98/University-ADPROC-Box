@@ -13,10 +13,10 @@ public class BoxTypeFiveValidator extends BoxValidator {
      */
     @Override
     public boolean isValidForThisType(BoxData data) {
-        return 
-            data.getGrade() >= 3 && 
+        return
+            data.getGrade() >= 3 &&
             data.getColour() == 2 &&
-            data.isBottomReinforced() && 
+            data.isBottomReinforced() &&
             data.isCornerReinforced();
     }
 

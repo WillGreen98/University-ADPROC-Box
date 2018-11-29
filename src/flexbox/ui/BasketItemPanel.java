@@ -20,20 +20,20 @@ public class BasketItemPanel extends javax.swing.JPanel {
      */
     public BasketItemPanel(BasketItemInfo info, OrderSession session) {
         initComponents();
-        
+
         BoxData boxData = info.getBox().getData();
-        
+
         itemNumber.setText(Integer.toString(session.getNumberItemsInBasket()));
         labelBoxType.setText(Integer.toString(info.getBoxType()));
-        
+
         labelWidth.setText(boxData.getWidth() + "mm");
         labelHeight.setText(boxData.getHeight() + "mm");
         labelLength.setText(boxData.getLength() + "mm");
-        
+
         labelBottomReinforce.setText(boxData.isBottomReinforced() ? "Yes" : "No");
         labelCornerReinforce.setText(boxData.isCornerReinforced() ? "Yes" : "No");
         labelSealableTop.setText(boxData.isTopSealable() ? "Yes" : "No");
-        
+
         labelGrade.setText(Integer.toString(boxData.getGrade()));
         labelColour.setText(Integer.toString(boxData.getColour()));
 
@@ -42,9 +42,9 @@ public class BasketItemPanel extends javax.swing.JPanel {
 
         labelBoxQuantity.setText(
                 Util.formatNumberWithSeperators(info.getBox().getQuantity()));
-        labelCostPerBox.setText("£" + 
+        labelCostPerBox.setText("£" +
                 Util.formatNumberWithSeperators(singleCost));
-        labelCostTotal.setText("£" + 
+        labelCostTotal.setText("£" +
                 Util.formatNumberWithSeperators(totalCost));
     }
 

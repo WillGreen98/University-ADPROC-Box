@@ -10,7 +10,7 @@ import flexbox.boxtypes.Box;
 public class BasketItemInfo {
     private Box box;
     private int boxType;
-    
+
     /**
      * Constructs BasketItemInfo
      * @param box The box that is being added to the basket
@@ -20,7 +20,7 @@ public class BasketItemInfo {
         this.box = box;
         this.boxType = boxType;
     }
-    
+
     /**
      * Gets the box
      * @return The box
@@ -28,7 +28,7 @@ public class BasketItemInfo {
     public Box getBox() {
         return box;
     }
-    
+
     /**
      * Gets the box type of the box in this basket item
      * @return The type of box

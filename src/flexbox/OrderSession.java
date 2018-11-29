@@ -15,7 +15,7 @@ public class OrderSession {
     private final ArrayList<Box> boxes;
     private double totalCost = 0;
     private int totalBoxes = 0;
-    
+
     /**
      * Creates a new order session object
      */
@@ -37,7 +37,7 @@ public class OrderSession {
     public double getTotalCost() {
         return Util.roundDoubleTo2dp(totalCost);
     }
-    
+
     /**
      * Gets the total box count, with the quantity considered
      * @return Total boxes stored
@@ -45,17 +45,17 @@ public class OrderSession {
     public int getTotalBoxQuantity() {
         return totalBoxes;
     }
-    
+
     /**
      * Gets the total number of items in the basket
      * @return Total items in basket
      */
     public int getNumberItemsInBasket() {
         return boxes.size();
-    }    
+    }
 
     /**
-     * Adds a box to the basket, also recalculating the basket stats eg total cost 
+     * Adds a box to the basket, also recalculating the basket stats eg total cost
      * @param box The box to add to the basket
      */
     private void addBox(Box box) {
@@ -63,7 +63,7 @@ public class OrderSession {
         totalCost += box.calculateCost();
         totalBoxes += box.getQuantity();
     }
-    
+
     /**
      * Tries to add the box to the basket, given FlexBox supplis this type of box
      * @param boxData The data of the box

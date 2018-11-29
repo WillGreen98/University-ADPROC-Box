@@ -16,7 +16,7 @@ import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 public class FlexBoxUserInterface extends javax.swing.JFrame {
     OrderSession session;
     JPanel basketMainPanel = new JPanel();
-    
+
     /**
      * Creates new form GUI
      * @param session The order session for this FlexBox order
@@ -26,11 +26,11 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
     public FlexBoxUserInterface(OrderSession session) {
         initComponents();
         this.session = session;
-        
+
         basketMainPanel.setLayout(new GridLayout(0, 1));
         basketPane.setViewportView(this.basketMainPanel);
         setResizable(false);
-        
+
         basketPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
     }
 
@@ -454,7 +454,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, title, text,
                     JOptionPane.WARNING_MESSAGE);
     }
-    
+
     /**
      * Tries to parse an input field into a double, and returns input if it is valid,
      * -1 otherwise
@@ -470,7 +470,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                         "Empty Input");
             return -1;
         }
-        try { 
+        try {
             result = Integer.parseInt(input);
         } catch (NumberFormatException expection) {
             promptError("Input field for \"Box " + hint + "\" should be an integer number.",
@@ -485,7 +485,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         }
         return result;
     }
-    
+
     /**
      * Gets the text field information from the dimension input fields
      * @param data The box data to set values for
@@ -496,54 +496,54 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         int inputInt = tryParseInputField(this.textBoxWidth, "Width in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setWidth(inputInt);
-        
+
         //Validate the text field for box width is valid
         inputInt = tryParseInputField(this.textBoxHeight, "Height in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setHeight(inputInt);
-        
-        
+
+
         inputInt = tryParseInputField(this.textBoxLength, "Length in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setLength(inputInt);
-        
-        
+
+
         return true;
     }
-    
+
     /**
      * Event for pressing the add to basket button.
-     * @param evt 
+     * @param evt
      */
     private void buttonAddToBasketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddToBasketActionPerformed
         BoxData data = new BoxData();
-        
+
         //Validate the text fields are valid, if not then return early
         if (!tryGetTextFieldInfo(data)) {
             return;
         }
-        
+
         //Get the box quality options
         data.setGrade(dropdownGrade.getSelectedIndex() + 1);
         data.setColour(dropDownColours.getSelectedIndex());
-       
+
         //Get box reinforcement details
         data.setBottomReinforcement(checkBoxBottom.isSelected());
         data.setCornerReinforcement(checkBoxCorners.isSelected());
         data.setTopSealable(checkBoxTop.isSelected());
-        
+
         int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1, 200);
         if (quantity == -1) return;
-        
+
         BasketItemInfo box = this.session.tryAddBox(data, quantity);
         if (box != null) {
-            labelOrderCost.setText("£" + 
+            labelOrderCost.setText("£" +
                     Util.formatNumberWithSeperators(session.getTotalCost()));
             labelBasketItems.setText(
                     Integer.toString(session.getNumberItemsInBasket()));
             labelTotalBoxes.setText(
                     Util.formatNumberWithSeperators(session.getTotalBoxQuantity()));
-            
+
             basketMainPanel.add(new BasketItemPanel(box, session));
         } else {
            promptError("FlexBox does not supply this type of box.",

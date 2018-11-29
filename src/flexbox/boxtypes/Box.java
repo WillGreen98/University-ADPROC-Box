@@ -1,5 +1,4 @@
 package flexbox.boxtypes;
-
 /**
  * Class to represent a singular box from the order
  * @author Group D4
@@ -12,29 +11,29 @@ public class Box {
     public Box() {
         data = new BoxData();
         quantity = 0;
-    }  
-    
+    }
+
     public Box(BoxData data, int quantity) {
         this.data = data;
         this.quantity = quantity;
     }
-    
+
     public BoxData getData() {
         return data;
     }
-    
+
     public void setData(BoxData data) {
         this.data = data;
     }
-        
+
     public int getQuantity() {
         return quantity;
     }
-    
+
     public double calculateSingleBoxCost() {
         double totalCost, baseCost, colourCost, bottomReinforcementCost, cornerReinforcementCost, sealableTopCost = 0;
-       
-        
+
+
         //Convert the values into millimeters
         double lengthInMillimeters = (double)data.getLength() / 1000.0;
         double heightInMillimeters = (double)data.getHeight() / 1000.0;
@@ -42,8 +41,8 @@ public class Box {
 
         //Calulcate the surface area of all 6 sides of the box
         double area = (
-                Math.pow(lengthInMillimeters, 2) + 
-                Math.pow(heightInMillimeters, 2) + 
+                Math.pow(lengthInMillimeters, 2) +
+                Math.pow(heightInMillimeters, 2) +
                 Math.pow(widthInMillimeters,  2)) * 2;
 
         switch(data.getGrade()) {
@@ -72,28 +71,28 @@ public class Box {
         else {
             colourCost = 0;
         }
-        
+
         if(data.isBottomReinforced()) {
             bottomReinforcementCost = baseCost * 0.13;
         }
         else {
             bottomReinforcementCost = 0;
         }
-        
+
         if(data.isCornerReinforced()) {
             cornerReinforcementCost = baseCost * 0.12;
         }
         else {
             cornerReinforcementCost = 0;
         }
-        
+
         if(data.isTopSealable()) {
             sealableTopCost = baseCost * 0.10;
         }
         else {
             sealableTopCost = 0;
         }
-        
+
         totalCost = baseCost + colourCost + bottomReinforcementCost + cornerReinforcementCost + sealableTopCost;
         return totalCost;
     }
