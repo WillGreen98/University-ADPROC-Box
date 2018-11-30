@@ -472,16 +472,24 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         }
         try {
             result = Integer.parseInt(input);
-        } catch (NumberFormatException expection) {
+        } catch (NumberFormatException exception) {
             promptError("Input field for \"Box " + hint + "\" should be an integer number.",
                         "Invalid Input Type");
             return -1;
         }
-        if (result < min || result > max) {
+        if (result < min) {
             promptError(
-                    "Input field for \"Box " + hint + "\" must be between " + min + " and " + max + " (inclusive).",
-                    "Number not in correct range.");
+                    "Input field for \"Box " + hint + "\" is too small.\n" + 
+                    "The input must be larger than or equal to " + min + ".",
+                    "Number Input Too Small.");
             return -1;
+        }
+        if (result > max) {
+            promptError(
+                    "Input field for \"Box " + hint + "\" is too large.\n" + 
+                    "The input must be smaller than or equal to " + max + ".",
+                    "Number Input Too Large.");
+            return -1;  
         }
         return result;
     }
@@ -493,20 +501,20 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
      */
     private boolean tryGetTextFieldInfo(BoxData data) {
         //Validate the text field for box width is valid
-        int inputInt = tryParseInputField(this.textBoxWidth, "Width in mm", 200, 3500);
+        int inputInt = tryParseInputField(textBoxWidth, "Width in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setWidth(inputInt);
 
         //Validate the text field for box width is valid
-        inputInt = tryParseInputField(this.textBoxHeight, "Height in mm", 200, 3500);
+        inputInt = tryParseInputField(textBoxHeight, "Height in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setHeight(inputInt);
 
 
-        inputInt = tryParseInputField(this.textBoxLength, "Length in mm", 200, 3500);
+        inputInt = tryParseInputField(textBoxLength, "Length in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setLength(inputInt);
-
+      
 
         return true;
     }
@@ -532,7 +540,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         data.setCornerReinforcement(checkBoxCorners.isSelected());
         data.setTopSealable(checkBoxTop.isSelected());
 
-        int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1, 200);
+        int quantity = (int)tryParseInputField(this.fieldBoxQuantity, "Quantity", 1, 500);
         if (quantity == -1) return;
 
         BasketItemInfo box = this.session.tryAddBox(data, quantity);
