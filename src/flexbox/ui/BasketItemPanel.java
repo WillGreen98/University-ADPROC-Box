@@ -38,7 +38,7 @@ public class BasketItemPanel extends javax.swing.JPanel {
         labelColour.setText(Integer.toString(boxData.getColour()));
 
         double singleCost = Util.roundDoubleTo2dp(info.getBox().calculateSingleBoxCost());
-        double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateCost());
+        double totalCost  = Util.roundDoubleTo2dp(info.getBox().calculateTotalCost());
 
         labelBoxQuantity.setText(
                 Util.formatNumberWithSeperators(info.getBox().getQuantity()));

@@ -1,30 +1,42 @@
 package flexbox.boxtypes;
 /**
- * Class to represent a singular box from the order
+ * Class to represent a quantity of a particlar box from the order
  * @author Group D4
  */
-
 public class Box {
     private BoxData data;
     private int quantity;
 
+    /**
+     * Constructs a box
+     * @param data The data of the box
+     * @param quantity The amount of this box to order
+     */
     public Box(BoxData data, int quantity) {
         this.data = data;
         this.quantity = quantity;
     }
 
+    /**
+     * Gets the box data
+     * @return The box data
+     */
     public BoxData getData() {
         return data;
     }
 
-    public void setData(BoxData data) {
-        this.data = data;
-    }
-
+    /**
+     * Gets the number of this box the customer wants to order
+     * @return The quanity of this box
+     */
     public int getQuantity() {
         return quantity;
     }
-
+    
+    /**
+     * Calculates the cost of a single one of these box
+     * @return Cost of a single box
+     */
     public double calculateSingleBoxCost() {
         double totalCost, baseCost, colourCost, bottomReinforcementCost, cornerReinforcementCost, sealableTopCost = 0;
 
@@ -92,7 +104,11 @@ public class Box {
         return totalCost;
     }
 
-    public double calculateCost() {
+    /**
+     * Calulculates the cost of all the boxes
+     * @return The total cost of the boxes
+     */
+    public double calculateTotalCost() {
         return calculateSingleBoxCost() * quantity;
     }
 }

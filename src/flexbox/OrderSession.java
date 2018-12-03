@@ -60,7 +60,7 @@ public class OrderSession {
      */
     private void addBox(Box box) {
         boxes.add(box);
-        totalCost += box.calculateCost();
+        totalCost += box.calculateTotalCost();
         totalBoxes += box.getQuantity();
     }
 
