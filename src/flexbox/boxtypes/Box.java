@@ -27,7 +27,7 @@ public class Box {
 
     /**
      * Gets the number of this box the customer wants to order
-     * @return The quanity of this box
+     * @return The quantity of this box
      */
     public int getQuantity() {
         return quantity;
