@@ -8,11 +8,6 @@ public class Box {
     private BoxData data;
     private int quantity;
 
-    public Box() {
-        data = new BoxData();
-        quantity = 0;
-    }
-
     public Box(BoxData data, int quantity) {
         this.data = data;
         this.quantity = quantity;
