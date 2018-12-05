@@ -54,7 +54,7 @@ public class OrderSession {
     }
 
     /**
-     * Adds a box to the basket, also recalculating the basket stats eg total cost
+     * Adds a box to the basket, also recalculating the basket statistics for example total cost
      * @param box The box to add to the basket
      */
     private void addBox(Box box) {
@@ -64,7 +64,7 @@ public class OrderSession {
     }
 
     /**
-     * Tries to add the box to the basket, given FlexBox supplis this type of box
+     * Tries to add the box to the basket, given FlexBox supplies this type of box
      * @param boxData The data of the box
      * @param quantity The amount of said box
      * @return The box and box type if it was added, else null
