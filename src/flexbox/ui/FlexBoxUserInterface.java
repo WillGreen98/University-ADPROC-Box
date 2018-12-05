@@ -616,7 +616,10 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         int orderNumberToDelete = comboBoxDeleteSelection.getSelectedIndex();
-        basketMainPanel.remove(basketPanels.get(orderNumberToDelete));
+        BasketItemPanel deleteMe = basketPanels.get(orderNumberToDelete);
+        basketPanels.remove(deleteMe);
+        basketMainPanel.remove(deleteMe);
+        basketMainPanel.revalidate();
         System.out.println("Removed item: " + orderNumberToDelete);
         
     }//GEN-LAST:event_buttonDeleteActionPerformed
