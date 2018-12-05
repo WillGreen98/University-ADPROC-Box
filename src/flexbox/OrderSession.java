@@ -13,7 +13,7 @@ public class OrderSession {
     private final ArrayList<BoxValidator> boxValidators;
     private final ArrayList<Box> boxes;
     private double totalCost = 0;
-    private int totalBoxes = 0;
+    private int totalBoxQuantity = 0;
 
     /**
      * Creates a new order session object
@@ -42,7 +42,7 @@ public class OrderSession {
      * @return Total boxes stored
      */
     public int getTotalBoxQuantity() {
-        return totalBoxes;
+        return totalBoxQuantity;
     }
 
     /**
@@ -60,7 +60,7 @@ public class OrderSession {
     private void addBox(Box box) {
         boxes.add(box);
         totalCost += box.calculateTotalCost();
-        totalBoxes += box.getQuantity();
+        totalBoxQuantity += box.getQuantity();
     }
 
     /**
