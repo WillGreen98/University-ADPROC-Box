@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class OrderSession {
     private final ArrayList<BoxValidator> boxValidators;
-    private final ArrayList<Box> boxes;
+    private final ArrayList<BoxOrder> boxes;
     private double totalCost = 0;
     private int totalBoxQuantity = 0;
 
@@ -57,7 +57,7 @@ public class OrderSession {
      * Adds a box to the basket, also recalculating the basket statistics for example total cost
      * @param box The box to add to the basket
      */
-    private void addBox(Box box) {
+    private void addBox(BoxOrder box) {
         boxes.add(box);
         totalCost += box.calculateTotalCost();
         totalBoxQuantity += box.getQuantity();
@@ -70,7 +70,7 @@ public class OrderSession {
      * @return The box and box type if it was added, else null
      */
     public BasketItemInfo tryAddBox(BoxData boxData, int quantity) {
-        Box box = new Box(boxData, quantity);
+        BoxOrder box = new BoxOrder(boxData, quantity);
 
         //Validate FlexBox supplies this box type
         for (BoxValidator validator : boxValidators) {

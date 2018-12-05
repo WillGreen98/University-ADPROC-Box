@@ -3,7 +3,7 @@ package flexbox.boxtypes;
  * Class to represent a quantity of a particlar box from the order
  * @author Group D4
  */
-public class Box {
+public class BoxOrder {
     private BoxData data;
     private int quantity;
 
@@ -12,7 +12,7 @@ public class Box {
      * @param data The data of the box
      * @param quantity The amount of this box to order
      */
-    public Box(BoxData data, int quantity) {
+    public BoxOrder(BoxData data, int quantity) {
         this.data = data;
         this.quantity = quantity;
     }

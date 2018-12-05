@@ -1,6 +1,6 @@
 package flexbox.ui;
 
-import flexbox.boxtypes.Box;
+import flexbox.boxtypes.BoxOrder;
 
 /**
  * Contains information about basket items
@@ -8,7 +8,7 @@ import flexbox.boxtypes.Box;
  */
 
 public class BasketItemInfo {
-    private Box box;
+    private BoxOrder box;
     private int boxType;
 
     /**
@@ -16,7 +16,7 @@ public class BasketItemInfo {
      * @param box The box that is being added to the basket
      * @param boxType The box type of the box
      */
-    public BasketItemInfo(Box box, int boxType) {
+    public BasketItemInfo(BoxOrder box, int boxType) {
         this.box = box;
         this.boxType = boxType;
     }
@@ -25,7 +25,7 @@ public class BasketItemInfo {
      * Gets the box
      * @return The box
      */
-    public Box getBox() {
+    public BoxOrder getBox() {
         return box;
     }
 
