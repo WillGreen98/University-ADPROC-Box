@@ -32,10 +32,10 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         this.session = session;
 
         basketMainPanel.setLayout(new GridLayout(0, 1));
-        basketPane.setViewportView(this.basketMainPanel);
+        basketScrollPane.setViewportView(basketMainPanel);
         setResizable(false);
 
-        basketPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+        basketScrollPane.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
     }
 
     /**
@@ -89,7 +89,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         labelOrderCost = new javax.swing.JLabel();
         labelBasketItems = new javax.swing.JLabel();
         labelTotalBoxes = new javax.swing.JLabel();
-        basketPane = new javax.swing.JScrollPane();
+        basketScrollPane = new javax.swing.JScrollPane();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -435,7 +435,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(labelTotalBoxes, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,11 +466,10 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel23Layout.createSequentialGroup()
-                                .addComponent(basketPane, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel23Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(basketScrollPane)))
                 .addContainerGap())
         );
         jPanel23Layout.setVerticalGroup(
@@ -480,9 +479,9 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(8, 8, 8)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(basketPane)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(basketScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -679,7 +678,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane basketPane;
+    private javax.swing.JScrollPane basketScrollPane;
     private javax.swing.JButton buttonAddToBasket;
     private javax.swing.JCheckBox checkBoxBottom;
     private javax.swing.JCheckBox checkBoxCorners;
