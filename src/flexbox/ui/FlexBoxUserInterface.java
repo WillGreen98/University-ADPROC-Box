@@ -3,7 +3,9 @@ package flexbox.ui;
 import flexbox.OrderSession;
 import flexbox.Util;
 import flexbox.boxtypes.BoxData;
+import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,7 +18,9 @@ import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 public class FlexBoxUserInterface extends javax.swing.JFrame {
     OrderSession session;
     JPanel basketMainPanel = new JPanel();
-
+    
+    final static int MIN_BOX_SIZE = 200;
+    final static int MAX_BOX_SIZE = 3500;
     /**
      * Creates new form GUI
      * @param session The order session for this FlexBox order
@@ -52,6 +56,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         fieldBoxQuantity = new javax.swing.JTextField();
         buttonAddToBasket = new javax.swing.JButton();
+        errorLabelBoxQuantity = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         dropdownGrade = new javax.swing.JComboBox<>();
@@ -71,6 +76,9 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         textBoxLength = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
+        widthErrorLabel = new javax.swing.JLabel();
+        heightErrorLabel = new javax.swing.JLabel();
+        lengthErrorLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel23 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -102,6 +110,12 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         jLabel17.setText("Quantity To Add");
         jLabel17.setToolTipText("");
 
+        fieldBoxQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldBoxQuantityKeyReleased(evt);
+            }
+        });
+
         buttonAddToBasket.setText("Add To Basket");
         buttonAddToBasket.setToolTipText("");
         buttonAddToBasket.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +123,9 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                 buttonAddToBasketActionPerformed(evt);
             }
         });
+
+        errorLabelBoxQuantity.setForeground(new java.awt.Color(255, 51, 0));
+        errorLabelBoxQuantity.setText("Box quantity is empty.");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
@@ -119,28 +136,29 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fieldBoxQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17))
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonAddToBasket, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAddToBasket, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(errorLabelBoxQuantity))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fieldBoxQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(fieldBoxQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(buttonAddToBasket, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(errorLabelBoxQuantity)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -229,7 +247,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                 .addComponent(checkBoxBottom)
                 .addGap(18, 18, 18)
                 .addComponent(checkBoxTop)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel22.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -239,9 +257,39 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
 
         jLabel36.setText("Box Width (mm)");
 
+        textBoxWidth.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textBoxWidthKeyReleased(evt);
+            }
+        });
+
+        textBoxHeight.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textBoxHeightKeyReleased(evt);
+            }
+        });
+
         jLabel37.setText("Box Height (mm)");
 
+        textBoxLength.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textBoxLengthKeyReleased(evt);
+            }
+        });
+
         jLabel38.setText("Box Length (mm)");
+
+        widthErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        widthErrorLabel.setText("Box width is empty.");
+        widthErrorLabel.setToolTipText("");
+
+        heightErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        heightErrorLabel.setText("Box height is empty.");
+        heightErrorLabel.setToolTipText("");
+
+        lengthErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        lengthErrorLabel.setText("Box length is empty.");
+        lengthErrorLabel.setToolTipText("");
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -250,29 +298,39 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel35)
                     .addGroup(jPanel22Layout.createSequentialGroup()
                         .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(widthErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel35)
                             .addGroup(jPanel22Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel36))
-                            .addComponent(textBoxWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textBoxHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel37))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textBoxLength, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel38))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textBoxWidth, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel36))
+                                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel22Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel37))
+                                    .addGroup(jPanel22Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textBoxHeight, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel38)
+                                    .addComponent(textBoxLength, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(4, 4, 4))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(heightErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
+                        .addComponent(lengthErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel35)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel36)
                     .addComponent(jLabel37)
@@ -282,6 +340,12 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                     .addComponent(textBoxWidth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textBoxHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textBoxLength, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(widthErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(heightErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lengthErrorLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -293,18 +357,25 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel6)))
-                .addContainerGap(9, Short.MAX_VALUE))
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addGap(99, 99, 99)
+                                .addComponent(jLabel6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel18Layout.createSequentialGroup()
+                                        .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,13 +384,13 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(14, 14, 14)
                 .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel23.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -410,8 +481,8 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(basketPane, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addComponent(basketPane)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -435,7 +506,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -501,17 +572,17 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
      */
     private boolean tryGetTextFieldInfo(BoxData data) {
         //Validate the text field for box width is valid
-        int inputInt = tryParseInputField(textBoxWidth, "Width in mm", 200, 3500);
+        int inputInt = tryParseInputField(textBoxWidth, "Width in mm", MIN_BOX_SIZE, MAX_BOX_SIZE);
         if (inputInt == -1) return false;
         data.setWidth(inputInt);
 
         //Validate the text field for box width is valid
-        inputInt = tryParseInputField(textBoxHeight, "Height in mm", 200, 3500);
+        inputInt = tryParseInputField(textBoxHeight, "Height in mm", MIN_BOX_SIZE, MAX_BOX_SIZE);
         if (inputInt == -1) return false;
         data.setHeight(inputInt);
 
 
-        inputInt = tryParseInputField(textBoxLength, "Length in mm", 200, 3500);
+        inputInt = tryParseInputField(textBoxLength, "Length in mm", MIN_BOX_SIZE, MAX_BOX_SIZE);
         if (inputInt == -1) return false;
         data.setLength(inputInt);
 
@@ -558,6 +629,54 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonAddToBasketActionPerformed
 
+    private void realTimeValidateTextField(String hint, JTextField textField, JLabel errorLabel, int min, int max) {
+        int value = 0;
+        String input = textField.getText();
+        if (input.equals("")) {
+            errorLabel.setText("Box " + hint + " is empty. ");
+            errorLabel.setForeground(Color.red);
+            return;
+        }
+        try {
+            value = Integer.valueOf(input);
+        }
+        catch(NumberFormatException e) {
+            errorLabel.setText("Box " + hint + " should be an integer");
+            errorLabel.setForeground(Color.red);
+            return;
+        }
+        if (value > max) {
+            errorLabel.setText("Box " + hint + " should be less than " + max);
+            errorLabel.setForeground(Color.red);
+            return;
+        }
+        if (value < min) {
+            errorLabel.setText("Box " + hint + " should be greater than " + min);
+            errorLabel.setForeground(Color.red);
+            return;
+        }
+        errorLabel.setText("Box " + hint + " is valid.");
+        errorLabel.setForeground(Color.black);
+    }
+    
+    
+    private void textBoxWidthKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBoxWidthKeyReleased
+        realTimeValidateTextField("width", textBoxWidth, widthErrorLabel, MIN_BOX_SIZE, MAX_BOX_SIZE);
+    }//GEN-LAST:event_textBoxWidthKeyReleased
+
+    private void textBoxHeightKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBoxHeightKeyReleased
+        realTimeValidateTextField("height", textBoxHeight, heightErrorLabel, MIN_BOX_SIZE, MAX_BOX_SIZE);
+    }//GEN-LAST:event_textBoxHeightKeyReleased
+
+    private void textBoxLengthKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textBoxLengthKeyReleased
+        realTimeValidateTextField("length", textBoxLength, lengthErrorLabel, MIN_BOX_SIZE, MAX_BOX_SIZE);
+    }//GEN-LAST:event_textBoxLengthKeyReleased
+
+    private void fieldBoxQuantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBoxQuantityKeyReleased
+        realTimeValidateTextField("quantity", fieldBoxQuantity, errorLabelBoxQuantity, 1, 500);
+    }//GEN-LAST:event_fieldBoxQuantityKeyReleased
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane basketPane;
     private javax.swing.JButton buttonAddToBasket;
@@ -566,7 +685,9 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxTop;
     private javax.swing.JComboBox<String> dropDownColours;
     private javax.swing.JComboBox<String> dropdownGrade;
+    private javax.swing.JLabel errorLabelBoxQuantity;
     private javax.swing.JTextField fieldBoxQuantity;
+    private javax.swing.JLabel heightErrorLabel;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
@@ -595,8 +716,10 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
     private javax.swing.JLabel labelBasketItems;
     private javax.swing.JLabel labelOrderCost;
     private javax.swing.JLabel labelTotalBoxes;
+    private javax.swing.JLabel lengthErrorLabel;
     private javax.swing.JTextField textBoxHeight;
     private javax.swing.JTextField textBoxLength;
     private javax.swing.JTextField textBoxWidth;
+    private javax.swing.JLabel widthErrorLabel;
     // End of variables declaration//GEN-END:variables
 }
