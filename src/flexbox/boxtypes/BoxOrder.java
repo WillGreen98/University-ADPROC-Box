@@ -70,29 +70,25 @@ public class BoxOrder {
             colourCost = baseCost * 0.12;
         } else if(data.getColour() == 2) {
             colourCost = baseCost * 0.15;
-        }
-        else {
+        } else {
             colourCost = 0;
         }
 
         if(data.isBottomReinforced()) {
             bottomReinforcementCost = baseCost * 0.13;
-        }
-        else {
+        } else {
             bottomReinforcementCost = 0;
         }
 
         if(data.isCornerReinforced()) {
             cornerReinforcementCost = baseCost * 0.12;
-        }
-        else {
+        } else {
             cornerReinforcementCost = 0;
         }
 
         if(data.isTopSealable()) {
             sealableTopCost = baseCost * 0.10;
-        }
-        else {
+        } else {
             sealableTopCost = 0;
         }
 

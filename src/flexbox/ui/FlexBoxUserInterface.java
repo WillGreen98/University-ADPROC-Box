@@ -514,7 +514,6 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         inputInt = tryParseInputField(textBoxLength, "Length in mm", 200, 3500);
         if (inputInt == -1) return false;
         data.setLength(inputInt);
-      
 
         return true;
     }
@@ -527,7 +526,7 @@ public class FlexBoxUserInterface extends javax.swing.JFrame {
         BoxData data = new BoxData();
 
         //Validate the text fields are valid, if not then return early
-        if (!tryGetTextFieldInfo(data)) {
+        if(!tryGetTextFieldInfo(data)) {
             return;
         }
 
