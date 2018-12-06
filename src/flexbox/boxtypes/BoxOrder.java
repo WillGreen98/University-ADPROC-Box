@@ -40,17 +40,13 @@ public class BoxOrder {
     public double calculateSingleBoxCost() {
         double totalCost, baseCost, colourCost, bottomReinforcementCost, cornerReinforcementCost, sealableTopCost = 0;
 
-
         //Convert the values into millimeters
-        double lengthInMillimeters = (double)data.getLength() / 1000.0;
-        double heightInMillimeters = (double)data.getHeight() / 1000.0;
-        double widthInMillimeters  = (double)data.getWidth()  / 1000.0;
+        double length = (double)data.getLength() / 1000.0;
+        double height = (double)data.getHeight() / 1000.0;
+        double width  = (double)data.getWidth()  / 1000.0;
 
         //Calulcate the surface area of all 6 sides of the box
-        double area = (
-                Math.pow(lengthInMillimeters, 2) +
-                Math.pow(heightInMillimeters, 2) +
-                Math.pow(widthInMillimeters,  2)) * 2;
+        double area = (width * length * 2) + (width * height * 2) + (length * height * 2);
 
         switch(data.getGrade()) {
             case 1:
